@@ -63,6 +63,7 @@
 		9FD6FC0C1A5D278E0028EDC6 /* libsimulator iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FD6FC0A1A5D26580028EDC6 /* libsimulator iOS.a */; };
 		9FD6FC731A5D2A820028EDC6 /* ConsoleWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FD6FC711A5D2A820028EDC6 /* ConsoleWindowController.m */; };
 		9FFC07361A4A764100AED399 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FFC07341A4A764100AED399 /* MainMenu.xib */; };
+		ADE5A62820333C4D00563508 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADE5A62720333C4D00563508 /* SystemConfiguration.framework */; };
 		BAC396D31F0F955800EB5F11 /* lang in Resources */ = {isa = PBXBuildFile; fileRef = BAC396D01F0F955800EB5F11 /* lang */; };
 		BAC396D41F0F955800EB5F11 /* lang in Resources */ = {isa = PBXBuildFile; fileRef = BAC396D01F0F955800EB5F11 /* lang */; };
 		BAC396D51F0F955800EB5F11 /* RuntimeJsImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BAC396D11F0F955800EB5F11 /* RuntimeJsImpl.cpp */; };
@@ -228,6 +229,7 @@
 		9FD6FC711A5D2A820028EDC6 /* ConsoleWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConsoleWindowController.m; sourceTree = "<group>"; };
 		9FFC07351A4A764100AED399 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		9FFC07371A4A765100AED399 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "zh-Hans"; path = "zh-Hans.lproj/MainMenu.xib"; sourceTree = "<group>"; };
+		ADE5A62720333C4D00563508 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		BAC396D01F0F955800EB5F11 /* lang */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = lang; path = "../Classes/ide-support/lang"; sourceTree = "<group>"; };
 		BAC396D11F0F955800EB5F11 /* RuntimeJsImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RuntimeJsImpl.cpp; path = "../Classes/ide-support/RuntimeJsImpl.cpp"; sourceTree = "<group>"; };
 		BAC396D21F0F955800EB5F11 /* RuntimeJsImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RuntimeJsImpl.h; path = "../Classes/ide-support/RuntimeJsImpl.h"; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADE5A62820333C4D00563508 /* SystemConfiguration.framework in Frameworks */,
 				1A1677BA1F54218200294BB1 /* CFNetwork.framework in Frameworks */,
 				1A16779F1F540F7C00294BB1 /* JavaScriptCore.framework in Frameworks */,
 				ED545A9A1B68A2DA00C3958E /* libiconv.dylib in Frameworks */,
@@ -435,6 +438,7 @@
 		F293B3CB15EB7BE500256477 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ADE5A62720333C4D00563508 /* SystemConfiguration.framework */,
 				1A1677BD1F54219E00294BB1 /* libicucore.A.tbd */,
 				1A1677BB1F54218800294BB1 /* CFNetwork.framework */,
 				1A16779E1F540F7C00294BB1 /* JavaScriptCore.framework */,
@@ -538,6 +542,15 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0500;
+				TargetAttributes = {
+					5023812617EBBCE400990C9B = {
+						DevelopmentTeam = BUYGMHSEWD;
+						ProvisioningStyle = Automatic;
+					};
+					F293B3C715EB7BE500256477 = {
+						DevelopmentTeam = BUYGMHSEWD;
+					};
+				};
 			};
 			buildConfigurationList = F293B3C215EB7BE500256477 /* Build configuration list for PBXProject "simulator" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -750,8 +763,11 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_ENTITLEMENTS = mac/Simulator.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = ../../../../../simulator/mac;
+				DEVELOPMENT_TEAM = BUYGMHSEWD;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = mac/Prefix.pch;
@@ -775,7 +791,9 @@
 					"-pagezero_size",
 					10000,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.qwbt.apps.simulator;
 				PRODUCT_NAME = Simulator;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../../../../../cocos/platform/mac $(SRCROOT)/../../../../../external/mac/include $(SRCROOT)/../../../../../external/mac/include/glfw3 $(SRCROOT)/../../../../../external/mac/include/spidermonkey $(SRCROOT)/../../../../../external/sources";
 				VALID_ARCHS = "$(ARCHS_STANDARD_64_BIT)";
@@ -788,8 +806,11 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_ENTITLEMENTS = mac/Simulator.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = ../../../../../simulator/mac;
+				DEVELOPMENT_TEAM = BUYGMHSEWD;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = mac/Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -812,7 +833,9 @@
 					"-pagezero_size",
 					10000,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.qwbt.apps.simulator;
 				PRODUCT_NAME = Simulator;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../../../../../cocos/platform/mac $(SRCROOT)/../../../../../external/mac/include $(SRCROOT)/../../../../../external/mac/include/glfw3 $(SRCROOT)/../../../../../external/mac/include/spidermonkey $(SRCROOT)/../../../../../external/sources";
 				VALID_ARCHS = "$(ARCHS_STANDARD_64_BIT)";
@@ -887,7 +910,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = BUYGMHSEWD;
 				ENABLE_BITCODE = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -904,6 +927,7 @@
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				LIBRARY_SEARCH_PATHS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.qwbt.apps.simulator;
 				PRODUCT_NAME = Simulator;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -924,7 +948,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = BUYGMHSEWD;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ios/Prefix.pch;
@@ -940,6 +964,7 @@
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				LIBRARY_SEARCH_PATHS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.qwbt.apps.simulator;
 				PRODUCT_NAME = Simulator;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
