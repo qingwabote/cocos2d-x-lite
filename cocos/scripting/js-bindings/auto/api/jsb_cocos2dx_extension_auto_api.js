@@ -572,3 +572,73 @@ EventListenerAssetsManagerEx : function (
 },
 
 };
+
+/**
+ * @class EffectNode
+ */
+cc.EffectNode = {
+
+/**
+ * @method setPosition
+ * @param {vec2_object} arg0
+ */
+setPosition : function (
+vec2 
+)
+{
+},
+
+/**
+ * @method init
+ * @param {String} arg0
+ * @return {bool}
+ */
+init : function (
+str 
+)
+{
+    return false;
+},
+
+/**
+ * @method setIsLooping
+ * @param {bool} arg0
+ */
+setIsLooping : function (
+bool 
+)
+{
+},
+
+/**
+ * @method setScale
+ * @param {float} arg0
+ */
+setScale : function (
+float 
+)
+{
+},
+
+/**
+ * @method create
+ * @param {String} arg0
+ * @return {EffectNode}
+ */
+create : function (
+str 
+)
+{
+    return EffectNode;
+},
+
+/**
+ * @method EffectNode
+ * @constructor
+ */
+EffectNode : function (
+)
+{
+},
+
+};

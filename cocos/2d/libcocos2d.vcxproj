@@ -162,6 +162,10 @@ xcopy /Y /Q "$(ProjectDir)..\..\external\win32\libs\*.*" "$(OutDir)"
     <ClCompile Include="..\..\extensions\assets-manager\CCEventAssetsManagerEx.cpp" />
     <ClCompile Include="..\..\extensions\assets-manager\CCEventListenerAssetsManagerEx.cpp" />
     <ClCompile Include="..\..\extensions\assets-manager\Manifest.cpp" />
+    <ClCompile Include="..\..\extensions\effekseer\EffectNode.cpp" />
+    <ClCompile Include="..\..\extensions\effekseer\Effekseer.cpp" />
+    <ClCompile Include="..\..\extensions\effekseer\EffekseerNative.cpp" />
+    <ClCompile Include="..\..\extensions\effekseer\EffekseerRendererNative.cpp" />
     <ClCompile Include="..\..\external\sources\clipper\clipper.cpp" />
     <ClCompile Include="..\..\external\sources\ConvertUTF\ConvertUTF.c" />
     <ClCompile Include="..\..\external\sources\ConvertUTF\ConvertUTFWrapper.cpp" />
@@ -373,6 +377,10 @@ xcopy /Y /Q "$(ProjectDir)..\..\external\win32\libs\*.*" "$(OutDir)"
     <ClInclude Include="..\..\extensions\assets-manager\CCEventListenerAssetsManagerEx.h" />
     <ClInclude Include="..\..\extensions\assets-manager\Manifest.h" />
     <ClInclude Include="..\..\extensions\cocos-ext.h" />
+    <ClInclude Include="..\..\extensions\effekseer\EffectNode.h" />
+    <ClInclude Include="..\..\extensions\effekseer\Effekseer.h" />
+    <ClInclude Include="..\..\extensions\effekseer\EffekseerNative.h" />
+    <ClInclude Include="..\..\extensions\effekseer\EffekseerRendererNative.h" />
     <ClInclude Include="..\..\extensions\ExtensionExport.h" />
     <ClInclude Include="..\..\extensions\ExtensionMacros.h" />
     <ClInclude Include="..\..\external\sources\clipper\clipper.hpp" />
