@@ -216,3 +216,14 @@ tools/simulator/simulator/win32/iconv.dll
 tools/simulator/simulator/win32/glew32.dll
 tools/simulator/simulator/win32/dbghelp.dll
 tools/simulator/simulator/win32/OpenAL32.dll
+tools/simulator/simulator/win32/ucrtbased.dll
+tools/simulator/simulator/win32/msvcr120d.dll
+tools/simulator/simulator/win32/msvcr100.dll
+tools/simulator/simulator/win32/msvcp140d.dll
+tools/simulator/simulator/win32/msvcp110.dll
+tools/simulator/simulator/win32/msvcp100.dll
+tools/simulator/simulator/win32/vcruntime140d.dll
+tools/simulator/simulator/win32/msvcr120.dll
+tools/simulator/simulator/win32/msvcr110.dll
+tools/simulator/simulator/win32/msvcp120d.dll
+tools/simulator/simulator/win32/msvcp120.dll
