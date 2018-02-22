@@ -574,19 +574,9 @@ EventListenerAssetsManagerEx : function (
 };
 
 /**
- * @class EffectNode
+ * @class Effect
  */
-cc.EffectNode = {
-
-/**
- * @method setPosition
- * @param {vec2_object} arg0
- */
-setPosition : function (
-vec2 
-)
-{
-},
+cc.Effect = {
 
 /**
  * @method init
@@ -601,6 +591,34 @@ str
 },
 
 /**
+ * @method create
+ * @param {String} arg0
+ * @return {Effect}
+ */
+create : function (
+str 
+)
+{
+    return Effect;
+},
+
+/**
+ * @method Effect
+ * @constructor
+ */
+Effect : function (
+)
+{
+},
+
+};
+
+/**
+ * @class EffectNode
+ */
+cc.EffectNode = {
+
+/**
  * @method setIsLooping
  * @param {bool} arg0
  */
@@ -612,20 +630,56 @@ bool
 
 /**
  * @method setScale
- * @param {float} arg0
- */
-setScale : function (
+* @param {float|float} float
+* @param {float} float
+*/
+setScale : function(
+float,
 float 
 )
 {
 },
 
 /**
- * @method create
- * @param {String} arg0
- * @return {EffectNode}
+ * @method init
+* @param {Effect|String} effect
+* @return {bool|bool}
+*/
+init : function(
+str 
+)
+{
+    return false;
+},
+
+/**
+ * @method setPosition
+* @param {float|vec2_object} float
+* @param {float} float
+*/
+setPosition : function(
+float,
+float 
+)
+{
+},
+
+/**
+ * @method getPosition
+ * @return {vec2_object}
  */
-create : function (
+getPosition : function (
+)
+{
+    return cc.Vec2;
+},
+
+/**
+ * @method create
+* @param {Effect|String} effect
+* @return {EffectNode|EffectNode}
+*/
+create : function(
 str 
 )
 {
