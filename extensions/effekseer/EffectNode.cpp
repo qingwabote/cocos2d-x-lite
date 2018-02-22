@@ -60,6 +60,7 @@ EffectNode::~EffectNode()
 {
 	delete _manager;
 	delete _emitter;
+    CC_SAFE_RELEASE(_effect);
 }
 
 bool EffectNode::init(const std::string& filename)
@@ -91,6 +92,8 @@ bool EffectNode::init(Effect * effect)
 	_manager = efk::EffectManager::create(Director::getInstance()->getVisibleSize());
 	_emitter = efk::EffectEmitter::create(_manager);
 	_emitter->setEffect(effect->getEntity());
+    effect->retain();
+    _effect = effect;
 	_emitter->setPlayOnEnter(true);
 	this->addChild(_emitter);
 	this->scheduleUpdate();

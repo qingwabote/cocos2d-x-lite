@@ -3753,9 +3753,9 @@
 		AD4928BF203C665700699EA9 /* effekseer */ = {
 			isa = PBXGroup;
 			children = (
-				AD4928C0203C665700699EA9 /* EffekseerNative.h */,
-				AD4928C1203C665700699EA9 /* EffectNode.cpp */,
 				AD4928C2203C665700699EA9 /* EffectNode.h */,
+				AD4928C1203C665700699EA9 /* EffectNode.cpp */,
+				AD4928C0203C665700699EA9 /* EffekseerNative.h */,
 				AD4928C3203C665700699EA9 /* EffekseerNative.cpp */,
 				AD4928C4203C665700699EA9 /* EffekseerRendererNative.h */,
 				AD4928C5203C665700699EA9 /* EffekseerRendererNative.cpp */,
