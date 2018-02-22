@@ -4,14 +4,8 @@
 EffectNode * EffectNode::create(const std::string& filename)
 {
 	EffectNode * ret = new (std::nothrow) EffectNode();
-	if (ret && ret->init(filename))
-	{
-		ret->autorelease();
-	}
-	else
-	{
-		CC_SAFE_DELETE(ret);
-	}
+	ret->init(filename);
+	ret->autorelease();
 	return ret;
 }
 
@@ -30,12 +24,15 @@ bool EffectNode::init(const std::string& filename)
 {
 	if (!Node::init()) return false;
 
-	auto effect = efk::Effect::create(filename);
-	if (effect == nullptr) return false;
-
-	//_manager = efk::EffectManager::create(Director::getInstance()->getOpenGLView()->getDesignResolutionSize());
 	_manager = efk::EffectManager::create(Director::getInstance()->getVisibleSize());
 	_emitter = efk::EffectEmitter::create(_manager);
+
+	auto effect = efk::Effect::create(filename);
+	if (effect == nullptr)
+	{
+		cocos2d::log("error: efk::Effect::create(%s)", filename.c_str());
+		return false;
+	}
 	_emitter->setEffect(effect);
 	_emitter->setPlayOnEnter(true);
 	this->addChild(_emitter);
