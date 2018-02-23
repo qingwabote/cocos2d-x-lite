@@ -1428,60 +1428,6 @@ bool js_register_cocos2dx_extension_Effect(se::Object* obj)
 se::Object* __jsb_EffectNode_proto = nullptr;
 se::Class* __jsb_EffectNode_class = nullptr;
 
-static bool js_cocos2dx_extension_EffectNode_setIsLooping(se::State& s)
-{
-    EffectNode* cobj = (EffectNode*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_extension_EffectNode_setIsLooping : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 1) {
-        bool arg0;
-        ok &= seval_to_boolean(args[0], &arg0);
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_EffectNode_setIsLooping : Error processing arguments");
-        cobj->setIsLooping(arg0);
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_extension_EffectNode_setIsLooping)
-
-static bool js_cocos2dx_extension_EffectNode_setScale(se::State& s)
-{
-    CC_UNUSED bool ok = true;
-    EffectNode* cobj = (EffectNode*)s.nativeThisObject();
-    SE_PRECONDITION2( cobj, false, "js_cocos2dx_extension_EffectNode_setScale : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    do {
-        if (argc == 2) {
-            float arg0 = 0;
-            ok &= seval_to_float(args[0], &arg0);
-            if (!ok) { ok = true; break; }
-            float arg1 = 0;
-            ok &= seval_to_float(args[1], &arg1);
-            if (!ok) { ok = true; break; }
-            cobj->setScale(arg0, arg1);
-            return true;
-        }
-    } while(false);
-
-    do {
-        if (argc == 1) {
-            float arg0 = 0;
-            ok &= seval_to_float(args[0], &arg0);
-            if (!ok) { ok = true; break; }
-            cobj->setScale(arg0);
-            return true;
-        }
-    } while(false);
-
-    SE_REPORT_ERROR("wrong number of arguments: %d", (int)argc);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_extension_EffectNode_setScale)
-
 static bool js_cocos2dx_extension_EffectNode_init(se::State& s)
 {
     CC_UNUSED bool ok = true;
@@ -1518,58 +1464,24 @@ static bool js_cocos2dx_extension_EffectNode_init(se::State& s)
 }
 SE_BIND_FUNC(js_cocos2dx_extension_EffectNode_init)
 
-static bool js_cocos2dx_extension_EffectNode_setPosition(se::State& s)
-{
-    CC_UNUSED bool ok = true;
-    EffectNode* cobj = (EffectNode*)s.nativeThisObject();
-    SE_PRECONDITION2( cobj, false, "js_cocos2dx_extension_EffectNode_setPosition : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    do {
-        if (argc == 2) {
-            float arg0 = 0;
-            ok &= seval_to_float(args[0], &arg0);
-            if (!ok) { ok = true; break; }
-            float arg1 = 0;
-            ok &= seval_to_float(args[1], &arg1);
-            if (!ok) { ok = true; break; }
-            cobj->setPosition(arg0, arg1);
-            return true;
-        }
-    } while(false);
-
-    do {
-        if (argc == 1) {
-            cocos2d::Vec2 arg0;
-            ok &= seval_to_Vec2(args[0], &arg0);
-            if (!ok) { ok = true; break; }
-            cobj->setPosition(arg0);
-            return true;
-        }
-    } while(false);
-
-    SE_REPORT_ERROR("wrong number of arguments: %d", (int)argc);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_extension_EffectNode_setPosition)
-
-static bool js_cocos2dx_extension_EffectNode_getPosition(se::State& s)
+static bool js_cocos2dx_extension_EffectNode_setIsLooping(se::State& s)
 {
     EffectNode* cobj = (EffectNode*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_extension_EffectNode_getPosition : Invalid Native Object");
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_extension_EffectNode_setIsLooping : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
-    if (argc == 0) {
-        const cocos2d::Vec2& result = cobj->getPosition();
-        ok &= Vec2_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_EffectNode_getPosition : Error processing arguments");
+    if (argc == 1) {
+        bool arg0;
+        ok &= seval_to_boolean(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_EffectNode_setIsLooping : Error processing arguments");
+        cobj->setIsLooping(arg0);
         return true;
     }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
     return false;
 }
-SE_BIND_FUNC(js_cocos2dx_extension_EffectNode_getPosition)
+SE_BIND_FUNC(js_cocos2dx_extension_EffectNode_setIsLooping)
 
 static bool js_cocos2dx_extension_EffectNode_create(se::State& s)
 {
@@ -1633,11 +1545,8 @@ bool js_register_cocos2dx_extension_EffectNode(se::Object* obj)
 {
     auto cls = se::Class::create("EffectNode", obj, __jsb_cocos2d_Node_proto, _SE(js_cocos2dx_extension_EffectNode_constructor));
 
-    cls->defineFunction("setIsLooping", _SE(js_cocos2dx_extension_EffectNode_setIsLooping));
-    cls->defineFunction("setScale", _SE(js_cocos2dx_extension_EffectNode_setScale));
     cls->defineFunction("init", _SE(js_cocos2dx_extension_EffectNode_init));
-    cls->defineFunction("setPosition", _SE(js_cocos2dx_extension_EffectNode_setPosition));
-    cls->defineFunction("getPosition", _SE(js_cocos2dx_extension_EffectNode_getPosition));
+    cls->defineFunction("setIsLooping", _SE(js_cocos2dx_extension_EffectNode_setIsLooping));
     cls->defineStaticFunction("create", _SE(js_cocos2dx_extension_EffectNode_create));
     cls->defineFinalizeFunction(_SE(js_EffectNode_finalize));
     cls->install();

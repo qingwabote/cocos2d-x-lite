@@ -37,11 +37,6 @@ public:
 	void visit(Renderer *renderer, const Mat4& parentTransform, uint32_t parentFlags) override;
 	void update(float delta) override;
 	void setIsLooping(bool loop);
-	const Vec2& getPosition() const override;
-	void setPosition(const Vec2 &position) override;
-	void setPosition(float x, float y) override;
-	void setScale(float scale) override;
-	void setScale(float scaleX, float scaleY) override;
 private:
     Effect* _effect;
 	efk::EffectManager* _manager;

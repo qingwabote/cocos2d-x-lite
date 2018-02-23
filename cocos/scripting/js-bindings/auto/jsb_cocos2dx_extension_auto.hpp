@@ -92,11 +92,8 @@ extern se::Class* __jsb_EffectNode_class;
 
 bool js_register_EffectNode(se::Object* obj);
 bool register_all_cocos2dx_extension(se::Object* obj);
-SE_DECLARE_FUNC(js_cocos2dx_extension_EffectNode_setIsLooping);
-SE_DECLARE_FUNC(js_cocos2dx_extension_EffectNode_setScale);
 SE_DECLARE_FUNC(js_cocos2dx_extension_EffectNode_init);
-SE_DECLARE_FUNC(js_cocos2dx_extension_EffectNode_setPosition);
-SE_DECLARE_FUNC(js_cocos2dx_extension_EffectNode_getPosition);
+SE_DECLARE_FUNC(js_cocos2dx_extension_EffectNode_setIsLooping);
 SE_DECLARE_FUNC(js_cocos2dx_extension_EffectNode_create);
 SE_DECLARE_FUNC(js_cocos2dx_extension_EffectNode_EffectNode);
 

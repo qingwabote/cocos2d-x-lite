@@ -619,28 +619,6 @@ Effect : function (
 cc.EffectNode = {
 
 /**
- * @method setIsLooping
- * @param {bool} arg0
- */
-setIsLooping : function (
-bool 
-)
-{
-},
-
-/**
- * @method setScale
-* @param {float|float} float
-* @param {float} float
-*/
-setScale : function(
-float,
-float 
-)
-{
-},
-
-/**
  * @method init
 * @param {Effect|String} effect
 * @return {bool|bool}
@@ -653,25 +631,13 @@ str
 },
 
 /**
- * @method setPosition
-* @param {float|vec2_object} float
-* @param {float} float
-*/
-setPosition : function(
-float,
-float 
-)
-{
-},
-
-/**
- * @method getPosition
- * @return {vec2_object}
+ * @method setIsLooping
+ * @param {bool} arg0
  */
-getPosition : function (
+setIsLooping : function (
+bool 
 )
 {
-    return cc.Vec2;
 },
 
 /**

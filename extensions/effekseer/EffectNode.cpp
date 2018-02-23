@@ -51,7 +51,7 @@ EffectNode * EffectNode::create(Effect * effect)
 	return ret;
 }
 
-EffectNode::EffectNode():_manager(nullptr), _emitter(nullptr)
+EffectNode::EffectNode():_effect(nullptr), _manager(nullptr), _emitter(nullptr)
 {
 }
 
@@ -109,35 +109,12 @@ void EffectNode::visit(Renderer *renderer, const Mat4& parentTransform, uint32_t
 
 void EffectNode::update(float delta)
 {
+	_emitter->setPosition(_parent->convertToWorldSpace(this->getPosition()));
+	_emitter->setScale(this->getScale());
 	_manager->update();
 }
 
 void EffectNode::setIsLooping(bool loop)
 {
 	_emitter->setIsLooping(loop);
-}
-
-const Vec2 & EffectNode::getPosition() const
-{
-	return _emitter->getPosition();
-}
-
-void EffectNode::setPosition(const Vec2 & position)
-{
-	_emitter->setPosition(position);
-}
-
-void EffectNode::setPosition(float x, float y)
-{
-	_emitter->setPosition(x, y);
-}
-
-void EffectNode::setScale(float scale)
-{
-	_emitter->setScale(scale);
-}
-
-void EffectNode::setScale(float scaleX, float scaleY)
-{
-	_emitter->setScale(scaleX, scaleY);
 }
