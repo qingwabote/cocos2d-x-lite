@@ -1430,36 +1430,21 @@ se::Class* __jsb_EffectNode_class = nullptr;
 
 static bool js_cocos2dx_extension_EffectNode_init(se::State& s)
 {
-    CC_UNUSED bool ok = true;
     EffectNode* cobj = (EffectNode*)s.nativeThisObject();
-    SE_PRECONDITION2( cobj, false, "js_cocos2dx_extension_EffectNode_init : Invalid Native Object");
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_extension_EffectNode_init : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
-    do {
-        if (argc == 1) {
-            Effect* arg0 = nullptr;
-            ok &= seval_to_native_ptr(args[0], &arg0);
-            if (!ok) { ok = true; break; }
-            bool result = cobj->init(arg0);
-            ok &= boolean_to_seval(result, &s.rval());
-            SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_EffectNode_init : Error processing arguments");
-            return true;
-        }
-    } while(false);
-
-    do {
-        if (argc == 1) {
-            std::string arg0;
-            ok &= seval_to_std_string(args[0], &arg0);
-            if (!ok) { ok = true; break; }
-            bool result = cobj->init(arg0);
-            ok &= boolean_to_seval(result, &s.rval());
-            SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_EffectNode_init : Error processing arguments");
-            return true;
-        }
-    } while(false);
-
-    SE_REPORT_ERROR("wrong number of arguments: %d", (int)argc);
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        Effect* arg0 = nullptr;
+        ok &= seval_to_native_ptr(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_EffectNode_init : Error processing arguments");
+        bool result = cobj->init(arg0);
+        ok &= boolean_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_EffectNode_init : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
     return false;
 }
 SE_BIND_FUNC(js_cocos2dx_extension_EffectNode_init)
@@ -1485,32 +1470,21 @@ SE_BIND_FUNC(js_cocos2dx_extension_EffectNode_setIsLooping)
 
 static bool js_cocos2dx_extension_EffectNode_create(se::State& s)
 {
-    CC_UNUSED bool ok = true;
     const auto& args = s.args();
     size_t argc = args.size();
-    do {
-        if (argc == 1) {
-            Effect* arg0 = nullptr;
-            ok &= seval_to_native_ptr(args[0], &arg0);
-            if (!ok) { ok = true; break; }
-            EffectNode* result = EffectNode::create(arg0);
-            ok &= native_ptr_to_seval<EffectNode>((EffectNode*)result, &s.rval());
-            SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_EffectNode_create : Error processing arguments");
-            return true;
-        }
-    } while (false);
-    do {
-        if (argc == 1) {
-            std::string arg0;
-            ok &= seval_to_std_string(args[0], &arg0);
-            if (!ok) { ok = true; break; }
-            EffectNode* result = EffectNode::create(arg0);
-            ok &= native_ptr_to_seval<EffectNode>((EffectNode*)result, &s.rval());
-            SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_EffectNode_create : Error processing arguments");
-            return true;
-        }
-    } while (false);
-    SE_REPORT_ERROR("wrong number of arguments: %d", (int)argc);
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        Effect* arg0 = nullptr;
+        ok &= seval_to_native_ptr(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_EffectNode_create : Error processing arguments");
+        auto result = EffectNode::create(arg0);
+        result->retain();
+        auto obj = se::Object::createObjectWithClass(__jsb_EffectNode_class);
+        obj->setPrivateData(result);
+        s.rval().setObject(obj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
     return false;
 }
 SE_BIND_FUNC(js_cocos2dx_extension_EffectNode_create)

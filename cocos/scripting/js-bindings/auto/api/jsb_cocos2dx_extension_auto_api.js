@@ -620,11 +620,11 @@ cc.EffectNode = {
 
 /**
  * @method init
-* @param {Effect|String} effect
-* @return {bool|bool}
-*/
-init : function(
-str 
+ * @param {Effect} arg0
+ * @return {bool}
+ */
+init : function (
+effect 
 )
 {
     return false;
@@ -642,11 +642,11 @@ bool
 
 /**
  * @method create
-* @param {Effect|String} effect
-* @return {EffectNode|EffectNode}
-*/
-create : function(
-str 
+ * @param {Effect} arg0
+ * @return {EffectNode}
+ */
+create : function (
+effect 
 )
 {
     return EffectNode;

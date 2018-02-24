@@ -35,14 +35,6 @@ efk::Effect* Effect::getEntity()
 	return _entity;
 };
 
-EffectNode * EffectNode::create(const std::string& filename)
-{
-	EffectNode * ret = new (std::nothrow) EffectNode();
-	ret->init(filename);
-	ret->autorelease();
-	return ret;
-}
-
 EffectNode * EffectNode::create(Effect * effect)
 {
 	EffectNode * ret = new (std::nothrow) EffectNode();
@@ -61,28 +53,6 @@ EffectNode::~EffectNode()
 	delete _manager;
 	delete _emitter;
     CC_SAFE_RELEASE(_effect);
-}
-
-bool EffectNode::init(const std::string& filename)
-{
-	if (!Node::init()) return false;
-
-	_manager = efk::EffectManager::create(Director::getInstance()->getVisibleSize());
-	_emitter = efk::EffectEmitter::create(_manager);
-
-	auto effect = efk::Effect::create(filename);
-	if (effect == nullptr)
-	{
-		cocos2d::log("error: efk::Effect::create(%s)", filename.c_str());
-		return false;
-	}
-	effect->autorelease();
-
-	_emitter->setEffect(effect);
-	_emitter->setPlayOnEnter(true);
-	this->addChild(_emitter);
-	this->scheduleUpdate();
-	return true;
 }
 
 bool EffectNode::init(Effect * effect)

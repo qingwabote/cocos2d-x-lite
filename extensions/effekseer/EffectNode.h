@@ -27,12 +27,10 @@ private:
 class CC_DLL EffectNode : public Node
 {
 public:
-	static EffectNode* create(const std::string& filename);
 	static EffectNode* create(Effect* effect);
 
 	EffectNode();
 	~EffectNode();
-	bool init(const std::string& filename);
 	bool init(Effect* effect);
 	void visit(Renderer *renderer, const Mat4& parentTransform, uint32_t parentFlags) override;
 	void update(float delta) override;
