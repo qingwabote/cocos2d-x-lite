@@ -9,14 +9,13 @@ Effect * Effect::create(const std::string& filename)
 	return ret;
 }
 
+efk::Effect* Effect::getEntity()
+{
+	return _entity;
+};
+
 Effect::Effect() :_entity(nullptr)
 {
-}
-
-
-Effect::~Effect()
-{
-	delete _entity;
 }
 
 bool Effect::init(const std::string & filename)
@@ -30,10 +29,12 @@ bool Effect::init(const std::string & filename)
 	return true;
 }
 
-efk::Effect* Effect::getEntity()
+Effect::~Effect()
 {
-	return _entity;
-};
+	CC_SAFE_RELEASE(_entity);
+}
+
+
 
 EffectNode * EffectNode::create(Effect * effect)
 {
@@ -47,12 +48,9 @@ EffectNode::EffectNode():_effect(nullptr), _manager(nullptr), _emitter(nullptr)
 {
 }
 
-
-EffectNode::~EffectNode()
+void EffectNode::setIsLooping(bool loop)
 {
-	delete _manager;
-	delete _emitter;
-    CC_SAFE_RELEASE(_effect);
+	_emitter->setIsLooping(loop);
 }
 
 bool EffectNode::init(Effect * effect)
@@ -60,11 +58,14 @@ bool EffectNode::init(Effect * effect)
 	if (!Node::init()) return false;
 
 	_manager = efk::EffectManager::create(Director::getInstance()->getVisibleSize());
+
 	_emitter = efk::EffectEmitter::create(_manager);
 	_emitter->setEffect(effect->getEntity());
-    effect->retain();
     _effect = effect;
+	_effect->retain();
+
 	_emitter->setPlayOnEnter(true);
+	_emitter->setRemoveOnStop(false);
 	this->addChild(_emitter);
 	this->scheduleUpdate();
 	return true;
@@ -84,7 +85,9 @@ void EffectNode::update(float delta)
 	_manager->update();
 }
 
-void EffectNode::setIsLooping(bool loop)
+EffectNode::~EffectNode()
 {
-	_emitter->setIsLooping(loop);
+	CC_SAFE_RELEASE(_effect);
+	CC_SAFE_RELEASE(_manager);
+	CC_SAFE_RELEASE(_emitter);
 }
