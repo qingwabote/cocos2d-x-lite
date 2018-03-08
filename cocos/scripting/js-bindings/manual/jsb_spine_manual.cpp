@@ -209,21 +209,22 @@ static bool jsb_spine_TrackEntry_get_mixDuration(se::State& s)
 }
 SE_BIND_PROP_GET(jsb_spine_TrackEntry_get_mixDuration)
 
-static bool jsb_spine_TrackEntry_get_mixAlpha(se::State& s)
-{
-    spTrackEntry* cobj = (spTrackEntry*) s.nativeThisObject();
-    s.rval().setFloat(cobj->mixAlpha);
-    return true;
-}
-SE_BIND_PROP_GET(jsb_spine_TrackEntry_get_mixAlpha)
+//to do
+//static bool jsb_spine_TrackEntry_get_mixAlpha(se::State& s)
+//{
+//    spTrackEntry* cobj = (spTrackEntry*) s.nativeThisObject();
+//    s.rval().setFloat(cobj->mixAlpha);
+//    return true;
+//}
+//SE_BIND_PROP_GET(jsb_spine_TrackEntry_get_mixAlpha)
 
-static bool jsb_spine_TrackEntry_get_timelinesFirstCount(se::State& s)
-{
-    spTrackEntry* cobj = (spTrackEntry*) s.nativeThisObject();
-    s.rval().setInt32(cobj->timelinesFirstCount);
-    return true;
-}
-SE_BIND_PROP_GET(jsb_spine_TrackEntry_get_timelinesFirstCount)
+//static bool jsb_spine_TrackEntry_get_timelinesFirstCount(se::State& s)
+//{
+//    spTrackEntry* cobj = (spTrackEntry*) s.nativeThisObject();
+//    s.rval().setInt32(cobj->timelinesFirstCount);
+//    return true;
+//}
+//SE_BIND_PROP_GET(jsb_spine_TrackEntry_get_timelinesFirstCount)
 
 static bool jsb_spine_TrackEntry_get_timelinesRotationCount(se::State& s)
 {
@@ -266,8 +267,11 @@ static bool js_register_spine_TrackEntry(se::Object* obj)
     cls->defineProperty("alpha", _SE(jsb_spine_TrackEntry_get_alpha), nullptr);
     cls->defineProperty("mixTime", _SE(jsb_spine_TrackEntry_get_mixTime), nullptr);
     cls->defineProperty("mixDuration", _SE(jsb_spine_TrackEntry_get_mixDuration), nullptr);
-    cls->defineProperty("mixAlpha", _SE(jsb_spine_TrackEntry_get_mixAlpha), nullptr);
-    cls->defineProperty("timelinesFirstCount", _SE(jsb_spine_TrackEntry_get_timelinesFirstCount), nullptr);
+
+	//to do
+    //cls->defineProperty("mixAlpha", _SE(jsb_spine_TrackEntry_get_mixAlpha), nullptr);
+    //cls->defineProperty("timelinesFirstCount", _SE(jsb_spine_TrackEntry_get_timelinesFirstCount), nullptr);
+
     cls->defineProperty("timelinesRotationCount", _SE(jsb_spine_TrackEntry_get_timelinesRotationCount), nullptr);
     cls->defineProperty("animation", _SE(jsb_spine_TrackEntry_get_animation), nullptr);
 
@@ -278,49 +282,50 @@ static bool js_register_spine_TrackEntry(se::Object* obj)
     __jsb_spine_TrackEntry_class = cls;
     __jsb_spine_TrackEntry_proto = cls->getProto();
 
-    spTrackEntry_setDisposeCallback([](spTrackEntry* entry){
-        se::Object* seObj = nullptr;
+	//to do
+    //spTrackEntry_setDisposeCallback([](spTrackEntry* entry){
+    //    se::Object* seObj = nullptr;
 
-        auto iter = se::NativePtrToObjectMap::find(entry);
-        if (iter != se::NativePtrToObjectMap::end())
-        {
-            // Save se::Object pointer for being used in cleanup method.
-            seObj = iter->second;
-            // Unmap native and js object since native object was destroyed.
-            // Otherwise, it may trigger 'assertion' in se::Object::setPrivateData later
-            // since native obj is already released and the new native object may be assigned with
-            // the same address.
-            se::NativePtrToObjectMap::erase(iter);
-        }
-        else
-        {
-            return;
-        }
+    //    auto iter = se::NativePtrToObjectMap::find(entry);
+    //    if (iter != se::NativePtrToObjectMap::end())
+    //    {
+    //        // Save se::Object pointer for being used in cleanup method.
+    //        seObj = iter->second;
+    //        // Unmap native and js object since native object was destroyed.
+    //        // Otherwise, it may trigger 'assertion' in se::Object::setPrivateData later
+    //        // since native obj is already released and the new native object may be assigned with
+    //        // the same address.
+    //        se::NativePtrToObjectMap::erase(iter);
+    //    }
+    //    else
+    //    {
+    //        return;
+    //    }
 
-        auto cleanup = [seObj](){
+    //    auto cleanup = [seObj](){
 
-            auto se = se::ScriptEngine::getInstance();
-            if (!se->isValid() || se->isInCleanup())
-                return;
+    //        auto se = se::ScriptEngine::getInstance();
+    //        if (!se->isValid() || se->isInCleanup())
+    //            return;
 
-            se::AutoHandleScope hs;
-            se->clearException();
+    //        se::AutoHandleScope hs;
+    //        se->clearException();
 
-            // The native <-> JS mapping was cleared in the callback above.
-            // seObj->clearPrivateData isn't needed since the JS object will be garbage collected after unroot and decRef.
-            seObj->unroot();
-            seObj->decRef();
-        };
+    //        // The native <-> JS mapping was cleared in the callback above.
+    //        // seObj->clearPrivateData isn't needed since the JS object will be garbage collected after unroot and decRef.
+    //        seObj->unroot();
+    //        seObj->decRef();
+    //    };
 
-        if (!se::ScriptEngine::getInstance()->isGarbageCollecting())
-        {
-            cleanup();
-        }
-        else
-        {
-            CleanupTask::pushTaskToAutoReleasePool(cleanup);
-        }
-    });
+    //    if (!se::ScriptEngine::getInstance()->isGarbageCollecting())
+    //    {
+    //        cleanup();
+    //    }
+    //    else
+    //    {
+    //        CleanupTask::pushTaskToAutoReleasePool(cleanup);
+    //    }
+    //});
 
     se::ScriptEngine::getInstance()->clearException();
     return true;
