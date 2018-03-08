@@ -102,6 +102,9 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	SkeletonAnimation ();
+	SkeletonAnimation(spSkeletonData* skeletonData, bool ownsSkeletonData = false);
+	SkeletonAnimation(const std::string&skeletonDataFile, spAtlas* atlas, float scale = 1);
+	SkeletonAnimation(const std::string& skeletonDataFile, const std::string& atlasFile, float scale = 1);
 	virtual ~SkeletonAnimation ();
 	virtual void initialize () override;
 

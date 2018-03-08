@@ -120,6 +120,21 @@ SkeletonAnimation::SkeletonAnimation ()
 		: SkeletonRenderer() {
 }
 
+SkeletonAnimation::SkeletonAnimation(spSkeletonData *skeletonData, bool ownsSkeletonData)
+	: SkeletonRenderer(skeletonData, ownsSkeletonData) {
+	initialize();
+}
+
+SkeletonAnimation::SkeletonAnimation(const std::string& skeletonDataFile, spAtlas* atlas, float scale)
+	: SkeletonRenderer(skeletonDataFile, atlas, scale) {
+	initialize();
+}
+
+SkeletonAnimation::SkeletonAnimation(const std::string& skeletonDataFile, const std::string& atlasFile, float scale)
+	: SkeletonRenderer(skeletonDataFile, atlasFile, scale) {
+	initialize();
+}
+
 SkeletonAnimation::~SkeletonAnimation () {
 	if (_ownsAnimationStateData) spAnimationStateData_dispose(_state->data);
 	spAnimationState_dispose(_state);
