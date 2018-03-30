@@ -2002,6 +2002,13 @@ bool spslot_to_seval(const spSlot* v, se::Value* ret)
     obj->setProperty("attachment", attachment);
     obj->setProperty("data", data);
 
+	se::HandleObject arr(se::Object::createArrayObject(v->attachmentVerticesCount));
+	for (size_t i = 0; i < v->attachmentVerticesCount; i++)
+	{
+		arr->setArrayElement(i, se::Value(v->attachmentVertices[i]));
+	}
+	obj->setProperty("attachmentVertices", se::Value(arr));
+
     ret->setObject(obj);
 
     return true;
