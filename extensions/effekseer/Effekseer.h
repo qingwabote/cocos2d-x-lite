@@ -227,6 +227,8 @@ namespace efk
 
 		::Effekseer::Handle play(Effect* effect, float x, float y, float z);
 
+		void setMatrix(::Effekseer::Handle handle, const cocos2d::Mat4& mat);
+
 		void setPotation(::Effekseer::Handle handle, float x, float y, float z);
 
 		void setRotation(::Effekseer::Handle handle, float x, float y, float z);

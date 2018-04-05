@@ -432,13 +432,9 @@ namespace efk
 		if (effect == nullptr) return;
 		if (manager == nullptr) return;
 
-		auto pos = this->getPosition();
-		auto rot = this->getRotation();
-		auto scale = this->getScale();
-
-		handle = manager->play(effect, pos.x, pos.y, 0);
-		manager->setRotation(handle, 0, 0, rot);
-		manager->setScale(handle, scale, scale, scale);
+		handle = manager->play(effect, 0, 0, 0);
+		auto transform = this->getNodeToWorldTransform();
+		manager->setMatrix(handle, transform);
 	}
 
 	bool EffectEmitter::getPlayOnEnter()
@@ -523,13 +519,8 @@ namespace efk
 			}
 		}
 
-		auto pos = this->getPosition();
-		auto rot = this->getRotation();
-		auto scale = this->getScale();
-
-		manager->setPotation(handle, pos.x, pos.y, 0);
-		manager->setRotation(handle, 0, angleY, rot);
-		manager->setScale(handle, scale, scale, scale);
+		auto transform = this->getNodeToWorldTransform();
+		manager->setMatrix(handle, transform);
 
 		cocos2d::Node::update(delta);
 	}
@@ -574,6 +565,20 @@ namespace efk
 	::Effekseer::Handle EffectManager::play(Effect* effect, float x, float y, float z)
 	{
 		return manager2d->Play(effect->getInternalPtr(), x, y, z);
+	}
+
+	void EffectManager::setMatrix(::Effekseer::Handle handle, const cocos2d::Mat4& mat)
+	{
+		Effekseer::Matrix43 mat_;
+		for (int32_t i = 0; i < 4; i++)
+		{
+			for (int32_t j = 0; j < 3; j++)
+			{
+				mat_.Value[i][j] = mat.m[i * 4 + j];
+			}
+		}
+
+		manager2d->SetMatrix(handle, mat_);
 	}
 
 	void EffectManager::setPotation(::Effekseer::Handle handle, float x, float y, float z)

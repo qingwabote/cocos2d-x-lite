@@ -80,8 +80,6 @@ void EffectNode::visit(Renderer *renderer, const Mat4& parentTransform, uint32_t
 
 void EffectNode::update(float delta)
 {
-	_emitter->setPosition(this->convertToWorldSpaceAR(Vec2::ZERO));
-	_emitter->setScale(this->getScale());
 	_manager->update();
 }
 
