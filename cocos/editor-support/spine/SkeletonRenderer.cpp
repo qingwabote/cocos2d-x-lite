@@ -36,6 +36,8 @@
 #include <spine/Cocos2dAttachmentLoader.h>
 #include <algorithm>
 
+#include "SkeletonDataCache.h"
+
 USING_NS_CC;
 using std::min;
 using std::max;
@@ -126,19 +128,24 @@ void SkeletonRenderer::initWithJsonFile (const std::string& skeletonDataFile, sp
 }
 
 void SkeletonRenderer::initWithJsonFile (const std::string& skeletonDataFile, const std::string& atlasFile, float scale) {
-	_atlas = spAtlas_createFromFile(atlasFile.c_str(), 0);
-	CCASSERT(_atlas, "Error reading atlas file.");
+	//_atlas = spAtlas_createFromFile(atlasFile.c_str(), 0);
+	//CCASSERT(_atlas, "Error reading atlas file.");
 
-	_attachmentLoader = SUPER(Cocos2dAttachmentLoader_create(_atlas));
+	//_attachmentLoader = SUPER(Cocos2dAttachmentLoader_create(_atlas));
 
-	spSkeletonJson* json = spSkeletonJson_createWithLoader(_attachmentLoader);
-	json->scale = scale;
-	spSkeletonData* skeletonData = spSkeletonJson_readSkeletonDataFile(json, skeletonDataFile.c_str());
-	CCASSERT(skeletonData, json->error ? json->error : "Error reading skeleton data file.");
-	spSkeletonJson_dispose(json);
+	//spSkeletonJson* json = spSkeletonJson_createWithLoader(_attachmentLoader);
+	//json->scale = scale;
+	//spSkeletonData* skeletonData = spSkeletonJson_readSkeletonDataFile(json, skeletonDataFile.c_str());
+	//CCASSERT(skeletonData, json->error ? json->error : "Error reading skeleton data file.");
+	//spSkeletonJson_dispose(json);
 
-	setSkeletonData(skeletonData, true);
+	//setSkeletonData(skeletonData, true);
 
+	//initialize();
+
+
+	spSkeletonData* skeletonData = SkeletonDataCache::getInstance()->addSkeletonData(skeletonDataFile, atlasFile);
+	setSkeletonData(skeletonData, false);
 	initialize();
 }
     

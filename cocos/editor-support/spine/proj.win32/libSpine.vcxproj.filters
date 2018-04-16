@@ -149,6 +149,9 @@
     <ClCompile Include="..\VertexEffect.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\SkeletonDataCache.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Animation.h">
@@ -296,6 +299,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\VertexEffect.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SkeletonDataCache.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

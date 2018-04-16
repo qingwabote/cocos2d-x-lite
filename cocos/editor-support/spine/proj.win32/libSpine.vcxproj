@@ -45,6 +45,7 @@
     <ClCompile Include="..\SkeletonBounds.c" />
     <ClCompile Include="..\SkeletonClipping.c" />
     <ClCompile Include="..\SkeletonData.c" />
+    <ClCompile Include="..\SkeletonDataCache.cpp" />
     <ClCompile Include="..\SkeletonJson.c" />
     <ClCompile Include="..\SkeletonRenderer.cpp" />
     <ClCompile Include="..\SkeletonTwoColorBatch.cpp" />
@@ -95,6 +96,7 @@
     <ClInclude Include="..\SkeletonBounds.h" />
     <ClInclude Include="..\SkeletonClipping.h" />
     <ClInclude Include="..\SkeletonData.h" />
+    <ClInclude Include="..\SkeletonDataCache.h" />
     <ClInclude Include="..\SkeletonJson.h" />
     <ClInclude Include="..\SkeletonRenderer.h" />
     <ClInclude Include="..\SkeletonTwoColorBatch.h" />
