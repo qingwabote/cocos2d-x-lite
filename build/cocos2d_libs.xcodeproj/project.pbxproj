@@ -1139,6 +1139,10 @@
 		A6F0D7A11C2796020029CC44 /* CCStencilStateManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A6F0D79F1C2796020029CC44 /* CCStencilStateManager.cpp */; };
 		A6F0D7A21C2796020029CC44 /* CCStencilStateManager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A6F0D7A01C2796020029CC44 /* CCStencilStateManager.hpp */; };
 		A6F0D7A31C2796060029CC44 /* CCStencilStateManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A6F0D79F1C2796020029CC44 /* CCStencilStateManager.cpp */; };
+		AD1445922084CBA7001E5CD2 /* SkeletonDataCache.h in Headers */ = {isa = PBXBuildFile; fileRef = AD1445902084CBA7001E5CD2 /* SkeletonDataCache.h */; };
+		AD1445932084CBA7001E5CD2 /* SkeletonDataCache.h in Headers */ = {isa = PBXBuildFile; fileRef = AD1445902084CBA7001E5CD2 /* SkeletonDataCache.h */; };
+		AD1445942084CBA7001E5CD2 /* SkeletonDataCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD1445912084CBA7001E5CD2 /* SkeletonDataCache.cpp */; };
+		AD1445952084CBA7001E5CD2 /* SkeletonDataCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD1445912084CBA7001E5CD2 /* SkeletonDataCache.cpp */; };
 		AD40FED3205168CA00F6301C /* Color.c in Sources */ = {isa = PBXBuildFile; fileRef = AD40FEC4205168C800F6301C /* Color.c */; };
 		AD40FED4205168CA00F6301C /* Color.c in Sources */ = {isa = PBXBuildFile; fileRef = AD40FEC4205168C800F6301C /* Color.c */; };
 		AD40FED5205168CA00F6301C /* Array.h in Headers */ = {isa = PBXBuildFile; fileRef = AD40FEC5205168C800F6301C /* Array.h */; };
@@ -2225,6 +2229,8 @@
 		A6A554241C2A7C4400FDD954 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = ../external/mac/libs/libssl.a; sourceTree = "<group>"; };
 		A6F0D79F1C2796020029CC44 /* CCStencilStateManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCStencilStateManager.cpp; path = ../base/CCStencilStateManager.cpp; sourceTree = "<group>"; };
 		A6F0D7A01C2796020029CC44 /* CCStencilStateManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CCStencilStateManager.hpp; path = ../base/CCStencilStateManager.hpp; sourceTree = "<group>"; };
+		AD1445902084CBA7001E5CD2 /* SkeletonDataCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkeletonDataCache.h; sourceTree = "<group>"; };
+		AD1445912084CBA7001E5CD2 /* SkeletonDataCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SkeletonDataCache.cpp; sourceTree = "<group>"; };
 		AD40FEC4205168C800F6301C /* Color.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Color.c; sourceTree = "<group>"; };
 		AD40FEC5205168C800F6301C /* Array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Array.h; sourceTree = "<group>"; };
 		AD40FEC6205168C900F6301C /* Triangulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Triangulator.h; sourceTree = "<group>"; };
@@ -3072,6 +3078,8 @@
 		1AD71D7C180E26E600808F54 /* spine */ = {
 			isa = PBXGroup;
 			children = (
+				AD1445912084CBA7001E5CD2 /* SkeletonDataCache.cpp */,
+				AD1445902084CBA7001E5CD2 /* SkeletonDataCache.h */,
 				AD40FEF12051693D00F6301C /* SkeletonTwoColorBatch.cpp */,
 				AD40FEF22051693D00F6301C /* SkeletonTwoColorBatch.h */,
 				AD40FECF205168CA00F6301C /* Array.c */,
@@ -4178,6 +4186,7 @@
 				50ABBEC11925AB6F00A911A9 /* CCValue.h in Headers */,
 				B276EF631988D1D500CD400F /* CCVertexIndexBuffer.h in Headers */,
 				50ABBE871925AB6F00A911A9 /* ccMacros.h in Headers */,
+				AD1445922084CBA7001E5CD2 /* SkeletonDataCache.h in Headers */,
 				FA6F1B8B1D80F858007DD223 /* Point.h in Headers */,
 				BA68D7831D62F4A500B7A3F9 /* poly2tri.h in Headers */,
 				50ABBE731925AB6F00A911A9 /* CCEventListenerMouse.h in Headers */,
@@ -4974,6 +4983,7 @@
 				4DED482B1DFFA4AF0070C5C4 /* b2TimeStep.h in Headers */,
 				1A28FF661F20AFAB007A1D9D /* SRPinningSecurityPolicy.h in Headers */,
 				15AE1B9719AADAA100C27E9E /* UIVideoPlayer.h in Headers */,
+				AD1445932084CBA7001E5CD2 /* SkeletonDataCache.h in Headers */,
 				50ABC00A1926664800A911A9 /* CCCommon.h in Headers */,
 				50ABBE5C1925AB6F00A911A9 /* CCEventKeyboard.h in Headers */,
 				50ABC01C1926664800A911A9 /* CCSAXParser.h in Headers */,
@@ -5233,6 +5243,7 @@
 				ED3057801BEC76C90083C3ED /* ioapi.cpp in Sources */,
 				1A570214180BCBF40088DEC7 /* CCRenderTexture.cpp in Sources */,
 				A0E749F71BA8FD7F001A8332 /* UIEditBoxImpl-common.cpp in Sources */,
+				AD1445942084CBA7001E5CD2 /* SkeletonDataCache.cpp in Sources */,
 				BAFF7D661D5C1CF80051B92F /* Bone.c in Sources */,
 				B276EF651988D1D500CD400F /* CCVertexIndexBuffer.cpp in Sources */,
 				50ABBE411925AB6F00A911A9 /* CCDirector.cpp in Sources */,
@@ -5434,6 +5445,7 @@
 				FA6F1B701D80F858007DD223 /* CCSlot.cpp in Sources */,
 				50ABBDA01925AB4100A911A9 /* CCGroupCommand.cpp in Sources */,
 				1A28FF901F20AFAB007A1D9D /* NSRunLoop+SRWebSocket.m in Sources */,
+				AD1445952084CBA7001E5CD2 /* SkeletonDataCache.cpp in Sources */,
 				50ABC0161926664800A911A9 /* CCImage.cpp in Sources */,
 				B230ED7219B417AE00364AA8 /* CCTrianglesCommand.cpp in Sources */,
 				4DED47DD1DFFA4AF0070C5C4 /* b2CollidePolygon.cpp in Sources */,
