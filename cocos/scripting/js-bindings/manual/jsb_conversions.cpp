@@ -1703,6 +1703,13 @@ bool Acceleration_to_seval(const cocos2d::Acceleration* v, se::Value* ret)
     return true;
 }
 
+bool Flag_to_seval(const cocos2d::Flag& v, se::Value* ret)
+{
+	assert(ret != nullptr);
+	ret->setUint32(v.value());
+	return true;
+}
+
 bool Quaternion_to_seval(const cocos2d::Quaternion& v, se::Value* ret)
 {
     assert(ret != nullptr);
@@ -1959,7 +1966,7 @@ bool spslotdata_to_seval(const spSlotData* v, se::Value* ret)
     obj->setProperty("name", se::Value(v->name));
     obj->setProperty("attachmentName", se::Value(v->attachmentName));
 
-	//to do
+	//TODO
     //obj->setProperty("r", se::Value(v->r));
     //obj->setProperty("g", se::Value(v->g));
     //obj->setProperty("b", se::Value(v->b));
@@ -1992,7 +1999,7 @@ bool spslot_to_seval(const spSlot* v, se::Value* ret)
     se::Value data;
     SE_PRECONDITION3(spslotdata_to_seval(v->data, &data), false, ret->setUndefined());
 
-	//to do
+	//TODO
     //obj->setProperty("r", se::Value(v->r));
     //obj->setProperty("g", se::Value(v->g));
     //obj->setProperty("b", se::Value(v->b));

@@ -15,6 +15,7 @@
 
 #include "cocos2d.h"
 #include "cocos/editor-support/spine/spine.h"
+#include "spine/spine-cocos2dx.h"
 
 using namespace cocos2d;
 
@@ -209,7 +210,7 @@ static bool jsb_spine_TrackEntry_get_mixDuration(se::State& s)
 }
 SE_BIND_PROP_GET(jsb_spine_TrackEntry_get_mixDuration)
 
-//to do
+//TODO
 //static bool jsb_spine_TrackEntry_get_mixAlpha(se::State& s)
 //{
 //    spTrackEntry* cobj = (spTrackEntry*) s.nativeThisObject();
@@ -268,7 +269,7 @@ static bool js_register_spine_TrackEntry(se::Object* obj)
     cls->defineProperty("mixTime", _SE(jsb_spine_TrackEntry_get_mixTime), nullptr);
     cls->defineProperty("mixDuration", _SE(jsb_spine_TrackEntry_get_mixDuration), nullptr);
 
-	//to do
+	//TODO
     //cls->defineProperty("mixAlpha", _SE(jsb_spine_TrackEntry_get_mixAlpha), nullptr);
     //cls->defineProperty("timelinesFirstCount", _SE(jsb_spine_TrackEntry_get_timelinesFirstCount), nullptr);
 
@@ -330,8 +331,55 @@ static bool js_register_spine_TrackEntry(se::Object* obj)
     return true;
 }
 
+static bool js_cocos2dx_spine_SkeletonRenderer_setFlipX(se::State& s)
+{
+    spine::SkeletonRenderer* cobj = (spine::SkeletonRenderer*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_spine_SkeletonRenderer_setFlipX : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        bool arg0 = false;
+        ok &= seval_to_boolean(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_spine_SkeletonRenderer_setFlipX : Error processing arguments");
+        cobj->getSkeleton()->flipX = arg0 ? 1 : 0;
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_spine_SkeletonRenderer_setFlipX)
+
+static bool js_cocos2dx_spine_SkeletonRenderer_setFlipY(se::State& s)
+{
+    spine::SkeletonRenderer* cobj = (spine::SkeletonRenderer*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_spine_SkeletonRenderer_setFlipY : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        bool arg0 = false;
+        ok &= seval_to_boolean(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_spine_SkeletonRenderer_setFlipY : Error processing arguments");
+        cobj->getSkeleton()->flipY = arg0 ? 1 : 0;
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_spine_SkeletonRenderer_setFlipY)
+
+static bool js_register_cocos2dx_spine_SkeletonRenderer_manual(se::Object* obj)
+{
+    __jsb_spine_SkeletonRenderer_proto->defineFunction("setFlipX", _SE(js_cocos2dx_spine_SkeletonRenderer_setFlipX));
+    __jsb_spine_SkeletonRenderer_proto->defineFunction("setFlipY", _SE(js_cocos2dx_spine_SkeletonRenderer_setFlipY));
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
 bool register_all_spine_manual(se::Object* obj)
 {
     js_register_spine_TrackEntry(obj);
+    js_register_cocos2dx_spine_SkeletonRenderer_manual(obj);
     return true;
 }
