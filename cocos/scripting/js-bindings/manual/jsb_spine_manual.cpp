@@ -342,7 +342,10 @@ static bool js_cocos2dx_spine_SkeletonRenderer_setFlipX(se::State& s)
         bool arg0 = false;
         ok &= seval_to_boolean(args[0], &arg0);
         SE_PRECONDITION2(ok, false, "js_cocos2dx_spine_SkeletonRenderer_setFlipX : Error processing arguments");
-        cobj->getSkeleton()->flipX = arg0 ? 1 : 0;
+        int oldFlipX = cobj->getSkeleton()->flipX;
+        int newFlipX = arg0 ? 1 : 0;
+        if(oldFlipX != newFlipX)
+            cobj->getSkeleton()->flipX = newFlipX;
         return true;
     }
     SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
@@ -361,7 +364,10 @@ static bool js_cocos2dx_spine_SkeletonRenderer_setFlipY(se::State& s)
         bool arg0 = false;
         ok &= seval_to_boolean(args[0], &arg0);
         SE_PRECONDITION2(ok, false, "js_cocos2dx_spine_SkeletonRenderer_setFlipY : Error processing arguments");
-        cobj->getSkeleton()->flipY = arg0 ? 1 : 0;
+        int oldFlipY = cobj->getSkeleton()->flipY;
+        int newFlipY = arg0 ? 1 : 0;
+        if(oldFlipY != newFlipY)
+            cobj->getSkeleton()->flipY = newFlipY;
         return true;
     }
     SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
