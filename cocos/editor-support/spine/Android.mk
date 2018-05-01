@@ -41,6 +41,7 @@ SkeletonBinary.c \
 SkeletonBounds.c \
 SkeletonClipping.c \
 SkeletonData.c \
+SkeletonDataCache.cpp \
 SkeletonJson.c \
 SkeletonRenderer.cpp \
 SkeletonTwoColorBatch.cpp \
