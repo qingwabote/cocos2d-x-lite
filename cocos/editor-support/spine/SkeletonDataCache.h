@@ -3,6 +3,7 @@
 #include <string>
 #include <unordered_map>
 #include <queue>
+#include <condition_variable>
 #include "base/ccMacros.h"
 #include "base/CCRef.h"
 #include "Atlas.h"
