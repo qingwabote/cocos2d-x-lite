@@ -99,6 +99,9 @@ SP_API float spBone_worldToLocalRotation (spBone* self, float worldRotation);
 SP_API float spBone_localToWorldRotation (spBone* self, float localRotation);
 SP_API void spBone_rotateWorld (spBone* self, float degrees);
 
+typedef void(*BoneDisposeCallback)(spBone*);
+void spBone_setDisposeCallback(BoneDisposeCallback cb);
+
 #ifdef SPINE_SHORT_NAMES
 typedef spBone Bone;
 #define Bone_setYDown(...) spBone_setYDown(__VA_ARGS__)

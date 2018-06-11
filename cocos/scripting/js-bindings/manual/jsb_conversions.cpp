@@ -1868,44 +1868,46 @@ bool spbonedata_to_seval(const spBoneData* v, se::Value* ret)
 
 bool spbone_to_seval(const spBone* v, se::Value* ret)
 {
-    assert(ret != nullptr);
-    if (v == nullptr)
-    {
-        ret->setNull();
-        return true;
-    }
+	return native_ptr_to_rooted_seval<spBone>((spBone*)v, ret);
 
-    se::HandleObject obj(se::Object::createPlainObject());
+    //assert(ret != nullptr);
+    //if (v == nullptr)
+    //{
+    //    ret->setNull();
+    //    return true;
+    //}
 
-    // root haven't parent
-    se::Value parentVal;
-    if (0 != strcmp(v->data->name, "root") && v->parent)
-    {
-        SE_PRECONDITION3(spbone_to_seval(v->parent, &parentVal), false, ret->setUndefined());
-    }
+    //se::HandleObject obj(se::Object::createPlainObject());
 
-    se::Value data;
-    SE_PRECONDITION3(spbonedata_to_seval(v->data, &data), false, ret->setUndefined());
+    //// root haven't parent
+    //se::Value parentVal;
+    //if (0 != strcmp(v->data->name, "root") && v->parent)
+    //{
+    //    SE_PRECONDITION3(spbone_to_seval(v->parent, &parentVal), false, ret->setUndefined());
+    //}
 
-    obj->setProperty("data", data);
-    obj->setProperty("parent", parentVal);
-    obj->setProperty("x", se::Value(v->x));
-    obj->setProperty("y", se::Value(v->y));
-    obj->setProperty("rotation", se::Value(v->rotation));
-    obj->setProperty("scaleX", se::Value(v->scaleX));
-    obj->setProperty("scaleY", se::Value(v->scaleY));
-    obj->setProperty("shearX", se::Value(v->shearX));
-    obj->setProperty("shearY", se::Value(v->shearY));
-    obj->setProperty("m00", se::Value(v->a));
-    obj->setProperty("m01", se::Value(v->b));
-    obj->setProperty("m10", se::Value(v->c));
-    obj->setProperty("m11", se::Value(v->d));
-    obj->setProperty("worldX", se::Value(v->worldX));
-    obj->setProperty("worldY", se::Value(v->worldY));
+    //se::Value data;
+    //SE_PRECONDITION3(spbonedata_to_seval(v->data, &data), false, ret->setUndefined());
 
-    ret->setObject(obj);
+    //obj->setProperty("data", data);
+    //obj->setProperty("parent", parentVal);
+    //obj->setProperty("x", se::Value(v->x));
+    //obj->setProperty("y", se::Value(v->y));
+    //obj->setProperty("rotation", se::Value(v->rotation));
+    //obj->setProperty("scaleX", se::Value(v->scaleX));
+    //obj->setProperty("scaleY", se::Value(v->scaleY));
+    //obj->setProperty("shearX", se::Value(v->shearX));
+    //obj->setProperty("shearY", se::Value(v->shearY));
+    //obj->setProperty("m00", se::Value(v->a));
+    //obj->setProperty("m01", se::Value(v->b));
+    //obj->setProperty("m10", se::Value(v->c));
+    //obj->setProperty("m11", se::Value(v->d));
+    //obj->setProperty("worldX", se::Value(v->worldX));
+    //obj->setProperty("worldY", se::Value(v->worldY));
 
-    return true;
+    //ret->setObject(obj);
+
+    //return true;
 }
 
 bool spskeleton_to_seval(const spSkeleton* v, se::Value* ret)

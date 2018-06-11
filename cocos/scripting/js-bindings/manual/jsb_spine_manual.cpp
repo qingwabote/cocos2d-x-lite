@@ -333,6 +333,142 @@ static bool js_register_spine_TrackEntry(se::Object* obj)
     return true;
 }
 
+
+// Bone registration
+
+se::Class* __jsb_spine_Bone_class = nullptr;
+//se::Object* __jsb_spine_Bone_proto = nullptr;
+
+static bool jsb_spine_Bone_finalize(se::State& s)
+{
+	CCLOGINFO("jsbindings: finalizing JS object %p (spBone)", s.nativeThisObject());
+	return true;
+}
+SE_BIND_FINALIZE_FUNC(jsb_spine_Bone_finalize)
+
+static bool jsb_spine_Bone_constructor(se::State& s)
+{
+	assert(false);
+	return true;
+}
+SE_BIND_CTOR(jsb_spine_Bone_constructor, __jsb_spine_Bone_class, jsb_spine_Bone_finalize)
+
+static bool jsb_spine_Bone_get_x(se::State& s)
+{
+	spBone* cobj = (spBone*)s.nativeThisObject();
+	s.rval().setFloat(cobj->x);
+	return true;
+}
+SE_BIND_PROP_GET(jsb_spine_Bone_get_x)
+
+static bool jsb_spine_Bone_get_y(se::State& s)
+{
+	spBone* cobj = (spBone*)s.nativeThisObject();
+	s.rval().setFloat(cobj->y);
+	return true;
+}
+SE_BIND_PROP_GET(jsb_spine_Bone_get_y)
+
+static bool jsb_spine_Bone_get_scaleX(se::State& s)
+{
+	spBone* cobj = (spBone*)s.nativeThisObject();
+	s.rval().setFloat(cobj->scaleX);
+	return true;
+}
+SE_BIND_PROP_GET(jsb_spine_Bone_get_scaleX)
+
+static bool jsb_spine_Bone_get_scaleY(se::State& s)
+{
+	spBone* cobj = (spBone*)s.nativeThisObject();
+	s.rval().setFloat(cobj->scaleY);
+	return true;
+}
+SE_BIND_PROP_GET(jsb_spine_Bone_get_scaleY)
+
+static bool jsb_spine_Bone_get_worldX(se::State& s)
+{
+	spBone* cobj = (spBone*)s.nativeThisObject();
+	s.rval().setFloat(cobj->worldX);
+	return true;
+}
+SE_BIND_PROP_GET(jsb_spine_Bone_get_worldX)
+
+static bool jsb_spine_Bone_get_worldY(se::State& s)
+{
+	spBone* cobj = (spBone*)s.nativeThisObject();
+	s.rval().setFloat(cobj->worldY);
+	return true;
+}
+SE_BIND_PROP_GET(jsb_spine_Bone_get_worldY)
+
+static bool js_register_spine_Bone(se::Object* obj)
+{
+	se::Class* cls = se::Class::create("Bone", obj, nullptr, _SE(jsb_spine_Bone_constructor));
+	cls->defineProperty("x", _SE(jsb_spine_Bone_get_x), nullptr);
+	cls->defineProperty("y", _SE(jsb_spine_Bone_get_y), nullptr);
+	cls->defineProperty("scaleX", _SE(jsb_spine_Bone_get_scaleX), nullptr);
+	cls->defineProperty("scaleY", _SE(jsb_spine_Bone_get_scaleY), nullptr);
+	cls->defineProperty("worldX", _SE(jsb_spine_Bone_get_worldX), nullptr);
+	cls->defineProperty("worldY", _SE(jsb_spine_Bone_get_worldY), nullptr);
+
+	cls->defineFinalizeFunction(_SE(jsb_spine_Bone_finalize));
+	cls->install();
+
+	JSBClassType::registerClass<spBone>(cls);
+	__jsb_spine_Bone_class = cls;
+	//__jsb_spine_Bone_proto = cls->getProto();
+
+	spBone_setDisposeCallback([](spBone* entry) {
+		se::Object* seObj = nullptr;
+
+		auto iter = se::NativePtrToObjectMap::find(entry);
+		if (iter != se::NativePtrToObjectMap::end())
+		{
+			// Save se::Object pointer for being used in cleanup method.
+			seObj = iter->second;
+			// Unmap native and js object since native object was destroyed.
+			// Otherwise, it may trigger 'assertion' in se::Object::setPrivateData later
+			// since native obj is already released and the new native object may be assigned with
+			// the same address.
+			se::NativePtrToObjectMap::erase(iter);
+		}
+		else
+		{
+			return;
+		}
+
+		auto cleanup = [seObj]() {
+
+			auto se = se::ScriptEngine::getInstance();
+			if (!se->isValid() || se->isInCleanup())
+				return;
+
+			se::AutoHandleScope hs;
+			se->clearException();
+
+			// The mapping of native object & se::Object was cleared in above code.
+			// The private data (native object) may be a different object associated with other se::Object.
+			// Therefore, don't clear the mapping again.
+			seObj->clearPrivateData(false);
+			seObj->unroot();
+			seObj->decRef();
+		};
+
+		if (!se::ScriptEngine::getInstance()->isGarbageCollecting())
+		{
+			cleanup();
+		}
+		else
+		{
+			CleanupTask::pushTaskToAutoReleasePool(cleanup);
+		}
+	});
+
+	se::ScriptEngine::getInstance()->clearException();
+	return true;
+}
+
+
 static bool js_cocos2dx_spine_SkeletonRenderer_setFlipX(se::State& s)
 {
     spine::SkeletonRenderer* cobj = (spine::SkeletonRenderer*)s.nativeThisObject();
@@ -388,6 +524,7 @@ static bool js_register_cocos2dx_spine_SkeletonRenderer_manual(se::Object* obj)
 bool register_all_spine_manual(se::Object* obj)
 {
     js_register_spine_TrackEntry(obj);
+	js_register_spine_Bone(obj);
     js_register_cocos2dx_spine_SkeletonRenderer_manual(obj);
     return true;
 }
