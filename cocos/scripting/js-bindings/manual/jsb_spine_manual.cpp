@@ -361,6 +361,14 @@ static bool jsb_spine_Bone_get_x(se::State& s)
 }
 SE_BIND_PROP_GET(jsb_spine_Bone_get_x)
 
+static bool jsb_spine_Bone_set_x(se::State& s)
+{
+	spBone* cobj = (spBone*)s.nativeThisObject();
+	cobj->x = s.args()[0].toNumber();
+	return true;
+}
+SE_BIND_PROP_SET(jsb_spine_Bone_set_x)
+
 static bool jsb_spine_Bone_get_y(se::State& s)
 {
 	spBone* cobj = (spBone*)s.nativeThisObject();
@@ -368,6 +376,14 @@ static bool jsb_spine_Bone_get_y(se::State& s)
 	return true;
 }
 SE_BIND_PROP_GET(jsb_spine_Bone_get_y)
+
+static bool jsb_spine_Bone_set_y(se::State& s)
+{
+	spBone* cobj = (spBone*)s.nativeThisObject();
+	cobj->y = s.args()[0].toNumber();
+	return true;
+}
+SE_BIND_PROP_SET(jsb_spine_Bone_set_y)
 
 static bool jsb_spine_Bone_get_scaleX(se::State& s)
 {
@@ -401,15 +417,41 @@ static bool jsb_spine_Bone_get_worldY(se::State& s)
 }
 SE_BIND_PROP_GET(jsb_spine_Bone_get_worldY)
 
+static bool jsb_spine_Bone_worldToLocal(se::State& s)
+{
+	const auto& args = s.args();
+	size_t argc = args.size();
+	CC_UNUSED bool ok = true;
+	if (argc == 1) {
+		cocos2d::Vec2 arg0;
+		ok &= seval_to_Vec2(args[0], &arg0);
+		SE_PRECONDITION2(ok, false, "jsb_spine_Bone_worldToLocal : Error processing arguments");
+		spBone* cobj = (spBone*)s.nativeThisObject();
+		cocos2d::Vec2 result;
+		spBone_worldToLocal(cobj, arg0.x, arg0.y, &result.x, &result.y);
+		ok &= Vec2_to_seval(result, &s.rval());
+		SE_PRECONDITION2(ok, false, "jsb_spine_Bone_worldToLocal : Error processing arguments");
+		return true;
+	}
+	SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+	return false;
+
+	spBone* cobj = (spBone*)s.nativeThisObject();
+	s.rval().setFloat(cobj->worldY);
+	return true;
+}
+SE_BIND_FUNC(jsb_spine_Bone_worldToLocal)
+
 static bool js_register_spine_Bone(se::Object* obj)
 {
 	se::Class* cls = se::Class::create("Bone", obj, nullptr, _SE(jsb_spine_Bone_constructor));
-	cls->defineProperty("x", _SE(jsb_spine_Bone_get_x), nullptr);
-	cls->defineProperty("y", _SE(jsb_spine_Bone_get_y), nullptr);
+	cls->defineProperty("x", _SE(jsb_spine_Bone_get_x), _SE(jsb_spine_Bone_set_x));
+	cls->defineProperty("y", _SE(jsb_spine_Bone_get_y), _SE(jsb_spine_Bone_set_y));
 	cls->defineProperty("scaleX", _SE(jsb_spine_Bone_get_scaleX), nullptr);
 	cls->defineProperty("scaleY", _SE(jsb_spine_Bone_get_scaleY), nullptr);
 	cls->defineProperty("worldX", _SE(jsb_spine_Bone_get_worldX), nullptr);
 	cls->defineProperty("worldY", _SE(jsb_spine_Bone_get_worldY), nullptr);
+	cls->defineFunction("worldToLocal", _SE(jsb_spine_Bone_worldToLocal));
 
 	cls->defineFinalizeFunction(_SE(jsb_spine_Bone_finalize));
 	cls->install();
