@@ -375,7 +375,7 @@ se::Class* __jsb_spine_SkeletonData_class = nullptr;
 
 static bool jsb_spine_SkeletonData_finalize(se::State& s)
 {
-	CCLOGINFO("jsbindings: finalizing JS object %p (spSkeletonData)", s.nativeThisObject());
+	spSkeletonData_dispose((spSkeletonData*)s.nativeThisObject());
 	return true;
 }
 SE_BIND_FINALIZE_FUNC(jsb_spine_SkeletonData_finalize)
@@ -423,7 +423,7 @@ static bool jsb_spine_SkeletonData_constructor(se::State& s)
 	spSkeletonData* skeletonData = spSkeletonJson_readSkeletonDataFile(json, jsonPath.c_str());
 	CCASSERT(skeletonData, json->error ? json->error : "Error reading skeleton data file.");
 	spSkeletonJson_dispose(json);
-	spAttachmentLoader_dispose(attachmentLoader);
+	//spAttachmentLoader_dispose(attachmentLoader); it will be invoked in spSkeletonData_dispose
 
 	s.thisObject()->setPrivateData(skeletonData);
 	return true;
