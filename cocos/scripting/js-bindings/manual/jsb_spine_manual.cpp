@@ -41,6 +41,7 @@
 #include "cocos2d.h"
 #include "cocos/editor-support/spine/spine.h"
 #include "spine/spine-cocos2dx.h"
+#include <spine/extension.h>
 
 using namespace cocos2d;
 
@@ -359,6 +360,92 @@ static bool js_register_spine_TrackEntry(se::Object* obj)
 }
 
 
+// SkeletonData
+
+static cocos2d::Map<std::string, cocos2d::Texture2D*>* _preloadedAtlasTextures = nullptr;
+static cocos2d::Texture2D* _getPreloadedAtlasTexture(const char* path)
+{
+	assert(_preloadedAtlasTextures);
+	auto it = _preloadedAtlasTextures->find(path);
+	return it != _preloadedAtlasTextures->end() ? it->second : nullptr;
+}
+
+se::Class* __jsb_spine_SkeletonData_class = nullptr;
+//se::Object* __jsb_spine_SkeletonData_proto = nullptr;
+
+static bool jsb_spine_SkeletonData_finalize(se::State& s)
+{
+	CCLOGINFO("jsbindings: finalizing JS object %p (spSkeletonData)", s.nativeThisObject());
+	return true;
+}
+SE_BIND_FINALIZE_FUNC(jsb_spine_SkeletonData_finalize)
+
+static bool jsb_spine_SkeletonData_constructor(se::State& s)
+{
+	const auto& args = s.args();
+	int argc = (int)args.size();
+	if (argc != 4) {
+		SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", argc, 5);
+		return false;
+	}
+	bool ok = false;
+
+	std::string jsonPath;
+	ok = seval_to_std_string(args[0], &jsonPath);
+	SE_PRECONDITION2(ok, false, "jsb_spine_SkeletonData_constructor: Invalid json path!");
+
+	std::string atlasText;
+	ok = seval_to_std_string(args[1], &atlasText);
+	SE_PRECONDITION2(ok, false, "jsb_spine_SkeletonData_constructor: Invalid atlas content!");
+
+	cocos2d::Map<std::string, cocos2d::Texture2D*> textures;
+	ok = seval_to_Map_string_key(args[2], &textures);
+	SE_PRECONDITION2(ok, false, "jsb_spine_SkeletonData_constructor: Invalid textures!");
+
+	float scale = 1.0f;
+	ok = seval_to_float(args[3], &scale);
+	SE_PRECONDITION2(ok, false, "jsb_spine_SkeletonData_constructor: Invalid scale!");
+
+	// create atlas from preloaded texture
+
+	_preloadedAtlasTextures = &textures;
+	spine::spAtlasPage_setCustomTextureLoader(_getPreloadedAtlasTexture);
+
+	spAtlas* atlas = spAtlas_create(atlasText.c_str(), (int)atlasText.size(), "", nullptr);
+	CCASSERT(atlas, "Error creating atlas.");
+
+	_preloadedAtlasTextures = nullptr;
+	spine::spAtlasPage_setCustomTextureLoader(nullptr);
+
+	auto attachmentLoader = SUPER(Cocos2dAttachmentLoader_create(atlas));
+	spSkeletonJson* json = spSkeletonJson_createWithLoader(attachmentLoader);
+	json->scale = scale;
+	spSkeletonData* skeletonData = spSkeletonJson_readSkeletonDataFile(json, jsonPath.c_str());
+	CCASSERT(skeletonData, json->error ? json->error : "Error reading skeleton data file.");
+	spSkeletonJson_dispose(json);
+	spAttachmentLoader_dispose(attachmentLoader);
+
+	s.thisObject()->setPrivateData(skeletonData);
+	return true;
+}
+SE_BIND_CTOR(jsb_spine_SkeletonData_constructor, __jsb_spine_SkeletonData_class, jsb_spine_SkeletonData_finalize)
+
+static bool js_register_spine_SkeletonData(se::Object* obj)
+{
+	se::Class* cls = se::Class::create("SGSkeletonData", obj, nullptr, _SE(jsb_spine_SkeletonData_constructor));
+
+	cls->defineFinalizeFunction(_SE(jsb_spine_SkeletonData_finalize));
+	cls->install();
+
+	JSBClassType::registerClass<spSkeletonData>(cls);
+	__jsb_spine_SkeletonData_class = cls;
+	//__jsb_spine_SkeletonData_proto = cls->getProto();
+
+	se::ScriptEngine::getInstance()->clearException();
+	return true;
+}
+
+
 // Bone registration
 
 se::Class* __jsb_spine_Bone_class = nullptr;
@@ -591,7 +678,19 @@ static bool js_register_cocos2dx_spine_SkeletonRenderer_manual(se::Object* obj)
 bool register_all_spine_manual(se::Object* obj)
 {
     js_register_spine_TrackEntry(obj);
-	js_register_spine_Bone(obj);
-    js_register_cocos2dx_spine_SkeletonRenderer_manual(obj);
+
+	// Get the ns
+	se::Value nsVal;
+	if (!obj->getProperty("sp", &nsVal))
+	{
+		se::HandleObject jsobj(se::Object::createPlainObject());
+		nsVal.setObject(jsobj);
+		obj->setProperty("sp", nsVal);
+	}
+	se::Object* ns = nsVal.toObject();
+
+	js_register_spine_SkeletonData(ns);
+	js_register_spine_Bone(ns);
+    js_register_cocos2dx_spine_SkeletonRenderer_manual(ns);
     return true;
 }
