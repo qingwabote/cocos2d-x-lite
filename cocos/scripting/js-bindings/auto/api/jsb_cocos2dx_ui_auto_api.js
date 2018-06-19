@@ -689,14 +689,14 @@ ccui.Helper = {
 /**
  * @method getSubStringOfUTF8String
  * @param {String} arg0
- * @param {unsigned long} arg1
- * @param {unsigned long} arg2
+ * @param {unsigned int} arg1
+ * @param {unsigned int} arg2
  * @return {String}
  */
 getSubStringOfUTF8String : function (
 str, 
-long, 
-long 
+int, 
+int 
 )
 {
     return ;

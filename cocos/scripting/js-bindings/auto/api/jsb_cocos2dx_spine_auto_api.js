@@ -105,6 +105,26 @@ setToSetupPose : function (
 },
 
 /**
+ * @method setDebugMeshesEnabled
+ * @param {bool} arg0
+ */
+setDebugMeshesEnabled : function (
+bool 
+)
+{
+},
+
+/**
+ * @method isTwoColorTint
+ * @return {bool}
+ */
+isTwoColorTint : function (
+)
+{
+    return false;
+},
+
+/**
  * @method getBlendFunc
  * @return {cc.BlendFunc}
  */
@@ -112,14 +132,6 @@ getBlendFunc : function (
 )
 {
     return cc.BlendFunc;
-},
-
-/**
- * @method updateWorldTransform
- */
-updateWorldTransform : function (
-)
-{
 },
 
 /**
@@ -175,11 +187,41 @@ getTimeScale : function (
 },
 
 /**
+ * @method setTwoColorTint
+ * @param {bool} arg0
+ */
+setTwoColorTint : function (
+bool 
+)
+{
+},
+
+/**
+ * @method getDebugMeshesEnabled
+ * @return {bool}
+ */
+getDebugMeshesEnabled : function (
+)
+{
+    return false;
+},
+
+/**
  * @method setBlendFunc
  * @param {cc.BlendFunc} arg0
  */
 setBlendFunc : function (
 blendfunc 
+)
+{
+},
+
+/**
+ * @method setVertexEffect
+ * @param {spVertexEffect} arg0
+ */
+setVertexEffect : function (
+spvertexeffect 
 )
 {
 },
@@ -206,6 +248,14 @@ str
 )
 {
     return spSlot;
+},
+
+/**
+ * @method updateWorldTransform
+ */
+updateWorldTransform : function (
+)
+{
 },
 
 /**
@@ -325,6 +375,22 @@ float
 },
 
 /**
+ * @method addEmptyAnimation
+ * @param {int} arg0
+ * @param {float} arg1
+ * @param {float} arg2
+ * @return {spTrackEntry}
+ */
+addEmptyAnimation : function (
+int, 
+float, 
+float 
+)
+{
+    return spTrackEntry;
+},
+
+/**
  * @method setDisposeListener
  * @param {function} arg0
  */
@@ -395,6 +461,20 @@ func
 },
 
 /**
+ * @method setEmptyAnimation
+ * @param {int} arg0
+ * @param {float} arg1
+ * @return {spTrackEntry}
+ */
+setEmptyAnimation : function (
+int, 
+float 
+)
+{
+    return spTrackEntry;
+},
+
+/**
  * @method clearTrack
  */
 clearTrack : function (
@@ -428,6 +508,16 @@ float
 )
 {
     return spTrackEntry;
+},
+
+/**
+ * @method setEmptyAnimations
+ * @param {float} arg0
+ */
+setEmptyAnimations : function (
+float 
+)
+{
 },
 
 /**
@@ -501,6 +591,72 @@ SkeletonAnimation : function(
 str,
 str,
 float 
+)
+{
+},
+
+};
+
+/**
+ * @class SkeletonDataCache
+ */
+sp.SkeletonDataCache = {
+
+/**
+ * @method addSkeletonData
+ * @param {String} arg0
+ * @param {String} arg1
+ * @return {spSkeletonData}
+ */
+addSkeletonData : function (
+str, 
+str 
+)
+{
+    return spSkeletonData;
+},
+
+/**
+ * @method addSkeletonDataAsync
+ * @param {String} arg0
+ * @param {String} arg1
+ * @param {function} arg2
+ */
+addSkeletonDataAsync : function (
+str, 
+str, 
+func 
+)
+{
+},
+
+/**
+ * @method addAtlas
+ * @param {String} arg0
+ * @return {spAtlas}
+ */
+addAtlas : function (
+str 
+)
+{
+    return spAtlas;
+},
+
+/**
+ * @method getInstance
+ * @return {SkeletonDataCache}
+ */
+getInstance : function (
+)
+{
+    return SkeletonDataCache;
+},
+
+/**
+ * @method SkeletonDataCache
+ * @constructor
+ */
+SkeletonDataCache : function (
 )
 {
 },

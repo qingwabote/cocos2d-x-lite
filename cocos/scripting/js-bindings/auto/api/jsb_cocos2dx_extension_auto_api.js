@@ -572,3 +572,93 @@ EventListenerAssetsManagerEx : function (
 },
 
 };
+
+/**
+ * @class Effect
+ */
+cc.Effect = {
+
+/**
+ * @method init
+ * @param {String} arg0
+ * @return {bool}
+ */
+init : function (
+str 
+)
+{
+    return false;
+},
+
+/**
+ * @method create
+ * @param {String} arg0
+ * @return {Effect}
+ */
+create : function (
+str 
+)
+{
+    return Effect;
+},
+
+/**
+ * @method Effect
+ * @constructor
+ */
+Effect : function (
+)
+{
+},
+
+};
+
+/**
+ * @class EffectNode
+ */
+cc.EffectNode = {
+
+/**
+ * @method init
+ * @param {Effect} arg0
+ * @return {bool}
+ */
+init : function (
+effect 
+)
+{
+    return false;
+},
+
+/**
+ * @method setIsLooping
+ * @param {bool} arg0
+ */
+setIsLooping : function (
+bool 
+)
+{
+},
+
+/**
+ * @method create
+ * @param {Effect} arg0
+ * @return {EffectNode}
+ */
+create : function (
+effect 
+)
+{
+    return EffectNode;
+},
+
+/**
+ * @method EffectNode
+ * @constructor
+ */
+EffectNode : function (
+)
+{
+},
+
+};

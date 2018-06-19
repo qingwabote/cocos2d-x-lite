@@ -14,6 +14,10 @@ assets-manager/Manifest.cpp \
 assets-manager/AssetsManagerEx.cpp \
 assets-manager/CCEventAssetsManagerEx.cpp \
 assets-manager/CCEventListenerAssetsManagerEx.cpp \
+effekseer/EffectNode.cpp \
+effekseer/Effekseer.cpp \
+effekseer/EffekseerNative.cpp \
+effekseer/EffekseerRendererNative.cpp \
 
 LOCAL_STATIC_LIBRARIES := cis
 LOCAL_STATIC_LIBRARIES += cocos_chipmunk_static

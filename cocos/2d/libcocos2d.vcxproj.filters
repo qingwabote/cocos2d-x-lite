@@ -100,6 +100,9 @@
     <Filter Include="external\xxtea">
       <UniqueIdentifier>{e4b632da-e1a4-4f13-bed5-31b9742d3029}</UniqueIdentifier>
     </Filter>
+    <Filter Include="extension\effekseer">
+      <UniqueIdentifier>{3ddcacc1-40f5-4dd5-8408-dd08dda5e893}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\external\sources\xxhash\xxhash.c">
@@ -731,6 +734,18 @@
     </ClCompile>
     <ClCompile Include="..\..\external\sources\xxtea\xxtea.cpp">
       <Filter>external\xxtea</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\extensions\effekseer\Effekseer.cpp">
+      <Filter>extension\effekseer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\extensions\effekseer\EffekseerNative.cpp">
+      <Filter>extension\effekseer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\extensions\effekseer\EffekseerRendererNative.cpp">
+      <Filter>extension\effekseer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\extensions\effekseer\EffectNode.cpp">
+      <Filter>extension\effekseer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1443,6 +1458,18 @@
     </ClInclude>
     <ClInclude Include="..\..\external\sources\xxtea\xxtea.h">
       <Filter>external\xxtea</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extensions\effekseer\Effekseer.h">
+      <Filter>extension\effekseer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extensions\effekseer\EffekseerNative.h">
+      <Filter>extension\effekseer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extensions\effekseer\EffekseerRendererNative.h">
+      <Filter>extension\effekseer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extensions\effekseer\EffectNode.h">
+      <Filter>extension\effekseer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

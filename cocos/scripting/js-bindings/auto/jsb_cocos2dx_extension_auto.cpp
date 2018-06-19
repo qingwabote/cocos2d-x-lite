@@ -2,6 +2,7 @@
 #include "scripting/js-bindings/manual/jsb_conversions.hpp"
 #include "scripting/js-bindings/manual/jsb_global.h"
 #include "extensions/cocos-ext.h"
+#include "extensions/effekseer/EffectNode.h"
 
 se::Object* __jsb_cocos2d_extension_EventAssetsManagerEx_proto = nullptr;
 se::Class* __jsb_cocos2d_extension_EventAssetsManagerEx_class = nullptr;
@@ -1337,6 +1338,201 @@ bool js_register_cocos2dx_extension_EventListenerAssetsManagerEx(se::Object* obj
     return true;
 }
 
+se::Object* __jsb_Effect_proto = nullptr;
+se::Class* __jsb_Effect_class = nullptr;
+
+static bool js_cocos2dx_extension_Effect_init(se::State& s)
+{
+    Effect* cobj = (Effect*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_extension_Effect_init : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        std::string arg0;
+        ok &= seval_to_std_string(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_Effect_init : Error processing arguments");
+        bool result = cobj->init(arg0);
+        ok &= boolean_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_Effect_init : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_extension_Effect_init)
+
+static bool js_cocos2dx_extension_Effect_create(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        std::string arg0;
+        ok &= seval_to_std_string(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_Effect_create : Error processing arguments");
+        auto result = Effect::create(arg0);
+        result->retain();
+        auto obj = se::Object::createObjectWithClass(__jsb_Effect_class);
+        obj->setPrivateData(result);
+        s.rval().setObject(obj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_extension_Effect_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_Effect_finalize)
+
+static bool js_cocos2dx_extension_Effect_constructor(se::State& s)
+{
+    Effect* cobj = new (std::nothrow) Effect();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_extension_Effect_constructor, __jsb_Effect_class, js_Effect_finalize)
+
+
+
+
+static bool js_Effect_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (Effect)", s.nativeThisObject());
+    Effect* cobj = (Effect*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_Effect_finalize)
+
+bool js_register_cocos2dx_extension_Effect(se::Object* obj)
+{
+    auto cls = se::Class::create("Effect", obj, nullptr, _SE(js_cocos2dx_extension_Effect_constructor));
+
+    cls->defineFunction("init", _SE(js_cocos2dx_extension_Effect_init));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_extension_Effect_create));
+    cls->defineFinalizeFunction(_SE(js_Effect_finalize));
+    cls->install();
+    JSBClassType::registerClass<Effect>(cls);
+
+    __jsb_Effect_proto = cls->getProto();
+    __jsb_Effect_class = cls;
+
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_EffectNode_proto = nullptr;
+se::Class* __jsb_EffectNode_class = nullptr;
+
+static bool js_cocos2dx_extension_EffectNode_init(se::State& s)
+{
+    EffectNode* cobj = (EffectNode*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_extension_EffectNode_init : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        Effect* arg0 = nullptr;
+        ok &= seval_to_native_ptr(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_EffectNode_init : Error processing arguments");
+        bool result = cobj->init(arg0);
+        ok &= boolean_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_EffectNode_init : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_extension_EffectNode_init)
+
+static bool js_cocos2dx_extension_EffectNode_setIsLooping(se::State& s)
+{
+    EffectNode* cobj = (EffectNode*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_extension_EffectNode_setIsLooping : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        bool arg0;
+        ok &= seval_to_boolean(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_EffectNode_setIsLooping : Error processing arguments");
+        cobj->setIsLooping(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_extension_EffectNode_setIsLooping)
+
+static bool js_cocos2dx_extension_EffectNode_create(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        Effect* arg0 = nullptr;
+        ok &= seval_to_native_ptr(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_EffectNode_create : Error processing arguments");
+        auto result = EffectNode::create(arg0);
+        result->retain();
+        auto obj = se::Object::createObjectWithClass(__jsb_EffectNode_class);
+        obj->setPrivateData(result);
+        s.rval().setObject(obj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_extension_EffectNode_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_EffectNode_finalize)
+
+static bool js_cocos2dx_extension_EffectNode_constructor(se::State& s)
+{
+    EffectNode* cobj = new (std::nothrow) EffectNode();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_extension_EffectNode_constructor, __jsb_EffectNode_class, js_EffectNode_finalize)
+
+
+
+extern se::Object* __jsb_cocos2d_Node_proto;
+
+static bool js_EffectNode_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (EffectNode)", s.nativeThisObject());
+    EffectNode* cobj = (EffectNode*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_EffectNode_finalize)
+
+bool js_register_cocos2dx_extension_EffectNode(se::Object* obj)
+{
+    auto cls = se::Class::create("EffectNode", obj, __jsb_cocos2d_Node_proto, _SE(js_cocos2dx_extension_EffectNode_constructor));
+
+    cls->defineFunction("init", _SE(js_cocos2dx_extension_EffectNode_init));
+    cls->defineFunction("setIsLooping", _SE(js_cocos2dx_extension_EffectNode_setIsLooping));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_extension_EffectNode_create));
+    cls->defineFinalizeFunction(_SE(js_EffectNode_finalize));
+    cls->install();
+    JSBClassType::registerClass<EffectNode>(cls);
+
+    __jsb_EffectNode_proto = cls->getProto();
+    __jsb_EffectNode_class = cls;
+
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
 bool register_all_cocos2dx_extension(se::Object* obj)
 {
     // Get the ns
@@ -1351,6 +1547,8 @@ bool register_all_cocos2dx_extension(se::Object* obj)
 
     js_register_cocos2dx_extension_AssetsManagerEx(ns);
     js_register_cocos2dx_extension_EventListenerAssetsManagerEx(ns);
+    js_register_cocos2dx_extension_Effect(ns);
+    js_register_cocos2dx_extension_EffectNode(ns);
     js_register_cocos2dx_extension_Manifest(ns);
     js_register_cocos2dx_extension_EventAssetsManagerEx(ns);
     return true;

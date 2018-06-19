@@ -78,3 +78,22 @@ SE_DECLARE_FUNC(js_cocos2dx_extension_EventListenerAssetsManagerEx_init);
 SE_DECLARE_FUNC(js_cocos2dx_extension_EventListenerAssetsManagerEx_create);
 SE_DECLARE_FUNC(js_cocos2dx_extension_EventListenerAssetsManagerEx_EventListenerAssetsManagerEx);
 
+extern se::Object* __jsb_Effect_proto;
+extern se::Class* __jsb_Effect_class;
+
+bool js_register_Effect(se::Object* obj);
+bool register_all_cocos2dx_extension(se::Object* obj);
+SE_DECLARE_FUNC(js_cocos2dx_extension_Effect_init);
+SE_DECLARE_FUNC(js_cocos2dx_extension_Effect_create);
+SE_DECLARE_FUNC(js_cocos2dx_extension_Effect_Effect);
+
+extern se::Object* __jsb_EffectNode_proto;
+extern se::Class* __jsb_EffectNode_class;
+
+bool js_register_EffectNode(se::Object* obj);
+bool register_all_cocos2dx_extension(se::Object* obj);
+SE_DECLARE_FUNC(js_cocos2dx_extension_EffectNode_init);
+SE_DECLARE_FUNC(js_cocos2dx_extension_EffectNode_setIsLooping);
+SE_DECLARE_FUNC(js_cocos2dx_extension_EffectNode_create);
+SE_DECLARE_FUNC(js_cocos2dx_extension_EffectNode_EffectNode);
+

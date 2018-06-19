@@ -592,6 +592,12 @@ enum class LabelEffect : char {
     ALL
 };
 
+class CC_DLL Flag //XXX: An empty class adapted for other project
+{
+public:
+	uint32_t value() const { return 0; }
+};
+
 /** @struct Acceleration
  * The device accelerometer reports values for each axis in units of g-force.
  */
