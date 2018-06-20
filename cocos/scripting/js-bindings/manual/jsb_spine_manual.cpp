@@ -571,10 +571,6 @@ static bool jsb_spine_Bone_worldToLocal(se::State& s)
 	}
 	SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
 	return false;
-
-	spBone* cobj = (spBone*)s.nativeThisObject();
-	s.rval().setFloat(cobj->worldY);
-	return true;
 }
 SE_BIND_FUNC(jsb_spine_Bone_worldToLocal)
 
