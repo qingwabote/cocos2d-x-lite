@@ -43,6 +43,8 @@
 #include "spine/spine-cocos2dx.h"
 #include <spine/extension.h>
 
+#include "spine/SkeletonJsonAsync.h"
+
 using namespace cocos2d;
 
 // TrackEntry registration
@@ -384,10 +386,7 @@ static bool jsb_spine_SkeletonData_constructor(se::State& s)
 {
 	const auto& args = s.args();
 	int argc = (int)args.size();
-	if (argc != 4) {
-		SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", argc, 5);
-		return false;
-	}
+
 	bool ok = false;
 
 	std::string jsonPath;
@@ -417,16 +416,41 @@ static bool jsb_spine_SkeletonData_constructor(se::State& s)
 	_preloadedAtlasTextures = nullptr;
 	spine::spAtlasPage_setCustomTextureLoader(nullptr);
 
-	auto attachmentLoader = SUPER(Cocos2dAttachmentLoader_create(atlas));
-	spSkeletonJson* json = spSkeletonJson_createWithLoader(attachmentLoader);
-	json->scale = scale;
-	spSkeletonData* skeletonData = spSkeletonJson_readSkeletonDataFile(json, jsonPath.c_str());
-	CCASSERT(skeletonData, json->error ? json->error : "Error reading skeleton data file.");
-	spSkeletonJson_dispose(json);
-	//spAttachmentLoader_dispose(attachmentLoader); it will be invoked in spSkeletonData_dispose
+	if (argc == 4) {
+		spAttachmentLoader* attachmentLoader = SUPER(Cocos2dAttachmentLoader_create(atlas));
+		spSkeletonJson* json = spSkeletonJson_createWithLoader(attachmentLoader);
+		json->scale = scale;
+		spSkeletonData* skeletonData = spSkeletonJson_readSkeletonDataFile(json, jsonPath.c_str());
+		CCASSERT(skeletonData, json->error ? json->error : "Error reading skeleton data file.");
+		spSkeletonJson_dispose(json);
+		//spAttachmentLoader_dispose(attachmentLoader); it will be invoked in spSkeletonData_dispose
 
-	s.thisObject()->setPrivateData(skeletonData);
-	return true;
+		s.thisObject()->setPrivateData(skeletonData);
+		return true;
+	}
+
+	if (argc == 5) {
+		se::Value jsThis(s.thisObject());
+		se::Value jsFunc(args[4]);
+		SkeletonJsonAsync::getInstance()->readSkeletonDataAsync(jsonPath, atlas, scale, [=](spSkeletonData* data) -> void {
+			se::ScriptEngine::getInstance()->clearException();
+			se::AutoHandleScope hs;
+
+			se::ValueArray args;
+			args.resize(1);
+			native_ptr_to_seval<spSkeletonData>(data, &args[0]);
+			se::Object* thisObj = jsThis.isObject() ? jsThis.toObject() : nullptr;
+			se::Object* funcObj = jsFunc.toObject();
+			bool succeed = funcObj->call(args, thisObj);
+			if (!succeed) {
+				se::ScriptEngine::getInstance()->clearException();
+			}
+		});
+		return true;
+	}
+
+	SE_REPORT_ERROR("wrong number of arguments: %d", (int)argc);
+	return false;
 }
 SE_BIND_CTOR(jsb_spine_SkeletonData_constructor, __jsb_spine_SkeletonData_class, jsb_spine_SkeletonData_finalize)
 

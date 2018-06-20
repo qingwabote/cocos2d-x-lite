@@ -149,7 +149,7 @@
     <ClCompile Include="..\VertexEffect.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\SkeletonDataCache.cpp">
+    <ClCompile Include="..\SkeletonJsonAsync.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -301,7 +301,7 @@
     <ClInclude Include="..\VertexEffect.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\SkeletonDataCache.h">
+    <ClInclude Include="..\SkeletonJsonAsync.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

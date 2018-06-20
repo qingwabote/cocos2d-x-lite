@@ -2,7 +2,6 @@
 #include "scripting/js-bindings/manual/jsb_conversions.hpp"
 #include "scripting/js-bindings/manual/jsb_global.h"
 #include "spine/spine-cocos2dx.h"
-#include "spine/SkeletonDataCache.h"
 
 se::Object* __jsb_spine_SkeletonRenderer_proto = nullptr;
 se::Class* __jsb_spine_SkeletonRenderer_class = nullptr;
@@ -1908,163 +1907,6 @@ bool js_register_cocos2dx_spine_SkeletonAnimation(se::Object* obj)
     return true;
 }
 
-se::Object* __jsb_SkeletonDataCache_proto = nullptr;
-se::Class* __jsb_SkeletonDataCache_class = nullptr;
-
-static bool js_cocos2dx_spine_SkeletonDataCache_addSkeletonData(se::State& s)
-{
-    SkeletonDataCache* cobj = (SkeletonDataCache*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_spine_SkeletonDataCache_addSkeletonData : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 2) {
-        std::string arg0;
-        std::string arg1;
-        ok &= seval_to_std_string(args[0], &arg0);
-        ok &= seval_to_std_string(args[1], &arg1);
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_spine_SkeletonDataCache_addSkeletonData : Error processing arguments");
-        spSkeletonData* result = cobj->addSkeletonData(arg0, arg1);
-        #pragma warning NO CONVERSION FROM NATIVE FOR spSkeletonData*;
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_spine_SkeletonDataCache_addSkeletonData : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_spine_SkeletonDataCache_addSkeletonData)
-
-static bool js_cocos2dx_spine_SkeletonDataCache_addSkeletonDataAsync(se::State& s)
-{
-    SkeletonDataCache* cobj = (SkeletonDataCache*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_spine_SkeletonDataCache_addSkeletonDataAsync : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 3) {
-        std::string arg0;
-        std::string arg1;
-        std::function<void ()> arg2;
-        ok &= seval_to_std_string(args[0], &arg0);
-        ok &= seval_to_std_string(args[1], &arg1);
-        do {
-            if (args[2].isObject() && args[2].toObject()->isFunction())
-            {
-                se::Value jsThis(s.thisObject());
-                se::Value jsFunc(args[2]);
-                jsFunc.toObject()->root();
-                auto lambda = [=]() -> void {
-                    se::ScriptEngine::getInstance()->clearException();
-                    se::AutoHandleScope hs;
-        
-                    se::Value rval;
-                    se::Object* thisObj = jsThis.isObject() ? jsThis.toObject() : nullptr;
-                    se::Object* funcObj = jsFunc.toObject();
-                    bool succeed = funcObj->call(se::EmptyValueArray, thisObj, &rval);
-                    if (!succeed) {
-                        se::ScriptEngine::getInstance()->clearException();
-                    }
-                };
-                arg2 = lambda;
-            }
-            else
-            {
-                arg2 = nullptr;
-            }
-        } while(false)
-        ;
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_spine_SkeletonDataCache_addSkeletonDataAsync : Error processing arguments");
-        cobj->addSkeletonDataAsync(arg0, arg1, arg2);
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 3);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_spine_SkeletonDataCache_addSkeletonDataAsync)
-
-static bool js_cocos2dx_spine_SkeletonDataCache_addAtlas(se::State& s)
-{
-    SkeletonDataCache* cobj = (SkeletonDataCache*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_spine_SkeletonDataCache_addAtlas : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 1) {
-        std::string arg0;
-        ok &= seval_to_std_string(args[0], &arg0);
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_spine_SkeletonDataCache_addAtlas : Error processing arguments");
-        spAtlas* result = cobj->addAtlas(arg0);
-        #pragma warning NO CONVERSION FROM NATIVE FOR spAtlas*;
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_spine_SkeletonDataCache_addAtlas : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_spine_SkeletonDataCache_addAtlas)
-
-static bool js_cocos2dx_spine_SkeletonDataCache_getInstance(se::State& s)
-{
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 0) {
-        auto result = SkeletonDataCache::getInstance();
-        se::Value instanceVal;
-        native_ptr_to_seval<SkeletonDataCache>(result, __jsb_SkeletonDataCache_class, &instanceVal);
-        instanceVal.toObject()->root();
-        s.rval() = instanceVal;
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_spine_SkeletonDataCache_getInstance)
-
-SE_DECLARE_FINALIZE_FUNC(js_SkeletonDataCache_finalize)
-
-static bool js_cocos2dx_spine_SkeletonDataCache_constructor(se::State& s)
-{
-    SkeletonDataCache* cobj = new (std::nothrow) SkeletonDataCache();
-    s.thisObject()->setPrivateData(cobj);
-    return true;
-}
-SE_BIND_CTOR(js_cocos2dx_spine_SkeletonDataCache_constructor, __jsb_SkeletonDataCache_class, js_SkeletonDataCache_finalize)
-
-
-
-
-static bool js_SkeletonDataCache_finalize(se::State& s)
-{
-    CCLOGINFO("jsbindings: finalizing JS object %p (SkeletonDataCache)", s.nativeThisObject());
-    SkeletonDataCache* cobj = (SkeletonDataCache*)s.nativeThisObject();
-    if (cobj->getReferenceCount() == 1)
-        cobj->autorelease();
-    else
-        cobj->release();
-    return true;
-}
-SE_BIND_FINALIZE_FUNC(js_SkeletonDataCache_finalize)
-
-bool js_register_cocos2dx_spine_SkeletonDataCache(se::Object* obj)
-{
-    auto cls = se::Class::create("SkeletonDataCache", obj, nullptr, _SE(js_cocos2dx_spine_SkeletonDataCache_constructor));
-
-    cls->defineFunction("addSkeletonData", _SE(js_cocos2dx_spine_SkeletonDataCache_addSkeletonData));
-    cls->defineFunction("addSkeletonDataAsync", _SE(js_cocos2dx_spine_SkeletonDataCache_addSkeletonDataAsync));
-    cls->defineFunction("addAtlas", _SE(js_cocos2dx_spine_SkeletonDataCache_addAtlas));
-    cls->defineStaticFunction("getInstance", _SE(js_cocos2dx_spine_SkeletonDataCache_getInstance));
-    cls->defineFinalizeFunction(_SE(js_SkeletonDataCache_finalize));
-    cls->install();
-    JSBClassType::registerClass<SkeletonDataCache>(cls);
-
-    __jsb_SkeletonDataCache_proto = cls->getProto();
-    __jsb_SkeletonDataCache_class = cls;
-
-    se::ScriptEngine::getInstance()->clearException();
-    return true;
-}
-
 bool register_all_cocos2dx_spine(se::Object* obj)
 {
     // Get the ns
@@ -2079,7 +1921,6 @@ bool register_all_cocos2dx_spine(se::Object* obj)
 
     js_register_cocos2dx_spine_SkeletonRenderer(ns);
     js_register_cocos2dx_spine_SkeletonAnimation(ns);
-    js_register_cocos2dx_spine_SkeletonDataCache(ns);
     return true;
 }
 

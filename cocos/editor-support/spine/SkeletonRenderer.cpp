@@ -36,8 +36,6 @@
 #include <spine/Cocos2dAttachmentLoader.h>
 #include <algorithm>
 
-#include "SkeletonDataCache.h"
-
 USING_NS_CC;
 using std::min;
 using std::max;
@@ -94,7 +92,7 @@ SkeletonRenderer::SkeletonRenderer (const std::string& skeletonDataFile, spAtlas
 
 SkeletonRenderer::SkeletonRenderer (const std::string& skeletonDataFile, const std::string& atlasFile, float scale)
 	: _atlas(nullptr), _attachmentLoader(nullptr), _debugSlots(false), _debugBones(false), _debugMeshes(false), _timeScale(1), _effect(nullptr) {
-	setSkeletonData(SkeletonDataCache::getInstance()->addSkeletonData(skeletonDataFile, atlasFile), false);
+	initWithJsonFile(skeletonDataFile, atlasFile, scale);
 }
 
 SkeletonRenderer::~SkeletonRenderer () {
