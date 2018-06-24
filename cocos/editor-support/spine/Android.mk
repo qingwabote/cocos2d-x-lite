@@ -41,8 +41,8 @@ SkeletonBinary.c \
 SkeletonBounds.c \
 SkeletonClipping.c \
 SkeletonData.c \
-SkeletonDataCache.cpp \
 SkeletonJson.c \
+SkeletonJsonAsync.cpp \
 SkeletonRenderer.cpp \
 SkeletonTwoColorBatch.cpp \
 Skin.c \
