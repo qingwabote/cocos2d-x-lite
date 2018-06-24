@@ -14,8 +14,8 @@ static bool js_cocos2dx_dragonbones_BaseObject_getClassTypeIndex(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        unsigned long result = cobj->getClassTypeIndex();
-        ok &= ulong_to_seval(result, &s.rval());
+        unsigned int result = cobj->getClassTypeIndex();
+        ok &= uint32_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_cocos2dx_dragonbones_BaseObject_getClassTypeIndex : Error processing arguments");
         return true;
     }
@@ -45,8 +45,8 @@ static bool js_cocos2dx_dragonbones_BaseObject_clearPool(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 1) {
-        unsigned long arg0 = 0;
-        ok &= seval_to_ulong(args[0], &arg0);
+        unsigned int arg0 = 0;
+        ok &= seval_to_uint32(args[0], (uint32_t*)&arg0);
         SE_PRECONDITION2(ok, false, "js_cocos2dx_dragonbones_BaseObject_clearPool : Error processing arguments");
         dragonBones::BaseObject::clearPool(arg0);
         return true;
@@ -62,10 +62,10 @@ static bool js_cocos2dx_dragonbones_BaseObject_setMaxCount(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 2) {
-        unsigned long arg0 = 0;
-        unsigned long arg1 = 0;
-        ok &= seval_to_ulong(args[0], &arg0);
-        ok &= seval_to_ulong(args[1], &arg1);
+        unsigned int arg0 = 0;
+        unsigned int arg1 = 0;
+        ok &= seval_to_uint32(args[0], (uint32_t*)&arg0);
+        ok &= seval_to_uint32(args[1], (uint32_t*)&arg1);
         SE_PRECONDITION2(ok, false, "js_cocos2dx_dragonbones_BaseObject_setMaxCount : Error processing arguments");
         dragonBones::BaseObject::setMaxCount(arg0, arg1);
         return true;
@@ -657,8 +657,8 @@ static bool js_cocos2dx_dragonbones_AnimationData_getClassTypeIndex(se::State& s
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        unsigned long result = cobj->getClassTypeIndex();
-        ok &= ulong_to_seval(result, &s.rval());
+        unsigned int result = cobj->getClassTypeIndex();
+        ok &= uint32_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_cocos2dx_dragonbones_AnimationData_getClassTypeIndex : Error processing arguments");
         return true;
     }
@@ -673,8 +673,8 @@ static bool js_cocos2dx_dragonbones_AnimationData_getTypeIndex(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        unsigned long result = dragonBones::AnimationData::getTypeIndex();
-        ok &= ulong_to_seval(result, &s.rval());
+        unsigned int result = dragonBones::AnimationData::getTypeIndex();
+        ok &= uint32_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_cocos2dx_dragonbones_AnimationData_getTypeIndex : Error processing arguments");
         return true;
     }
@@ -885,8 +885,8 @@ static bool js_cocos2dx_dragonbones_BoneData_getTypeIndex(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        unsigned long result = dragonBones::BoneData::getTypeIndex();
-        ok &= ulong_to_seval(result, &s.rval());
+        unsigned int result = dragonBones::BoneData::getTypeIndex();
+        ok &= uint32_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_cocos2dx_dragonbones_BoneData_getTypeIndex : Error processing arguments");
         return true;
     }
@@ -981,8 +981,8 @@ static bool js_cocos2dx_dragonbones_SlotData_getTypeIndex(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        unsigned long result = dragonBones::SlotData::getTypeIndex();
-        ok &= ulong_to_seval(result, &s.rval());
+        unsigned int result = dragonBones::SlotData::getTypeIndex();
+        ok &= uint32_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_cocos2dx_dragonbones_SlotData_getTypeIndex : Error processing arguments");
         return true;
     }
@@ -1077,8 +1077,8 @@ static bool js_cocos2dx_dragonbones_SkinData_getTypeIndex(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        unsigned long result = dragonBones::SkinData::getTypeIndex();
-        ok &= ulong_to_seval(result, &s.rval());
+        unsigned int result = dragonBones::SkinData::getTypeIndex();
+        ok &= uint32_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_cocos2dx_dragonbones_SkinData_getTypeIndex : Error processing arguments");
         return true;
     }
@@ -1264,8 +1264,8 @@ static bool js_cocos2dx_dragonbones_ArmatureData_getTypeIndex(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        unsigned long result = dragonBones::ArmatureData::getTypeIndex();
-        ok &= ulong_to_seval(result, &s.rval());
+        unsigned int result = dragonBones::ArmatureData::getTypeIndex();
+        ok &= uint32_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_cocos2dx_dragonbones_ArmatureData_getTypeIndex : Error processing arguments");
         return true;
     }
@@ -1424,8 +1424,8 @@ static bool js_cocos2dx_dragonbones_DragonBonesData_getTypeIndex(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        unsigned long result = dragonBones::DragonBonesData::getTypeIndex();
-        ok &= ulong_to_seval(result, &s.rval());
+        unsigned int result = dragonBones::DragonBonesData::getTypeIndex();
+        ok &= uint32_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_cocos2dx_dragonbones_DragonBonesData_getTypeIndex : Error processing arguments");
         return true;
     }
@@ -1494,8 +1494,8 @@ static bool js_cocos2dx_dragonbones_EventObject_getTypeIndex(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        unsigned long result = dragonBones::EventObject::getTypeIndex();
-        ok &= ulong_to_seval(result, &s.rval());
+        unsigned int result = dragonBones::EventObject::getTypeIndex();
+        ok &= uint32_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_cocos2dx_dragonbones_EventObject_getTypeIndex : Error processing arguments");
         return true;
     }
@@ -2057,8 +2057,8 @@ static bool js_cocos2dx_dragonbones_Armature_getTypeIndex(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        unsigned long result = dragonBones::Armature::getTypeIndex();
-        ok &= ulong_to_seval(result, &s.rval());
+        unsigned int result = dragonBones::Armature::getTypeIndex();
+        ok &= uint32_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_cocos2dx_dragonbones_Armature_getTypeIndex : Error processing arguments");
         return true;
     }
@@ -2177,24 +2177,6 @@ static bool js_cocos2dx_dragonbones_Animation_getLastAnimationState(se::State& s
 }
 SE_BIND_FUNC(js_cocos2dx_dragonbones_Animation_getLastAnimationState)
 
-static bool js_cocos2dx_dragonbones_Animation_getAnimationNames(se::State& s)
-{
-    dragonBones::Animation* cobj = (dragonBones::Animation*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_dragonbones_Animation_getAnimationNames : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 0) {
-        const std::vector<std::string>& result = cobj->getAnimationNames();
-        ok &= std_vector_string_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_dragonbones_Animation_getAnimationNames : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_dragonbones_Animation_getAnimationNames)
-
 static bool js_cocos2dx_dragonbones_Animation_stop(se::State& s)
 {
     dragonBones::Animation* cobj = (dragonBones::Animation*)s.nativeThisObject();
@@ -2298,6 +2280,24 @@ static bool js_cocos2dx_dragonbones_Animation_gotoAndStopByTime(se::State& s)
     return false;
 }
 SE_BIND_FUNC(js_cocos2dx_dragonbones_Animation_gotoAndStopByTime)
+
+static bool js_cocos2dx_dragonbones_Animation_getAnimationNames(se::State& s)
+{
+    dragonBones::Animation* cobj = (dragonBones::Animation*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_dragonbones_Animation_getAnimationNames : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        const std::vector<std::string>& result = cobj->getAnimationNames();
+        ok &= std_vector_string_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_dragonbones_Animation_getAnimationNames : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_dragonbones_Animation_getAnimationNames)
 
 static bool js_cocos2dx_dragonbones_Animation_gotoAndPlayByTime(se::State& s)
 {
@@ -2739,8 +2739,8 @@ static bool js_cocos2dx_dragonbones_Animation_getTypeIndex(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        unsigned long result = dragonBones::Animation::getTypeIndex();
-        ok &= ulong_to_seval(result, &s.rval());
+        unsigned int result = dragonBones::Animation::getTypeIndex();
+        ok &= uint32_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_cocos2dx_dragonbones_Animation_getTypeIndex : Error processing arguments");
         return true;
     }
@@ -2789,11 +2789,11 @@ bool js_register_cocos2dx_dragonbones_Animation(se::Object* obj)
     cls->defineFunction("reset", _SE(js_cocos2dx_dragonbones_Animation_reset));
     cls->defineFunction("play", _SE(js_cocos2dx_dragonbones_Animation_play));
     cls->defineFunction("getLastAnimationState", _SE(js_cocos2dx_dragonbones_Animation_getLastAnimationState));
-    cls->defineFunction("getAnimationNames", _SE(js_cocos2dx_dragonbones_Animation_getAnimationNames));
     cls->defineFunction("stop", _SE(js_cocos2dx_dragonbones_Animation_stop));
     cls->defineFunction("hasAnimation", _SE(js_cocos2dx_dragonbones_Animation_hasAnimation));
     cls->defineFunction("gotoAndStopByProgress", _SE(js_cocos2dx_dragonbones_Animation_gotoAndStopByProgress));
     cls->defineFunction("gotoAndStopByTime", _SE(js_cocos2dx_dragonbones_Animation_gotoAndStopByTime));
+    cls->defineFunction("getAnimationNames", _SE(js_cocos2dx_dragonbones_Animation_getAnimationNames));
     cls->defineFunction("gotoAndPlayByTime", _SE(js_cocos2dx_dragonbones_Animation_gotoAndPlayByTime));
     cls->defineFunction("isCompleted", _SE(js_cocos2dx_dragonbones_Animation_isCompleted));
     cls->defineFunction("fadeIn", _SE(js_cocos2dx_dragonbones_Animation_fadeIn));
@@ -3107,8 +3107,8 @@ static bool js_cocos2dx_dragonbones_Bone_getTypeIndex(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        unsigned long result = dragonBones::Bone::getTypeIndex();
-        ok &= ulong_to_seval(result, &s.rval());
+        unsigned int result = dragonBones::Bone::getTypeIndex();
+        ok &= uint32_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_cocos2dx_dragonbones_Bone_getTypeIndex : Error processing arguments");
         return true;
     }
@@ -3989,8 +3989,8 @@ static bool js_cocos2dx_dragonbones_AnimationState_getTypeIndex(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        unsigned long result = dragonBones::AnimationState::getTypeIndex();
-        ok &= ulong_to_seval(result, &s.rval());
+        unsigned int result = dragonBones::AnimationState::getTypeIndex();
+        ok &= uint32_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_cocos2dx_dragonbones_AnimationState_getTypeIndex : Error processing arguments");
         return true;
     }
@@ -4246,8 +4246,8 @@ static bool js_cocos2dx_dragonbones_CCTextureData_getTypeIndex(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        unsigned long result = dragonBones::CCTextureData::getTypeIndex();
-        ok &= ulong_to_seval(result, &s.rval());
+        unsigned int result = dragonBones::CCTextureData::getTypeIndex();
+        ok &= uint32_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_cocos2dx_dragonbones_CCTextureData_getTypeIndex : Error processing arguments");
         return true;
     }
@@ -4284,8 +4284,8 @@ static bool js_cocos2dx_dragonbones_CCTextureAtlasData_getTypeIndex(se::State& s
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        unsigned long result = dragonBones::CCTextureAtlasData::getTypeIndex();
-        ok &= ulong_to_seval(result, &s.rval());
+        unsigned int result = dragonBones::CCTextureAtlasData::getTypeIndex();
+        ok &= uint32_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_cocos2dx_dragonbones_CCTextureAtlasData_getTypeIndex : Error processing arguments");
         return true;
     }
@@ -4660,8 +4660,8 @@ static bool js_cocos2dx_dragonbones_CCSlot_getClassTypeIndex(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        unsigned long result = cobj->getClassTypeIndex();
-        ok &= ulong_to_seval(result, &s.rval());
+        unsigned int result = cobj->getClassTypeIndex();
+        ok &= uint32_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_cocos2dx_dragonbones_CCSlot_getClassTypeIndex : Error processing arguments");
         return true;
     }
@@ -4676,8 +4676,8 @@ static bool js_cocos2dx_dragonbones_CCSlot_getTypeIndex(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        unsigned long result = dragonBones::CCSlot::getTypeIndex();
-        ok &= ulong_to_seval(result, &s.rval());
+        unsigned int result = dragonBones::CCSlot::getTypeIndex();
+        ok &= uint32_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_cocos2dx_dragonbones_CCSlot_getTypeIndex : Error processing arguments");
         return true;
     }

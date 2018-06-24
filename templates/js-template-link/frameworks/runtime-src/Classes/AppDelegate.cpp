@@ -79,6 +79,8 @@ bool AppDelegate::applicationDidFinishLaunching()
     
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
+    
+    FileUtils::getInstance()->addSearchPath(FileUtils::getInstance()->getWritablePath() + "update", true);
 
     ScriptingCore* sc = ScriptingCore::getInstance();
     ScriptEngineManager::getInstance()->setScriptEngine(sc);

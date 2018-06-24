@@ -34474,8 +34474,8 @@ static bool js_cocos2dx_TextFieldTTF_getCharCount(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        unsigned long result = cobj->getCharCount();
-        ok &= ulong_to_seval(result, &s.rval());
+        unsigned int result = cobj->getCharCount();
+        ok &= uint32_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_cocos2dx_TextFieldTTF_getCharCount : Error processing arguments");
         return true;
     }
@@ -34801,8 +34801,8 @@ static bool js_cocos2dx_TextFieldTTF_setCursorPosition(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 1) {
-        unsigned long arg0 = 0;
-        ok &= seval_to_ulong(args[0], &arg0);
+        unsigned int arg0 = 0;
+        ok &= seval_to_uint32(args[0], (uint32_t*)&arg0);
         SE_PRECONDITION2(ok, false, "js_cocos2dx_TextFieldTTF_setCursorPosition : Error processing arguments");
         cobj->setCursorPosition(arg0);
         return true;
@@ -36060,27 +36060,6 @@ static bool js_cocos2dx_TMXMapInfo_setTileSize(se::State& s)
 }
 SE_BIND_FUNC(js_cocos2dx_TMXMapInfo_setTileSize)
 
-static bool js_cocos2dx_TMXMapInfo_initWithTMXFile(se::State& s)
-{
-    cocos2d::TMXMapInfo* cobj = (cocos2d::TMXMapInfo*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_TMXMapInfo_initWithTMXFile : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 1) {
-        std::string arg0;
-        ok &= seval_to_std_string(args[0], &arg0);
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_TMXMapInfo_initWithTMXFile : Error processing arguments");
-        bool result = cobj->initWithTMXFile(arg0);
-        ok &= boolean_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_TMXMapInfo_initWithTMXFile : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_TMXMapInfo_initWithTMXFile)
-
 static bool js_cocos2dx_TMXMapInfo_getOrientation(se::State& s)
 {
     cocos2d::TMXMapInfo* cobj = (cocos2d::TMXMapInfo*)s.nativeThisObject();
@@ -36283,6 +36262,45 @@ static bool js_cocos2dx_TMXMapInfo_setHexSideLength(se::State& s)
 }
 SE_BIND_FUNC(js_cocos2dx_TMXMapInfo_setHexSideLength)
 
+static bool js_cocos2dx_TMXMapInfo_initWithTMXFile(se::State& s)
+{
+    cocos2d::TMXMapInfo* cobj = (cocos2d::TMXMapInfo*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_TMXMapInfo_initWithTMXFile : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        std::string arg0;
+        ok &= seval_to_std_string(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TMXMapInfo_initWithTMXFile : Error processing arguments");
+        bool result = cobj->initWithTMXFile(arg0);
+        ok &= boolean_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TMXMapInfo_initWithTMXFile : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TMXMapInfo_initWithTMXFile)
+
+static bool js_cocos2dx_TMXMapInfo_getParentGID(se::State& s)
+{
+    cocos2d::TMXMapInfo* cobj = (cocos2d::TMXMapInfo*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_TMXMapInfo_getParentGID : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        int result = cobj->getParentGID();
+        ok &= int32_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TMXMapInfo_getParentGID : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TMXMapInfo_getParentGID)
+
 static bool js_cocos2dx_TMXMapInfo_getTilesets(se::State& s)
 {
     CC_UNUSED bool ok = true;
@@ -36312,24 +36330,6 @@ static bool js_cocos2dx_TMXMapInfo_getTilesets(se::State& s)
     return false;
 }
 SE_BIND_FUNC(js_cocos2dx_TMXMapInfo_getTilesets)
-
-static bool js_cocos2dx_TMXMapInfo_getParentGID(se::State& s)
-{
-    cocos2d::TMXMapInfo* cobj = (cocos2d::TMXMapInfo*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_TMXMapInfo_getParentGID : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 0) {
-        int result = cobj->getParentGID();
-        ok &= int32_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_TMXMapInfo_getParentGID : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_TMXMapInfo_getParentGID)
 
 static bool js_cocos2dx_TMXMapInfo_setParentElement(se::State& s)
 {
@@ -37012,7 +37012,6 @@ bool js_register_cocos2dx_TMXMapInfo(se::Object* obj)
     cls->defineFunction("getAllChildren", _SE(js_cocos2dx_TMXMapInfo_getAllChildren));
     cls->defineFunction("getHexSideLength", _SE(js_cocos2dx_TMXMapInfo_getHexSideLength));
     cls->defineFunction("setTileSize", _SE(js_cocos2dx_TMXMapInfo_setTileSize));
-    cls->defineFunction("initWithTMXFile", _SE(js_cocos2dx_TMXMapInfo_initWithTMXFile));
     cls->defineFunction("getOrientation", _SE(js_cocos2dx_TMXMapInfo_getOrientation));
     cls->defineFunction("setObjectGroups", _SE(js_cocos2dx_TMXMapInfo_setObjectGroups));
     cls->defineFunction("setLayers", _SE(js_cocos2dx_TMXMapInfo_setLayers));
@@ -37023,8 +37022,9 @@ bool js_register_cocos2dx_TMXMapInfo(se::Object* obj)
     cls->defineFunction("getLayers", _SE(js_cocos2dx_TMXMapInfo_getLayers));
     cls->defineFunction("getStaggerAxis", _SE(js_cocos2dx_TMXMapInfo_getStaggerAxis));
     cls->defineFunction("setHexSideLength", _SE(js_cocos2dx_TMXMapInfo_setHexSideLength));
-    cls->defineFunction("getTilesets", _SE(js_cocos2dx_TMXMapInfo_getTilesets));
+    cls->defineFunction("initWithTMXFile", _SE(js_cocos2dx_TMXMapInfo_initWithTMXFile));
     cls->defineFunction("getParentGID", _SE(js_cocos2dx_TMXMapInfo_getParentGID));
+    cls->defineFunction("getTilesets", _SE(js_cocos2dx_TMXMapInfo_getTilesets));
     cls->defineFunction("setParentElement", _SE(js_cocos2dx_TMXMapInfo_setParentElement));
     cls->defineFunction("initWithXML", _SE(js_cocos2dx_TMXMapInfo_initWithXML));
     cls->defineFunction("setParentGID", _SE(js_cocos2dx_TMXMapInfo_setParentGID));

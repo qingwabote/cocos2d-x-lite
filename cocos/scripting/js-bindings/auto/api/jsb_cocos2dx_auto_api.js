@@ -15097,7 +15097,7 @@ cc.TextFieldTTF = {
 
 /**
  * @method getCharCount
- * @return {unsigned long}
+ * @return {unsigned int}
  */
 getCharCount : function (
 )
@@ -15257,10 +15257,10 @@ getPlaceHolder : function (
 
 /**
  * @method setCursorPosition
- * @param {unsigned long} arg0
+ * @param {unsigned int} arg0
  */
 setCursorPosition : function (
-long 
+int 
 )
 {
 },
@@ -15806,18 +15806,6 @@ size
 },
 
 /**
- * @method initWithTMXFile
- * @param {String} arg0
- * @return {bool}
- */
-initWithTMXFile : function (
-str 
-)
-{
-    return false;
-},
-
-/**
  * @method getOrientation
  * @return {int}
  */
@@ -15922,13 +15910,15 @@ int
 },
 
 /**
- * @method getTilesets
-* @return {Array|Array}
-*/
-getTilesets : function(
+ * @method initWithTMXFile
+ * @param {String} arg0
+ * @return {bool}
+ */
+initWithTMXFile : function (
+str 
 )
 {
-    return new Array();
+    return false;
 },
 
 /**
@@ -15939,6 +15929,16 @@ getParentGID : function (
 )
 {
     return 0;
+},
+
+/**
+ * @method getTilesets
+* @return {Array|Array}
+*/
+getTilesets : function(
+)
+{
+    return new Array();
 },
 
 /**

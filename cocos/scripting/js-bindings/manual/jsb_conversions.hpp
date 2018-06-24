@@ -257,38 +257,13 @@ bool std_map_string_string_to_seval(const std::map<std::string, std::string>& v,
 bool uniform_to_seval(const cocos2d::Uniform* v, se::Value* ret);
 bool FontDefinition_to_seval(const cocos2d::FontDefinition& v, se::Value* ret);
 bool Acceleration_to_seval(const cocos2d::Acceleration* v, se::Value* ret);
+bool Flag_to_seval(const cocos2d::Flag& v, se::Value* ret);
 bool Quaternion_to_seval(const cocos2d::Quaternion& v, se::Value* ret);
 bool ManifestAsset_to_seval(const cocos2d::extension::ManifestAsset& v, se::Value* ret);
 bool AffineTransform_to_seval(const cocos2d::AffineTransform& v, se::Value* ret);
 //bool Viewport_to_seval(const cocos2d::experimental::Viewport& v, se::Value* ret);
 bool Data_to_seval(const cocos2d::Data& v, se::Value* ret);
 bool DownloadTask_to_seval(const cocos2d::network::DownloadTask& v, se::Value* ret);
-
-template<typename T>
-bool recreate_seval_by_native_ptr(typename std::enable_if<!std::is_base_of<cocos2d::Ref,T>::value,T>::type* v, se::Class* cls, se::Value* ret)
-{
-    assert(ret != nullptr);
-    assert(cls != nullptr);
-    if (v == nullptr)
-    {
-        ret->setNull();
-        return true;
-    }
-
-    auto iter = se::NativePtrToObjectMap::find(v);
-    if (iter != se::NativePtrToObjectMap::end())
-    {
-        se::Object* seObj = iter->second;
-        seObj->clearPrivateData();
-        seObj->decRef();
-    }
-
-    se::Object* obj = se::Object::createObjectWithClass(cls);
-    ret->setObject(obj, true);
-    obj->setPrivateData(v);
-
-    return true;
-}
 
 template<typename T>
 bool native_ptr_to_seval(typename std::enable_if<!std::is_base_of<cocos2d::Ref,T>::value,T>::type* v, se::Value* ret, bool* isReturnCachedValue = nullptr)

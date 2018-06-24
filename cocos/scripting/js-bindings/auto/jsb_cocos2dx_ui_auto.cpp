@@ -1440,11 +1440,11 @@ static bool js_cocos2dx_ui_Helper_getSubStringOfUTF8String(se::State& s)
     CC_UNUSED bool ok = true;
     if (argc == 3) {
         std::string arg0;
-        unsigned long arg1 = 0;
-        unsigned long arg2 = 0;
+        unsigned int arg1 = 0;
+        unsigned int arg2 = 0;
         ok &= seval_to_std_string(args[0], &arg0);
-        ok &= seval_to_ulong(args[1], &arg1);
-        ok &= seval_to_ulong(args[2], &arg2);
+        ok &= seval_to_uint32(args[1], (uint32_t*)&arg1);
+        ok &= seval_to_uint32(args[2], (uint32_t*)&arg2);
         SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Helper_getSubStringOfUTF8String : Error processing arguments");
         std::string result = cocos2d::ui::Helper::getSubStringOfUTF8String(arg0, arg1, arg2);
         ok &= std_string_to_seval(result, &s.rval());

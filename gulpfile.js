@@ -141,7 +141,7 @@ gulp.task('gen-libs', function(cb) {
         cocosConsoleBin = Path.join(cocosConsoleRoot, 'cocos.bat');
     }
     var child = spawn(cocosConsoleBin, 
-        'gen-libs -m release --vs 2015 --android-studio --app-abi armeabi:arm64-v8a:armeabi-v7a:x86'.split(' '), 
+        'gen-libs -m release --vs 2017 --android-studio --app-abi armeabi:arm64-v8a:armeabi-v7a:x86'.split(' '), 
         {
             stdio: 'inherit'
         }
@@ -183,7 +183,7 @@ gulp.task('gen-simulator', function(cb) {
     if (process.platform === 'darwin') {
         args = ['gen-simulator', '-m', 'debug', '-p', 'mac'];
     } else {
-        args = ['gen-simulator', '-m', 'debug', '-p', 'win32', '--vs', '2015', '--ol', 'en'];
+        args = ['gen-simulator', '-m', 'debug', '-p', 'win32', '--vs', '2017', '--ol', 'en'];
     }
     try {
         var child = spawn(cocosConsoleBin, args);
