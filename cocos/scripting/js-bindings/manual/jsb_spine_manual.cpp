@@ -43,7 +43,7 @@
 #include "spine/spine-cocos2dx.h"
 #include <spine/extension.h>
 
-#include "spine/SkeletonJsonAsync.h"
+#include "spine/SkeletonDataReader.h"
 
 using namespace cocos2d;
 
@@ -389,8 +389,8 @@ static bool jsb_spine_SkeletonData_constructor(se::State& s)
 
 	bool ok = false;
 
-	std::string jsonPath;
-	ok = seval_to_std_string(args[0], &jsonPath);
+	std::string filePath;
+	ok = seval_to_std_string(args[0], &filePath);
 	SE_PRECONDITION2(ok, false, "jsb_spine_SkeletonData_constructor: Invalid json path!");
 
 	std::string atlasText;
@@ -417,14 +417,7 @@ static bool jsb_spine_SkeletonData_constructor(se::State& s)
 	spine::spAtlasPage_setCustomTextureLoader(nullptr);
 
 	if (argc == 4) {
-		spAttachmentLoader* attachmentLoader = SUPER(Cocos2dAttachmentLoader_create(atlas));
-		spSkeletonJson* json = spSkeletonJson_createWithLoader(attachmentLoader);
-		json->scale = scale;
-		spSkeletonData* skeletonData = spSkeletonJson_readSkeletonDataFile(json, jsonPath.c_str());
-		CCASSERT(skeletonData, json->error ? json->error : "Error reading skeleton data file.");
-		spSkeletonJson_dispose(json);
-		//spAttachmentLoader_dispose(attachmentLoader); it will be invoked in spSkeletonData_dispose
-
+		spSkeletonData* skeletonData = SkeletonDataReader::getInstance()->readSkeletonData(filePath, atlas, scale);
 		s.thisObject()->setPrivateData(skeletonData);
 		return true;
 	}
@@ -432,7 +425,7 @@ static bool jsb_spine_SkeletonData_constructor(se::State& s)
 	if (argc == 5) {
 		se::Value jsThis(s.thisObject());
 		se::Value jsFunc(args[4]);
-		SkeletonJsonAsync::getInstance()->readSkeletonDataAsync(jsonPath, atlas, scale, [=](spSkeletonData* data) -> void {
+		SkeletonDataReader::getInstance()->readSkeletonDataAsync(filePath, atlas, scale, [=](spSkeletonData* data) -> void {
 			se::ScriptEngine::getInstance()->clearException();
 			se::AutoHandleScope hs;
 

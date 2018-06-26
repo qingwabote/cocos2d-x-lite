@@ -42,7 +42,6 @@ static cocos2d::Texture2D* _getPreloadedAtlasTexture(const char* path)
 
 static bool js_creator_sp_initSkeletonRenderer(se::State& s)
 {
-    // renderer, jsonPath, atlasText, textures, scale
     const auto& args = s.args();
     int argc = (int)args.size();
     if (argc == 2) {

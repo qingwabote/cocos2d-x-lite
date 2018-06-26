@@ -46,7 +46,7 @@
     <ClCompile Include="..\SkeletonClipping.c" />
     <ClCompile Include="..\SkeletonData.c" />
     <ClCompile Include="..\SkeletonJson.c" />
-    <ClCompile Include="..\SkeletonJsonAsync.cpp" />
+    <ClCompile Include="..\SkeletonDataReader.cpp" />
     <ClCompile Include="..\SkeletonRenderer.cpp" />
     <ClCompile Include="..\SkeletonTwoColorBatch.cpp" />
     <ClCompile Include="..\Skin.c" />
@@ -97,7 +97,7 @@
     <ClInclude Include="..\SkeletonClipping.h" />
     <ClInclude Include="..\SkeletonData.h" />
     <ClInclude Include="..\SkeletonJson.h" />
-    <ClInclude Include="..\SkeletonJsonAsync.h" />
+    <ClInclude Include="..\SkeletonDataReader.h" />
     <ClInclude Include="..\SkeletonRenderer.h" />
     <ClInclude Include="..\SkeletonTwoColorBatch.h" />
     <ClInclude Include="..\Skin.h" />

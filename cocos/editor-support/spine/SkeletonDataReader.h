@@ -11,14 +11,14 @@
 
 USING_NS_CC;
 
-class SkeletonJsonAsync: public Ref
+class SkeletonDataReader: public Ref
 {
 public:
-	static SkeletonJsonAsync * getInstance();
+	static SkeletonDataReader * getInstance();
 
-	SkeletonJsonAsync();
-	virtual ~SkeletonJsonAsync();
-
+	SkeletonDataReader();
+	virtual ~SkeletonDataReader();
+	spSkeletonData* readSkeletonData(const std::string& skeletonDataFile, spAtlas* atlas, float scale);
 	void readSkeletonDataAsync(const std::string& skeletonDataFile, spAtlas* atlas, float scale, const std::function<void(spSkeletonData*)>& callback);
 
 private:
@@ -26,14 +26,14 @@ private:
 	struct AsyncStruct
 	{
 	public:
-		AsyncStruct(const std::string& jsonPath, spAtlas* atlas, float scale, const std::function<void(spSkeletonData*)> f)
-			: jsonPath(jsonPath), atlas(atlas), scale(scale), callback(f), skeletonData(nullptr)
+		AsyncStruct(const std::string& skeletonDataFile, spAtlas* atlas, float scale, const std::function<void(spSkeletonData*)> f)
+			: skeletonDataFile(skeletonDataFile), atlas(atlas), scale(scale), callback(f), skeletonData(nullptr)
 		{}
 
 		~AsyncStruct()
 		{}
 
-		std::string jsonPath;
+		std::string skeletonDataFile;
 		spAtlas* atlas;
 		float scale;
 		std::function<void(spSkeletonData*)> callback;
@@ -49,7 +49,7 @@ private:
 	int _asyncRefCount;
 	bool _needQuit;
 
-	void readSkeletonData();
+	void readSkeletonDataLoop();
 	void readSkeletonDataAsyncCallBack(float dt);
 };
 
