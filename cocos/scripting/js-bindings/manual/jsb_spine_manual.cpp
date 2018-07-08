@@ -423,18 +423,14 @@ static bool jsb_spine_SkeletonData_constructor(se::State& s)
 	}
 
 	if (argc == 5) {
-		se::Value jsThis(s.thisObject());
+		se::Value jsThis(s.thisObject(), true);
 		se::Value jsFunc(args[4]);
 		SkeletonDataReader::getInstance()->readSkeletonDataAsync(filePath, atlas, scale, [=](spSkeletonData* data) -> void {
 			se::ScriptEngine::getInstance()->clearException();
 			se::AutoHandleScope hs;
 
-			se::ValueArray args;
-			args.resize(1);
-			native_ptr_to_seval<spSkeletonData>(data, &args[0]);
-			se::Object* thisObj = jsThis.isObject() ? jsThis.toObject() : nullptr;
-			se::Object* funcObj = jsFunc.toObject();
-			bool succeed = funcObj->call(args, thisObj);
+            jsThis.toObject()->setPrivateData(data);
+			bool succeed = jsFunc.toObject()->call(se::EmptyValueArray, nullptr);
 			if (!succeed) {
 				se::ScriptEngine::getInstance()->clearException();
 			}
