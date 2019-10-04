@@ -48,17 +48,19 @@ static bool js_creator_sp_initSkeletonRenderer(se::State& s)
 
     // create atlas from preloaded texture
 
-    _preloadedAtlasTextures = &textures;
-    spine::spAtlasPage_setCustomTextureLoader(_getPreloadedAtlasTexture);
-
-    spAtlas* atlas = spAtlas_create(atlasText.c_str(), (int)atlasText.size(), "", nullptr);
-    CCASSERT(atlas, "Error creating atlas.");
-
-    _preloadedAtlasTextures = nullptr;
-    spine::spAtlasPage_setCustomTextureLoader(nullptr);
-
-    // init node
-    node->initWithJsonFile(jsonPath, atlas, scale);
+//    _preloadedAtlasTextures = &textures;
+//    spine::spAtlasPage_setCustomTextureLoader(_getPreloadedAtlasTexture);
+//
+//    spAtlas* atlas = spAtlas_create(atlasText.c_str(), (int)atlasText.size(), "", nullptr);
+//    CCASSERT(atlas, "Error creating atlas.");
+//
+//    _preloadedAtlasTextures = nullptr;
+//    spine::spAtlasPage_setCustomTextureLoader(nullptr);
+//
+//    // init node
+//    node->initWithJsonFile(jsonPath, atlas, scale);
+    
+    node->initWithJsonFile(jsonPath, atlasText, scale); //FIXME
 
     return true;
 }
