@@ -9121,7 +9121,7 @@ SE_BIND_FUNC(js_cocos2dx_spine_Skeleton_findPathConstraint)
 
 bool js_register_cocos2dx_spine_Skeleton(se::Object* obj)
 {
-    auto cls = se::Class::create("Skeleton", obj, nullptr, nullptr);
+    auto cls = se::Class::create("Skeleton_", obj, nullptr, nullptr);
 
     cls->defineFunction("setToSetupPose", _SE(js_cocos2dx_spine_Skeleton_setToSetupPose));
     cls->defineFunction("getSkin", _SE(js_cocos2dx_spine_Skeleton_getSkin));
@@ -13703,17 +13703,95 @@ SE_DECLARE_FINALIZE_FUNC(js_spine_SkeletonAnimation_finalize)
 
 static bool js_cocos2dx_spine_SkeletonAnimation_constructor(se::State& s)
 {
-    spine::SkeletonAnimation* cobj = new (std::nothrow) spine::SkeletonAnimation();
-    s.thisObject()->setPrivateData(cobj);
-    return true;
+    CC_UNUSED bool ok = true;
+    const auto& args = s.args();
+    size_t argc = args.size();
+    do {
+        if (argc == 2) {
+            std::string arg0;
+            ok &= seval_to_std_string(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            std::string arg1;
+            ok &= seval_to_std_string(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            spine::SkeletonAnimation* cobj = new (std::nothrow) spine::SkeletonAnimation(arg0, arg1);
+            s.thisObject()->setPrivateData(cobj);
+            return true;
+        }
+    } while(false);
+    do {
+        if (argc == 3) {
+            std::string arg0;
+            ok &= seval_to_std_string(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            std::string arg1;
+            ok &= seval_to_std_string(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            float arg2 = 0;
+            ok &= seval_to_float(args[2], &arg2);
+            if (!ok) { ok = true; break; }
+            spine::SkeletonAnimation* cobj = new (std::nothrow) spine::SkeletonAnimation(arg0, arg1, arg2);
+            s.thisObject()->setPrivateData(cobj);
+            return true;
+        }
+    } while(false);
+    do {
+        if (argc == 0) {
+            spine::SkeletonAnimation* cobj = new (std::nothrow) spine::SkeletonAnimation();
+            s.thisObject()->setPrivateData(cobj);
+            return true;
+        }
+    } while(false);
+    SE_REPORT_ERROR("wrong number of arguments: %d", (int)argc);
+    return false;
 }
 SE_BIND_CTOR(js_cocos2dx_spine_SkeletonAnimation_constructor, __jsb_spine_SkeletonAnimation_class, js_spine_SkeletonAnimation_finalize)
 
+SE_DECLARE_FINALIZE_FUNC(js_spine_SkeletonAnimation_finalize)
+
 static bool js_cocos2dx_spine_SkeletonAnimation_ctor(se::State& s)
 {
-    spine::SkeletonAnimation* cobj = new (std::nothrow) spine::SkeletonAnimation();
-    s.thisObject()->setPrivateData(cobj);
-    return true;
+    CC_UNUSED bool ok = true;
+    const auto& args = s.args();
+    size_t argc = args.size();
+    do {
+        if (argc == 2) {
+            std::string arg0;
+            ok &= seval_to_std_string(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            std::string arg1;
+            ok &= seval_to_std_string(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            spine::SkeletonAnimation* cobj = new (std::nothrow) spine::SkeletonAnimation(arg0, arg1);
+            s.thisObject()->setPrivateData(cobj);
+            return true;
+        }
+    } while(false);
+    do {
+        if (argc == 3) {
+            std::string arg0;
+            ok &= seval_to_std_string(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            std::string arg1;
+            ok &= seval_to_std_string(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            float arg2 = 0;
+            ok &= seval_to_float(args[2], &arg2);
+            if (!ok) { ok = true; break; }
+            spine::SkeletonAnimation* cobj = new (std::nothrow) spine::SkeletonAnimation(arg0, arg1, arg2);
+            s.thisObject()->setPrivateData(cobj);
+            return true;
+        }
+    } while(false);
+    do {
+        if (argc == 0) {
+            spine::SkeletonAnimation* cobj = new (std::nothrow) spine::SkeletonAnimation();
+            s.thisObject()->setPrivateData(cobj);
+            return true;
+        }
+    } while(false);
+    SE_REPORT_ERROR("wrong number of arguments: %d", (int)argc);
+    return false;
 }
 SE_BIND_SUB_CLS_CTOR(js_cocos2dx_spine_SkeletonAnimation_ctor, __jsb_spine_SkeletonAnimation_class, js_spine_SkeletonAnimation_finalize)
 

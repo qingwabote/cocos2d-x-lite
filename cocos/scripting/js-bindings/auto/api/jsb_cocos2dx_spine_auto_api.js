@@ -6569,8 +6569,14 @@ float
 /**
  * @method SkeletonAnimation
  * @constructor
- */
-SkeletonAnimation : function (
+* @param {String} str
+* @param {String} str
+* @param {float} float
+*/
+SkeletonAnimation : function(
+str,
+str,
+float 
 )
 {
 },

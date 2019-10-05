@@ -102,6 +102,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	SkeletonAnimation ();
+    SkeletonAnimation (const std::string& skeletonDataFile, const std::string& atlasFile, float scale = 1);
 	virtual ~SkeletonAnimation ();
 	virtual void initialize () override;
 

@@ -122,6 +122,11 @@ SkeletonAnimation::SkeletonAnimation ()
 		: SkeletonRenderer() {
 }
 
+SkeletonAnimation::SkeletonAnimation (const std::string& skeletonDataFile, const std::string& atlasFile, float scale)
+        : SkeletonRenderer(skeletonDataFile, atlasFile, scale) {
+    initialize();
+}
+
 SkeletonAnimation::~SkeletonAnimation () {
 	if (_ownsAnimationStateData) delete _state->getData();
 	delete _state;
