@@ -90,6 +90,7 @@ bool js_register_cocos2dx_spine_Animation(se::Object* obj)
     cls->defineFunction("getName", _SE(js_cocos2dx_spine_Animation_getName));
     cls->defineFunction("setDuration", _SE(js_cocos2dx_spine_Animation_setDuration));
     cls->defineFunction("getDuration", _SE(js_cocos2dx_spine_Animation_getDuration));
+    cls->defineProperty("duration", _SE(js_cocos2dx_spine_Animation_getDuration), _SE(js_cocos2dx_spine_Animation_setDuration));
     cls->install();
     JSBClassType::registerClass<spine::Animation>(cls);
 
@@ -883,6 +884,22 @@ bool js_register_cocos2dx_spine_TrackEntry(se::Object* obj)
     cls->defineFunction("setAnimationLast", _SE(js_cocos2dx_spine_TrackEntry_setAnimationLast));
     cls->defineFunction("getAlpha", _SE(js_cocos2dx_spine_TrackEntry_getAlpha));
     cls->defineFunction("setMixBlend", _SE(js_cocos2dx_spine_TrackEntry_setMixBlend));
+    cls->defineProperty("attachmentThreshold", _SE(js_cocos2dx_spine_TrackEntry_getAttachmentThreshold), _SE(js_cocos2dx_spine_TrackEntry_setAttachmentThreshold));
+    cls->defineProperty("mixDuration", _SE(js_cocos2dx_spine_TrackEntry_getMixDuration), _SE(js_cocos2dx_spine_TrackEntry_setMixDuration));
+    cls->defineProperty("mixBlend", _SE(js_cocos2dx_spine_TrackEntry_getMixBlend), _SE(js_cocos2dx_spine_TrackEntry_setMixBlend));
+    cls->defineProperty("trackEnd", _SE(js_cocos2dx_spine_TrackEntry_getTrackEnd), _SE(js_cocos2dx_spine_TrackEntry_setTrackEnd));
+    cls->defineProperty("animationEnd", _SE(js_cocos2dx_spine_TrackEntry_getAnimationEnd), _SE(js_cocos2dx_spine_TrackEntry_setAnimationEnd));
+    cls->defineProperty("drawOrderThreshold", _SE(js_cocos2dx_spine_TrackEntry_getDrawOrderThreshold), _SE(js_cocos2dx_spine_TrackEntry_setDrawOrderThreshold));
+    cls->defineProperty("mixTime", _SE(js_cocos2dx_spine_TrackEntry_getMixTime), _SE(js_cocos2dx_spine_TrackEntry_setMixTime));
+    cls->defineProperty("loop", _SE(js_cocos2dx_spine_TrackEntry_getLoop), _SE(js_cocos2dx_spine_TrackEntry_setLoop));
+    cls->defineProperty("trackTime", _SE(js_cocos2dx_spine_TrackEntry_getTrackTime), _SE(js_cocos2dx_spine_TrackEntry_setTrackTime));
+    cls->defineProperty("animationStart", _SE(js_cocos2dx_spine_TrackEntry_getAnimationStart), _SE(js_cocos2dx_spine_TrackEntry_setAnimationStart));
+    cls->defineProperty("animationLast", _SE(js_cocos2dx_spine_TrackEntry_getAnimationLast), _SE(js_cocos2dx_spine_TrackEntry_setAnimationLast));
+    cls->defineProperty("timeScale", _SE(js_cocos2dx_spine_TrackEntry_getTimeScale), _SE(js_cocos2dx_spine_TrackEntry_setTimeScale));
+    cls->defineProperty("delay", _SE(js_cocos2dx_spine_TrackEntry_getDelay), _SE(js_cocos2dx_spine_TrackEntry_setDelay));
+    cls->defineProperty("holdPrevious", _SE(js_cocos2dx_spine_TrackEntry_getHoldPrevious), _SE(js_cocos2dx_spine_TrackEntry_setHoldPrevious));
+    cls->defineProperty("eventThreshold", _SE(js_cocos2dx_spine_TrackEntry_getEventThreshold), _SE(js_cocos2dx_spine_TrackEntry_setEventThreshold));
+    cls->defineProperty("alpha", _SE(js_cocos2dx_spine_TrackEntry_getAlpha), _SE(js_cocos2dx_spine_TrackEntry_setAlpha));
     cls->install();
     JSBClassType::registerClass<spine::TrackEntry>(cls);
 
@@ -1260,6 +1277,7 @@ bool js_register_cocos2dx_spine_AnimationState(se::Object* obj)
     cls->defineFunction("setAnimation", _SE(js_cocos2dx_spine_AnimationState_setAnimation));
     cls->defineFunction("addEmptyAnimation", _SE(js_cocos2dx_spine_AnimationState_addEmptyAnimation));
     cls->defineFunction("getTimeScale", _SE(js_cocos2dx_spine_AnimationState_getTimeScale));
+    cls->defineProperty("timeScale", _SE(js_cocos2dx_spine_AnimationState_getTimeScale), _SE(js_cocos2dx_spine_AnimationState_setTimeScale));
     cls->install();
     JSBClassType::registerClass<spine::AnimationState>(cls);
 
@@ -1407,6 +1425,8 @@ bool js_register_cocos2dx_spine_AnimationStateData(se::Object* obj)
     cls->defineFunction("setMix", _SE(js_cocos2dx_spine_AnimationStateData_setMix));
     cls->defineFunction("setDefaultMix", _SE(js_cocos2dx_spine_AnimationStateData_setDefaultMix));
     cls->defineFunction("getSkeletonData", _SE(js_cocos2dx_spine_AnimationStateData_getSkeletonData));
+    cls->defineProperty("mix", _SE(js_cocos2dx_spine_AnimationStateData_getMix), _SE(js_cocos2dx_spine_AnimationStateData_setMix));
+    cls->defineProperty("defaultMix", _SE(js_cocos2dx_spine_AnimationStateData_getDefaultMix), _SE(js_cocos2dx_spine_AnimationStateData_setDefaultMix));
     cls->install();
     JSBClassType::registerClass<spine::AnimationStateData>(cls);
 
@@ -1645,6 +1665,7 @@ bool js_register_cocos2dx_spine_AttachmentTimeline(se::Object* obj)
     cls->defineFunction("getSlotIndex", _SE(js_cocos2dx_spine_AttachmentTimeline_getSlotIndex));
     cls->defineFunction("getFrameCount", _SE(js_cocos2dx_spine_AttachmentTimeline_getFrameCount));
     cls->defineFunction("getFrames", _SE(js_cocos2dx_spine_AttachmentTimeline_getFrames));
+    cls->defineProperty("slotIndex", _SE(js_cocos2dx_spine_AttachmentTimeline_getSlotIndex), _SE(js_cocos2dx_spine_AttachmentTimeline_setSlotIndex));
     cls->install();
     JSBClassType::registerClass<spine::AttachmentTimeline>(cls);
 
@@ -2807,6 +2828,26 @@ bool js_register_cocos2dx_spine_Bone(se::Object* obj)
     cls->defineFunction("getWorldY", _SE(js_cocos2dx_spine_Bone_getWorldY));
     cls->defineFunction("getWorldX", _SE(js_cocos2dx_spine_Bone_getWorldX));
     cls->defineFunction("getSkeleton", _SE(js_cocos2dx_spine_Bone_getSkeleton));
+    cls->defineProperty("b", _SE(js_cocos2dx_spine_Bone_getB), _SE(js_cocos2dx_spine_Bone_setB));
+    cls->defineProperty("c", _SE(js_cocos2dx_spine_Bone_getC), _SE(js_cocos2dx_spine_Bone_setC));
+    cls->defineProperty("d", _SE(js_cocos2dx_spine_Bone_getD), _SE(js_cocos2dx_spine_Bone_setD));
+    cls->defineProperty("x", _SE(js_cocos2dx_spine_Bone_getX), _SE(js_cocos2dx_spine_Bone_setX));
+    cls->defineProperty("y", _SE(js_cocos2dx_spine_Bone_getY), _SE(js_cocos2dx_spine_Bone_setY));
+    cls->defineProperty("rotation", _SE(js_cocos2dx_spine_Bone_getRotation), _SE(js_cocos2dx_spine_Bone_setRotation));
+    cls->defineProperty("aShearX", _SE(js_cocos2dx_spine_Bone_getAShearX), _SE(js_cocos2dx_spine_Bone_setAShearX));
+    cls->defineProperty("aShearY", _SE(js_cocos2dx_spine_Bone_getAShearY), _SE(js_cocos2dx_spine_Bone_setAShearY));
+    cls->defineProperty("scaleY", _SE(js_cocos2dx_spine_Bone_getScaleY), _SE(js_cocos2dx_spine_Bone_setScaleY));
+    cls->defineProperty("scaleX", _SE(js_cocos2dx_spine_Bone_getScaleX), _SE(js_cocos2dx_spine_Bone_setScaleX));
+    cls->defineProperty("aScaleX", _SE(js_cocos2dx_spine_Bone_getAScaleX), _SE(js_cocos2dx_spine_Bone_setAScaleX));
+    cls->defineProperty("a", _SE(js_cocos2dx_spine_Bone_getA), _SE(js_cocos2dx_spine_Bone_setA));
+    cls->defineProperty("aX", _SE(js_cocos2dx_spine_Bone_getAX), _SE(js_cocos2dx_spine_Bone_setAX));
+    cls->defineProperty("aScaleY", _SE(js_cocos2dx_spine_Bone_getAScaleY), _SE(js_cocos2dx_spine_Bone_setAScaleY));
+    cls->defineProperty("shearX", _SE(js_cocos2dx_spine_Bone_getShearX), _SE(js_cocos2dx_spine_Bone_setShearX));
+    cls->defineProperty("shearY", _SE(js_cocos2dx_spine_Bone_getShearY), _SE(js_cocos2dx_spine_Bone_setShearY));
+    cls->defineProperty("aY", _SE(js_cocos2dx_spine_Bone_getAY), _SE(js_cocos2dx_spine_Bone_setAY));
+    cls->defineProperty("appliedRotation", _SE(js_cocos2dx_spine_Bone_getAppliedRotation), _SE(js_cocos2dx_spine_Bone_setAppliedRotation));
+    cls->defineProperty("worldY", _SE(js_cocos2dx_spine_Bone_getWorldY), _SE(js_cocos2dx_spine_Bone_setWorldY));
+    cls->defineProperty("worldX", _SE(js_cocos2dx_spine_Bone_getWorldX), _SE(js_cocos2dx_spine_Bone_setWorldX));
     cls->defineStaticFunction("isYDown", _SE(js_cocos2dx_spine_Bone_isYDown));
     cls->defineStaticFunction("setYDown", _SE(js_cocos2dx_spine_Bone_setYDown));
     cls->install();
@@ -3237,6 +3278,15 @@ bool js_register_cocos2dx_spine_BoneData(se::Object* obj)
     cls->defineFunction("setLength", _SE(js_cocos2dx_spine_BoneData_setLength));
     cls->defineFunction("setShearY", _SE(js_cocos2dx_spine_BoneData_setShearY));
     cls->defineFunction("setTransformMode", _SE(js_cocos2dx_spine_BoneData_setTransformMode));
+    cls->defineProperty("scaleY", _SE(js_cocos2dx_spine_BoneData_getScaleY), _SE(js_cocos2dx_spine_BoneData_setScaleY));
+    cls->defineProperty("scaleX", _SE(js_cocos2dx_spine_BoneData_getScaleX), _SE(js_cocos2dx_spine_BoneData_setScaleX));
+    cls->defineProperty("length", _SE(js_cocos2dx_spine_BoneData_getLength), _SE(js_cocos2dx_spine_BoneData_setLength));
+    cls->defineProperty("shearX", _SE(js_cocos2dx_spine_BoneData_getShearX), _SE(js_cocos2dx_spine_BoneData_setShearX));
+    cls->defineProperty("shearY", _SE(js_cocos2dx_spine_BoneData_getShearY), _SE(js_cocos2dx_spine_BoneData_setShearY));
+    cls->defineProperty("x", _SE(js_cocos2dx_spine_BoneData_getX), _SE(js_cocos2dx_spine_BoneData_setX));
+    cls->defineProperty("y", _SE(js_cocos2dx_spine_BoneData_getY), _SE(js_cocos2dx_spine_BoneData_setY));
+    cls->defineProperty("rotation", _SE(js_cocos2dx_spine_BoneData_getRotation), _SE(js_cocos2dx_spine_BoneData_setRotation));
+    cls->defineProperty("transformMode", _SE(js_cocos2dx_spine_BoneData_getTransformMode), _SE(js_cocos2dx_spine_BoneData_setTransformMode));
     cls->install();
     JSBClassType::registerClass<spine::BoneData>(cls);
 
@@ -3357,6 +3407,7 @@ bool js_register_cocos2dx_spine_VertexAttachment(se::Object* obj)
     cls->defineFunction("getWorldVerticesLength", _SE(js_cocos2dx_spine_VertexAttachment_getWorldVerticesLength));
     cls->defineFunction("applyDeform", _SE(js_cocos2dx_spine_VertexAttachment_applyDeform));
     cls->defineFunction("setWorldVerticesLength", _SE(js_cocos2dx_spine_VertexAttachment_setWorldVerticesLength));
+    cls->defineProperty("worldVerticesLength", _SE(js_cocos2dx_spine_VertexAttachment_getWorldVerticesLength), _SE(js_cocos2dx_spine_VertexAttachment_setWorldVerticesLength));
     cls->install();
     JSBClassType::registerClass<spine::VertexAttachment>(cls);
 
@@ -3438,6 +3489,7 @@ bool js_register_cocos2dx_spine_ClippingAttachment(se::Object* obj)
 
     cls->defineFunction("setEndSlot", _SE(js_cocos2dx_spine_ClippingAttachment_setEndSlot));
     cls->defineFunction("getEndSlot", _SE(js_cocos2dx_spine_ClippingAttachment_getEndSlot));
+    cls->defineProperty("endSlot", _SE(js_cocos2dx_spine_ClippingAttachment_getEndSlot), _SE(js_cocos2dx_spine_ClippingAttachment_setEndSlot));
     cls->install();
     JSBClassType::registerClass<spine::ClippingAttachment>(cls);
 
@@ -3894,6 +3946,7 @@ bool js_register_cocos2dx_spine_ColorTimeline(se::Object* obj)
     cls->defineFunction("setFrame", _SE(js_cocos2dx_spine_ColorTimeline_setFrame));
     cls->defineFunction("getSlotIndex", _SE(js_cocos2dx_spine_ColorTimeline_getSlotIndex));
     cls->defineFunction("getFrames", _SE(js_cocos2dx_spine_ColorTimeline_getFrames));
+    cls->defineProperty("slotIndex", _SE(js_cocos2dx_spine_ColorTimeline_getSlotIndex), _SE(js_cocos2dx_spine_ColorTimeline_setSlotIndex));
     cls->install();
     JSBClassType::registerClass<spine::ColorTimeline>(cls);
 
@@ -4031,6 +4084,8 @@ bool js_register_cocos2dx_spine_DeformTimeline(se::Object* obj)
     cls->defineFunction("getAttachment", _SE(js_cocos2dx_spine_DeformTimeline_getAttachment));
     cls->defineFunction("setAttachment", _SE(js_cocos2dx_spine_DeformTimeline_setAttachment));
     cls->defineFunction("getFrames", _SE(js_cocos2dx_spine_DeformTimeline_getFrames));
+    cls->defineProperty("slotIndex", _SE(js_cocos2dx_spine_DeformTimeline_getSlotIndex), _SE(js_cocos2dx_spine_DeformTimeline_setSlotIndex));
+    cls->defineProperty("attachment", _SE(js_cocos2dx_spine_DeformTimeline_getAttachment), _SE(js_cocos2dx_spine_DeformTimeline_setAttachment));
     cls->install();
     JSBClassType::registerClass<spine::DeformTimeline>(cls);
 
@@ -4362,6 +4417,11 @@ bool js_register_cocos2dx_spine_Event(se::Object* obj)
     cls->defineFunction("getData", _SE(js_cocos2dx_spine_Event_getData));
     cls->defineFunction("setStringValue", _SE(js_cocos2dx_spine_Event_setStringValue));
     cls->defineFunction("setVolume", _SE(js_cocos2dx_spine_Event_setVolume));
+    cls->defineProperty("floatValue", _SE(js_cocos2dx_spine_Event_getFloatValue), _SE(js_cocos2dx_spine_Event_setFloatValue));
+    cls->defineProperty("intValue", _SE(js_cocos2dx_spine_Event_getIntValue), _SE(js_cocos2dx_spine_Event_setIntValue));
+    cls->defineProperty("stringValue", _SE(js_cocos2dx_spine_Event_getStringValue), _SE(js_cocos2dx_spine_Event_setStringValue));
+    cls->defineProperty("balance", _SE(js_cocos2dx_spine_Event_getBalance), _SE(js_cocos2dx_spine_Event_setBalance));
+    cls->defineProperty("volume", _SE(js_cocos2dx_spine_Event_getVolume), _SE(js_cocos2dx_spine_Event_setVolume));
     cls->install();
     JSBClassType::registerClass<spine::Event>(cls);
 
@@ -4635,6 +4695,12 @@ bool js_register_cocos2dx_spine_EventData(se::Object* obj)
     cls->defineFunction("setStringValue", _SE(js_cocos2dx_spine_EventData_setStringValue));
     cls->defineFunction("getBalance", _SE(js_cocos2dx_spine_EventData_getBalance));
     cls->defineFunction("setAudioPath", _SE(js_cocos2dx_spine_EventData_setAudioPath));
+    cls->defineProperty("audioPath", _SE(js_cocos2dx_spine_EventData_getAudioPath), _SE(js_cocos2dx_spine_EventData_setAudioPath));
+    cls->defineProperty("intValue", _SE(js_cocos2dx_spine_EventData_getIntValue), _SE(js_cocos2dx_spine_EventData_setIntValue));
+    cls->defineProperty("stringValue", _SE(js_cocos2dx_spine_EventData_getStringValue), _SE(js_cocos2dx_spine_EventData_setStringValue));
+    cls->defineProperty("floatValue", _SE(js_cocos2dx_spine_EventData_getFloatValue), _SE(js_cocos2dx_spine_EventData_setFloatValue));
+    cls->defineProperty("volume", _SE(js_cocos2dx_spine_EventData_getVolume), _SE(js_cocos2dx_spine_EventData_setVolume));
+    cls->defineProperty("balance", _SE(js_cocos2dx_spine_EventData_getBalance), _SE(js_cocos2dx_spine_EventData_setBalance));
     cls->install();
     JSBClassType::registerClass<spine::EventData>(cls);
 
@@ -5042,6 +5108,11 @@ bool js_register_cocos2dx_spine_IkConstraint(se::Object* obj)
     cls->defineFunction("getOrder", _SE(js_cocos2dx_spine_IkConstraint_getOrder));
     cls->defineFunction("setMix", _SE(js_cocos2dx_spine_IkConstraint_setMix));
     cls->defineFunction("getData", _SE(js_cocos2dx_spine_IkConstraint_getData));
+    cls->defineProperty("mix", _SE(js_cocos2dx_spine_IkConstraint_getMix), _SE(js_cocos2dx_spine_IkConstraint_setMix));
+    cls->defineProperty("stretch", _SE(js_cocos2dx_spine_IkConstraint_getStretch), _SE(js_cocos2dx_spine_IkConstraint_setStretch));
+    cls->defineProperty("compress", _SE(js_cocos2dx_spine_IkConstraint_getCompress), _SE(js_cocos2dx_spine_IkConstraint_setCompress));
+    cls->defineProperty("target", _SE(js_cocos2dx_spine_IkConstraint_getTarget), _SE(js_cocos2dx_spine_IkConstraint_setTarget));
+    cls->defineProperty("bendDirection", _SE(js_cocos2dx_spine_IkConstraint_getBendDirection), _SE(js_cocos2dx_spine_IkConstraint_setBendDirection));
     cls->install();
     JSBClassType::registerClass<spine::IkConstraint>(cls);
 
@@ -5373,6 +5444,13 @@ bool js_register_cocos2dx_spine_IkConstraintData(se::Object* obj)
     cls->defineFunction("setMix", _SE(js_cocos2dx_spine_IkConstraintData_setMix));
     cls->defineFunction("getCompress", _SE(js_cocos2dx_spine_IkConstraintData_getCompress));
     cls->defineFunction("setTarget", _SE(js_cocos2dx_spine_IkConstraintData_setTarget));
+    cls->defineProperty("mix", _SE(js_cocos2dx_spine_IkConstraintData_getMix), _SE(js_cocos2dx_spine_IkConstraintData_setMix));
+    cls->defineProperty("bendDirection", _SE(js_cocos2dx_spine_IkConstraintData_getBendDirection), _SE(js_cocos2dx_spine_IkConstraintData_setBendDirection));
+    cls->defineProperty("uniform", _SE(js_cocos2dx_spine_IkConstraintData_getUniform), _SE(js_cocos2dx_spine_IkConstraintData_setUniform));
+    cls->defineProperty("target", _SE(js_cocos2dx_spine_IkConstraintData_getTarget), _SE(js_cocos2dx_spine_IkConstraintData_setTarget));
+    cls->defineProperty("order", _SE(js_cocos2dx_spine_IkConstraintData_getOrder), _SE(js_cocos2dx_spine_IkConstraintData_setOrder));
+    cls->defineProperty("stretch", _SE(js_cocos2dx_spine_IkConstraintData_getStretch), _SE(js_cocos2dx_spine_IkConstraintData_setStretch));
+    cls->defineProperty("compress", _SE(js_cocos2dx_spine_IkConstraintData_getCompress), _SE(js_cocos2dx_spine_IkConstraintData_setCompress));
     cls->install();
     JSBClassType::registerClass<spine::IkConstraintData>(cls);
 
@@ -6260,6 +6338,23 @@ bool js_register_cocos2dx_spine_MeshAttachment(se::Object* obj)
     cls->defineFunction("getRegionRotate", _SE(js_cocos2dx_spine_MeshAttachment_getRegionRotate));
     cls->defineFunction("getParentMesh", _SE(js_cocos2dx_spine_MeshAttachment_getParentMesh));
     cls->defineFunction("getRegionU", _SE(js_cocos2dx_spine_MeshAttachment_getRegionU));
+    cls->defineProperty("regionOriginalWidth", _SE(js_cocos2dx_spine_MeshAttachment_getRegionOriginalWidth), _SE(js_cocos2dx_spine_MeshAttachment_setRegionOriginalWidth));
+    cls->defineProperty("width", _SE(js_cocos2dx_spine_MeshAttachment_getWidth), _SE(js_cocos2dx_spine_MeshAttachment_setWidth));
+    cls->defineProperty("regionHeight", _SE(js_cocos2dx_spine_MeshAttachment_getRegionHeight), _SE(js_cocos2dx_spine_MeshAttachment_setRegionHeight));
+    cls->defineProperty("regionU2", _SE(js_cocos2dx_spine_MeshAttachment_getRegionU2), _SE(js_cocos2dx_spine_MeshAttachment_setRegionU2));
+    cls->defineProperty("height", _SE(js_cocos2dx_spine_MeshAttachment_getHeight), _SE(js_cocos2dx_spine_MeshAttachment_setHeight));
+    cls->defineProperty("path", _SE(js_cocos2dx_spine_MeshAttachment_getPath), _SE(js_cocos2dx_spine_MeshAttachment_setPath));
+    cls->defineProperty("regionOriginalHeight", _SE(js_cocos2dx_spine_MeshAttachment_getRegionOriginalHeight), _SE(js_cocos2dx_spine_MeshAttachment_setRegionOriginalHeight));
+    cls->defineProperty("regionV2", _SE(js_cocos2dx_spine_MeshAttachment_getRegionV2), _SE(js_cocos2dx_spine_MeshAttachment_setRegionV2));
+    cls->defineProperty("regionWidth", _SE(js_cocos2dx_spine_MeshAttachment_getRegionWidth), _SE(js_cocos2dx_spine_MeshAttachment_setRegionWidth));
+    cls->defineProperty("inheritDeform", _SE(js_cocos2dx_spine_MeshAttachment_getInheritDeform), _SE(js_cocos2dx_spine_MeshAttachment_setInheritDeform));
+    cls->defineProperty("hullLength", _SE(js_cocos2dx_spine_MeshAttachment_getHullLength), _SE(js_cocos2dx_spine_MeshAttachment_setHullLength));
+    cls->defineProperty("regionOffsetY", _SE(js_cocos2dx_spine_MeshAttachment_getRegionOffsetY), _SE(js_cocos2dx_spine_MeshAttachment_setRegionOffsetY));
+    cls->defineProperty("regionOffsetX", _SE(js_cocos2dx_spine_MeshAttachment_getRegionOffsetX), _SE(js_cocos2dx_spine_MeshAttachment_setRegionOffsetX));
+    cls->defineProperty("regionV", _SE(js_cocos2dx_spine_MeshAttachment_getRegionV), _SE(js_cocos2dx_spine_MeshAttachment_setRegionV));
+    cls->defineProperty("regionRotate", _SE(js_cocos2dx_spine_MeshAttachment_getRegionRotate), _SE(js_cocos2dx_spine_MeshAttachment_setRegionRotate));
+    cls->defineProperty("parentMesh", _SE(js_cocos2dx_spine_MeshAttachment_getParentMesh), _SE(js_cocos2dx_spine_MeshAttachment_setParentMesh));
+    cls->defineProperty("regionU", _SE(js_cocos2dx_spine_MeshAttachment_getRegionU), _SE(js_cocos2dx_spine_MeshAttachment_setRegionU));
     cls->install();
     JSBClassType::registerClass<spine::MeshAttachment>(cls);
 
@@ -6682,6 +6777,11 @@ bool js_register_cocos2dx_spine_PathConstraint(se::Object* obj)
     cls->defineFunction("getData", _SE(js_cocos2dx_spine_PathConstraint_getData));
     cls->defineFunction("getPosition", _SE(js_cocos2dx_spine_PathConstraint_getPosition));
     cls->defineFunction("setTranslateMix", _SE(js_cocos2dx_spine_PathConstraint_setTranslateMix));
+    cls->defineProperty("rotateMix", _SE(js_cocos2dx_spine_PathConstraint_getRotateMix), _SE(js_cocos2dx_spine_PathConstraint_setRotateMix));
+    cls->defineProperty("translateMix", _SE(js_cocos2dx_spine_PathConstraint_getTranslateMix), _SE(js_cocos2dx_spine_PathConstraint_setTranslateMix));
+    cls->defineProperty("target", _SE(js_cocos2dx_spine_PathConstraint_getTarget), _SE(js_cocos2dx_spine_PathConstraint_setTarget));
+    cls->defineProperty("spacing", _SE(js_cocos2dx_spine_PathConstraint_getSpacing), _SE(js_cocos2dx_spine_PathConstraint_setSpacing));
+    cls->defineProperty("position", _SE(js_cocos2dx_spine_PathConstraint_getPosition), _SE(js_cocos2dx_spine_PathConstraint_setPosition));
     cls->install();
     JSBClassType::registerClass<spine::PathConstraint>(cls);
 
@@ -7130,6 +7230,16 @@ bool js_register_cocos2dx_spine_PathConstraintData(se::Object* obj)
     cls->defineFunction("getBones", _SE(js_cocos2dx_spine_PathConstraintData_getBones));
     cls->defineFunction("setPositionMode", _SE(js_cocos2dx_spine_PathConstraintData_setPositionMode));
     cls->defineFunction("setTranslateMix", _SE(js_cocos2dx_spine_PathConstraintData_setTranslateMix));
+    cls->defineProperty("offsetRotation", _SE(js_cocos2dx_spine_PathConstraintData_getOffsetRotation), _SE(js_cocos2dx_spine_PathConstraintData_setOffsetRotation));
+    cls->defineProperty("positionMode", _SE(js_cocos2dx_spine_PathConstraintData_getPositionMode), _SE(js_cocos2dx_spine_PathConstraintData_setPositionMode));
+    cls->defineProperty("target", _SE(js_cocos2dx_spine_PathConstraintData_getTarget), _SE(js_cocos2dx_spine_PathConstraintData_setTarget));
+    cls->defineProperty("spacingMode", _SE(js_cocos2dx_spine_PathConstraintData_getSpacingMode), _SE(js_cocos2dx_spine_PathConstraintData_setSpacingMode));
+    cls->defineProperty("order", _SE(js_cocos2dx_spine_PathConstraintData_getOrder), _SE(js_cocos2dx_spine_PathConstraintData_setOrder));
+    cls->defineProperty("rotateMix", _SE(js_cocos2dx_spine_PathConstraintData_getRotateMix), _SE(js_cocos2dx_spine_PathConstraintData_setRotateMix));
+    cls->defineProperty("translateMix", _SE(js_cocos2dx_spine_PathConstraintData_getTranslateMix), _SE(js_cocos2dx_spine_PathConstraintData_setTranslateMix));
+    cls->defineProperty("spacing", _SE(js_cocos2dx_spine_PathConstraintData_getSpacing), _SE(js_cocos2dx_spine_PathConstraintData_setSpacing));
+    cls->defineProperty("rotateMode", _SE(js_cocos2dx_spine_PathConstraintData_getRotateMode), _SE(js_cocos2dx_spine_PathConstraintData_setRotateMode));
+    cls->defineProperty("position", _SE(js_cocos2dx_spine_PathConstraintData_getPosition), _SE(js_cocos2dx_spine_PathConstraintData_setPosition));
     cls->install();
     JSBClassType::registerClass<spine::PathConstraintData>(cls);
 
@@ -7412,6 +7522,9 @@ bool js_register_cocos2dx_spine_PointAttachment(se::Object* obj)
     cls->defineFunction("setRotation", _SE(js_cocos2dx_spine_PointAttachment_setRotation));
     cls->defineFunction("setX", _SE(js_cocos2dx_spine_PointAttachment_setX));
     cls->defineFunction("setY", _SE(js_cocos2dx_spine_PointAttachment_setY));
+    cls->defineProperty("x", _SE(js_cocos2dx_spine_PointAttachment_getX), _SE(js_cocos2dx_spine_PointAttachment_setX));
+    cls->defineProperty("y", _SE(js_cocos2dx_spine_PointAttachment_getY), _SE(js_cocos2dx_spine_PointAttachment_setY));
+    cls->defineProperty("rotation", _SE(js_cocos2dx_spine_PointAttachment_getRotation), _SE(js_cocos2dx_spine_PointAttachment_setRotation));
     cls->install();
     JSBClassType::registerClass<spine::PointAttachment>(cls);
 
@@ -8080,6 +8193,21 @@ bool js_register_cocos2dx_spine_RegionAttachment(se::Object* obj)
     cls->defineFunction("getRegionOriginalHeight", _SE(js_cocos2dx_spine_RegionAttachment_getRegionOriginalHeight));
     cls->defineFunction("getRegionOffsetY", _SE(js_cocos2dx_spine_RegionAttachment_getRegionOffsetY));
     cls->defineFunction("getRegionOffsetX", _SE(js_cocos2dx_spine_RegionAttachment_getRegionOffsetX));
+    cls->defineProperty("regionOriginalWidth", _SE(js_cocos2dx_spine_RegionAttachment_getRegionOriginalWidth), _SE(js_cocos2dx_spine_RegionAttachment_setRegionOriginalWidth));
+    cls->defineProperty("width", _SE(js_cocos2dx_spine_RegionAttachment_getWidth), _SE(js_cocos2dx_spine_RegionAttachment_setWidth));
+    cls->defineProperty("y", _SE(js_cocos2dx_spine_RegionAttachment_getY), _SE(js_cocos2dx_spine_RegionAttachment_setY));
+    cls->defineProperty("rotation", _SE(js_cocos2dx_spine_RegionAttachment_getRotation), _SE(js_cocos2dx_spine_RegionAttachment_setRotation));
+    cls->defineProperty("uVs", _SE(js_cocos2dx_spine_RegionAttachment_getUVs), _SE(js_cocos2dx_spine_RegionAttachment_setUVs));
+    cls->defineProperty("regionHeight", _SE(js_cocos2dx_spine_RegionAttachment_getRegionHeight), _SE(js_cocos2dx_spine_RegionAttachment_setRegionHeight));
+    cls->defineProperty("scaleY", _SE(js_cocos2dx_spine_RegionAttachment_getScaleY), _SE(js_cocos2dx_spine_RegionAttachment_setScaleY));
+    cls->defineProperty("scaleX", _SE(js_cocos2dx_spine_RegionAttachment_getScaleX), _SE(js_cocos2dx_spine_RegionAttachment_setScaleX));
+    cls->defineProperty("height", _SE(js_cocos2dx_spine_RegionAttachment_getHeight), _SE(js_cocos2dx_spine_RegionAttachment_setHeight));
+    cls->defineProperty("path", _SE(js_cocos2dx_spine_RegionAttachment_getPath), _SE(js_cocos2dx_spine_RegionAttachment_setPath));
+    cls->defineProperty("regionWidth", _SE(js_cocos2dx_spine_RegionAttachment_getRegionWidth), _SE(js_cocos2dx_spine_RegionAttachment_setRegionWidth));
+    cls->defineProperty("x", _SE(js_cocos2dx_spine_RegionAttachment_getX), _SE(js_cocos2dx_spine_RegionAttachment_setX));
+    cls->defineProperty("regionOriginalHeight", _SE(js_cocos2dx_spine_RegionAttachment_getRegionOriginalHeight), _SE(js_cocos2dx_spine_RegionAttachment_setRegionOriginalHeight));
+    cls->defineProperty("regionOffsetY", _SE(js_cocos2dx_spine_RegionAttachment_getRegionOffsetY), _SE(js_cocos2dx_spine_RegionAttachment_setRegionOffsetY));
+    cls->defineProperty("regionOffsetX", _SE(js_cocos2dx_spine_RegionAttachment_getRegionOffsetX), _SE(js_cocos2dx_spine_RegionAttachment_setRegionOffsetX));
     cls->install();
     JSBClassType::registerClass<spine::RegionAttachment>(cls);
 
@@ -8202,6 +8330,7 @@ bool js_register_cocos2dx_spine_RotateTimeline(se::Object* obj)
     cls->defineFunction("getFrames", _SE(js_cocos2dx_spine_RotateTimeline_getFrames));
     cls->defineFunction("setBoneIndex", _SE(js_cocos2dx_spine_RotateTimeline_setBoneIndex));
     cls->defineFunction("getBoneIndex", _SE(js_cocos2dx_spine_RotateTimeline_getBoneIndex));
+    cls->defineProperty("boneIndex", _SE(js_cocos2dx_spine_RotateTimeline_getBoneIndex), _SE(js_cocos2dx_spine_RotateTimeline_setBoneIndex));
     cls->install();
     JSBClassType::registerClass<spine::RotateTimeline>(cls);
 
@@ -9162,6 +9291,13 @@ bool js_register_cocos2dx_spine_Skeleton(se::Object* obj)
     cls->defineFunction("findSlot", _SE(js_cocos2dx_spine_Skeleton_findSlot));
     cls->defineFunction("updateWorldTransform", _SE(js_cocos2dx_spine_Skeleton_updateWorldTransform));
     cls->defineFunction("findPathConstraint", _SE(js_cocos2dx_spine_Skeleton_findPathConstraint));
+    cls->defineProperty("skin", _SE(js_cocos2dx_spine_Skeleton_getSkin), _SE(js_cocos2dx_spine_Skeleton_setSkin));
+    cls->defineProperty("x", _SE(js_cocos2dx_spine_Skeleton_getX), _SE(js_cocos2dx_spine_Skeleton_setX));
+    cls->defineProperty("scaleY", _SE(js_cocos2dx_spine_Skeleton_getScaleY), _SE(js_cocos2dx_spine_Skeleton_setScaleY));
+    cls->defineProperty("scaleX", _SE(js_cocos2dx_spine_Skeleton_getScaleX), _SE(js_cocos2dx_spine_Skeleton_setScaleX));
+    cls->defineProperty("time", _SE(js_cocos2dx_spine_Skeleton_getTime), _SE(js_cocos2dx_spine_Skeleton_setTime));
+    cls->defineProperty("attachment", _SE(js_cocos2dx_spine_Skeleton_getAttachment), _SE(js_cocos2dx_spine_Skeleton_setAttachment));
+    cls->defineProperty("y", _SE(js_cocos2dx_spine_Skeleton_getY), _SE(js_cocos2dx_spine_Skeleton_setY));
     cls->install();
     JSBClassType::registerClass<spine::Skeleton>(cls);
 
@@ -10183,6 +10319,15 @@ bool js_register_cocos2dx_spine_SkeletonData(se::Object* obj)
     cls->defineFunction("setAudioPath", _SE(js_cocos2dx_spine_SkeletonData_setAudioPath));
     cls->defineFunction("findPathConstraint", _SE(js_cocos2dx_spine_SkeletonData_findPathConstraint));
     cls->defineFunction("getName", _SE(js_cocos2dx_spine_SkeletonData_getName));
+    cls->defineProperty("width", _SE(js_cocos2dx_spine_SkeletonData_getWidth), _SE(js_cocos2dx_spine_SkeletonData_setWidth));
+    cls->defineProperty("fps", _SE(js_cocos2dx_spine_SkeletonData_getFps), _SE(js_cocos2dx_spine_SkeletonData_setFps));
+    cls->defineProperty("defaultSkin", _SE(js_cocos2dx_spine_SkeletonData_getDefaultSkin), _SE(js_cocos2dx_spine_SkeletonData_setDefaultSkin));
+    cls->defineProperty("height", _SE(js_cocos2dx_spine_SkeletonData_getHeight), _SE(js_cocos2dx_spine_SkeletonData_setHeight));
+    cls->defineProperty("hash", _SE(js_cocos2dx_spine_SkeletonData_getHash), _SE(js_cocos2dx_spine_SkeletonData_setHash));
+    cls->defineProperty("imagesPath", _SE(js_cocos2dx_spine_SkeletonData_getImagesPath), _SE(js_cocos2dx_spine_SkeletonData_setImagesPath));
+    cls->defineProperty("audioPath", _SE(js_cocos2dx_spine_SkeletonData_getAudioPath), _SE(js_cocos2dx_spine_SkeletonData_setAudioPath));
+    cls->defineProperty("version", _SE(js_cocos2dx_spine_SkeletonData_getVersion), _SE(js_cocos2dx_spine_SkeletonData_setVersion));
+    cls->defineProperty("name", _SE(js_cocos2dx_spine_SkeletonData_getName), _SE(js_cocos2dx_spine_SkeletonData_setName));
     cls->install();
     JSBClassType::registerClass<spine::SkeletonData>(cls);
 
@@ -10583,6 +10728,8 @@ bool js_register_cocos2dx_spine_Slot(se::Object* obj)
     cls->defineFunction("hasDarkColor", _SE(js_cocos2dx_spine_Slot_hasDarkColor));
     cls->defineFunction("getSkeleton", _SE(js_cocos2dx_spine_Slot_getSkeleton));
     cls->defineFunction("getData", _SE(js_cocos2dx_spine_Slot_getData));
+    cls->defineProperty("attachment", _SE(js_cocos2dx_spine_Slot_getAttachment), _SE(js_cocos2dx_spine_Slot_setAttachment));
+    cls->defineProperty("attachmentTime", _SE(js_cocos2dx_spine_Slot_getAttachmentTime), _SE(js_cocos2dx_spine_Slot_setAttachmentTime));
     cls->install();
     JSBClassType::registerClass<spine::Slot>(cls);
 
@@ -10815,6 +10962,8 @@ bool js_register_cocos2dx_spine_SlotData(se::Object* obj)
     cls->defineFunction("setHasDarkColor", _SE(js_cocos2dx_spine_SlotData_setHasDarkColor));
     cls->defineFunction("setAttachmentName", _SE(js_cocos2dx_spine_SlotData_setAttachmentName));
     cls->defineFunction("getBoneData", _SE(js_cocos2dx_spine_SlotData_getBoneData));
+    cls->defineProperty("attachmentName", _SE(js_cocos2dx_spine_SlotData_getAttachmentName), _SE(js_cocos2dx_spine_SlotData_setAttachmentName));
+    cls->defineProperty("blendMode", _SE(js_cocos2dx_spine_SlotData_getBlendMode), _SE(js_cocos2dx_spine_SlotData_setBlendMode));
     cls->install();
     JSBClassType::registerClass<spine::SlotData>(cls);
 
@@ -11119,6 +11268,11 @@ bool js_register_cocos2dx_spine_TransformConstraint(se::Object* obj)
     cls->defineFunction("apply", _SE(js_cocos2dx_spine_TransformConstraint_apply));
     cls->defineFunction("getData", _SE(js_cocos2dx_spine_TransformConstraint_getData));
     cls->defineFunction("setTranslateMix", _SE(js_cocos2dx_spine_TransformConstraint_setTranslateMix));
+    cls->defineProperty("scaleMix", _SE(js_cocos2dx_spine_TransformConstraint_getScaleMix), _SE(js_cocos2dx_spine_TransformConstraint_setScaleMix));
+    cls->defineProperty("rotateMix", _SE(js_cocos2dx_spine_TransformConstraint_getRotateMix), _SE(js_cocos2dx_spine_TransformConstraint_setRotateMix));
+    cls->defineProperty("translateMix", _SE(js_cocos2dx_spine_TransformConstraint_getTranslateMix), _SE(js_cocos2dx_spine_TransformConstraint_setTranslateMix));
+    cls->defineProperty("target", _SE(js_cocos2dx_spine_TransformConstraint_getTarget), _SE(js_cocos2dx_spine_TransformConstraint_setTarget));
+    cls->defineProperty("shearMix", _SE(js_cocos2dx_spine_TransformConstraint_getShearMix), _SE(js_cocos2dx_spine_TransformConstraint_setShearMix));
     cls->install();
     JSBClassType::registerClass<spine::TransformConstraint>(cls);
 
@@ -11628,6 +11782,7 @@ bool js_register_cocos2dx_spine_TwoColorTimeline(se::Object* obj)
     cls->defineFunction("getPropertyId", _SE(js_cocos2dx_spine_TwoColorTimeline_getPropertyId));
     cls->defineFunction("setFrame", _SE(js_cocos2dx_spine_TwoColorTimeline_setFrame));
     cls->defineFunction("getSlotIndex", _SE(js_cocos2dx_spine_TwoColorTimeline_getSlotIndex));
+    cls->defineProperty("slotIndex", _SE(js_cocos2dx_spine_TwoColorTimeline_getSlotIndex), _SE(js_cocos2dx_spine_TwoColorTimeline_setSlotIndex));
     cls->install();
     JSBClassType::registerClass<spine::TwoColorTimeline>(cls);
 
@@ -11747,6 +11902,8 @@ bool js_register_cocos2dx_spine_JitterVertexEffect(se::Object* obj)
     cls->defineFunction("setJitterY", _SE(js_cocos2dx_spine_JitterVertexEffect_setJitterY));
     cls->defineFunction("getJitterX", _SE(js_cocos2dx_spine_JitterVertexEffect_getJitterX));
     cls->defineFunction("getJitterY", _SE(js_cocos2dx_spine_JitterVertexEffect_getJitterY));
+    cls->defineProperty("jitterX", _SE(js_cocos2dx_spine_JitterVertexEffect_getJitterX), _SE(js_cocos2dx_spine_JitterVertexEffect_setJitterX));
+    cls->defineProperty("jitterY", _SE(js_cocos2dx_spine_JitterVertexEffect_getJitterY), _SE(js_cocos2dx_spine_JitterVertexEffect_setJitterY));
     cls->install();
     JSBClassType::registerClass<spine::JitterVertexEffect>(cls);
 
@@ -12002,6 +12159,12 @@ bool js_register_cocos2dx_spine_SwirlVertexEffect(se::Object* obj)
     cls->defineFunction("setCenterY", _SE(js_cocos2dx_spine_SwirlVertexEffect_setCenterY));
     cls->defineFunction("setCenterX", _SE(js_cocos2dx_spine_SwirlVertexEffect_setCenterX));
     cls->defineFunction("getRadius", _SE(js_cocos2dx_spine_SwirlVertexEffect_getRadius));
+    cls->defineProperty("angle", _SE(js_cocos2dx_spine_SwirlVertexEffect_getAngle), _SE(js_cocos2dx_spine_SwirlVertexEffect_setAngle));
+    cls->defineProperty("centerY", _SE(js_cocos2dx_spine_SwirlVertexEffect_getCenterY), _SE(js_cocos2dx_spine_SwirlVertexEffect_setCenterY));
+    cls->defineProperty("centerX", _SE(js_cocos2dx_spine_SwirlVertexEffect_getCenterX), _SE(js_cocos2dx_spine_SwirlVertexEffect_setCenterX));
+    cls->defineProperty("worldY", _SE(js_cocos2dx_spine_SwirlVertexEffect_getWorldY), _SE(js_cocos2dx_spine_SwirlVertexEffect_setWorldY));
+    cls->defineProperty("worldX", _SE(js_cocos2dx_spine_SwirlVertexEffect_getWorldX), _SE(js_cocos2dx_spine_SwirlVertexEffect_setWorldX));
+    cls->defineProperty("radius", _SE(js_cocos2dx_spine_SwirlVertexEffect_getRadius), _SE(js_cocos2dx_spine_SwirlVertexEffect_setRadius));
     cls->install();
     JSBClassType::registerClass<spine::SwirlVertexEffect>(cls);
 
@@ -12944,6 +13107,12 @@ bool js_register_cocos2dx_spine_SkeletonRenderer(se::Object* obj)
     cls->defineFunction("getSkeleton", _SE(js_cocos2dx_spine_SkeletonRenderer_getSkeleton));
     cls->defineFunction("findBone", _SE(js_cocos2dx_spine_SkeletonRenderer_findBone));
     cls->defineFunction("drawDebug", _SE(js_cocos2dx_spine_SkeletonRenderer_drawDebug));
+    cls->defineProperty("debugSlotsEnabled", _SE(js_cocos2dx_spine_SkeletonRenderer_getDebugSlotsEnabled), _SE(js_cocos2dx_spine_SkeletonRenderer_setDebugSlotsEnabled));
+    cls->defineProperty("blendFunc", _SE(js_cocos2dx_spine_SkeletonRenderer_getBlendFunc), _SE(js_cocos2dx_spine_SkeletonRenderer_setBlendFunc));
+    cls->defineProperty("attachment", _SE(js_cocos2dx_spine_SkeletonRenderer_getAttachment), _SE(js_cocos2dx_spine_SkeletonRenderer_setAttachment));
+    cls->defineProperty("debugBonesEnabled", _SE(js_cocos2dx_spine_SkeletonRenderer_getDebugBonesEnabled), _SE(js_cocos2dx_spine_SkeletonRenderer_setDebugBonesEnabled));
+    cls->defineProperty("timeScale", _SE(js_cocos2dx_spine_SkeletonRenderer_getTimeScale), _SE(js_cocos2dx_spine_SkeletonRenderer_setTimeScale));
+    cls->defineProperty("debugMeshesEnabled", _SE(js_cocos2dx_spine_SkeletonRenderer_getDebugMeshesEnabled), _SE(js_cocos2dx_spine_SkeletonRenderer_setDebugMeshesEnabled));
     cls->defineStaticFunction("destroyScratchBuffers", _SE(js_cocos2dx_spine_SkeletonRenderer_destroyScratchBuffers));
     cls->defineFinalizeFunction(_SE(js_spine_SkeletonRenderer_finalize));
     cls->install();
