@@ -33,6 +33,8 @@
 #include <stdio.h>
 static int yDown;
 
+static BoneDisposeCallback _boneDisposeCallback = 0;
+
 void spBone_setYDown (int value) {
 	yDown = value;
 }
@@ -51,6 +53,7 @@ spBone* spBone_create (spBoneData* data, spSkeleton* skeleton, spBone* parent) {
 }
 
 void spBone_dispose (spBone* self) {
+    if (_boneDisposeCallback) _boneDisposeCallback(self);
 	FREE(self->children);
 	FREE(self);
 }
@@ -298,4 +301,9 @@ void spBone_localToWorld (spBone* self, float localX, float localY, float* world
 	float x = localX, y = localY;
 	*worldX = x * self->a + y * self->b + self->worldX;
 	*worldY = x * self->c + y * self->d + self->worldY;
+}
+
+void spBone_setDisposeCallback(BoneDisposeCallback cb)
+{
+    _boneDisposeCallback = cb;
 }

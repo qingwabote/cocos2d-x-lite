@@ -79,3 +79,12 @@ sp.SkeletonAnimation.prototype.setAnimationListener = function (target, callback
         }
     });
 };
+
+// The methods are added to be compatibility with old versions.
+sp.SkeletonAnimation.prototype.setTrackCompleteListener = function (trackEntry, listener) {
+    this._trackCompleteListener = listener;
+    this.setTrackCompleteListenerNative(trackEntry, function (trackEntry) {
+                                   var loopCount = Math.floor(trackEntry.trackTime / trackEntry.animationEnd);
+                                   this._trackCompleteListener(trackEntry, loopCount);
+                                   });
+};

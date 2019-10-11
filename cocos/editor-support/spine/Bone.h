@@ -97,6 +97,9 @@ void spBone_updateAppliedTransform (spBone* self);
 
 void spBone_worldToLocal (spBone* self, float worldX, float worldY, float* localX, float* localY);
 void spBone_localToWorld (spBone* self, float localX, float localY, float* worldX, float* worldY);
+    
+typedef void(*BoneDisposeCallback)(spBone*);
+void spBone_setDisposeCallback(BoneDisposeCallback cb);
 
 #ifdef SPINE_SHORT_NAMES
 typedef spBone Bone;

@@ -311,6 +311,18 @@ str
 },
 
 /**
+ * @method setTrackEventListener
+ * @param {spTrackEntry} arg0
+ * @param {function} arg1
+ */
+setTrackEventListener : function (
+sptrackentry, 
+func 
+)
+{
+},
+
+/**
  * @method setMix
  * @param {String} arg0
  * @param {String} arg1
@@ -325,10 +337,46 @@ float
 },
 
 /**
+ * @method setTrackStartListener
+ * @param {spTrackEntry} arg0
+ * @param {function} arg1
+ */
+setTrackStartListener : function (
+sptrackentry, 
+func 
+)
+{
+},
+
+/**
  * @method setDisposeListener
  * @param {function} arg0
  */
 setDisposeListener : function (
+func 
+)
+{
+},
+
+/**
+ * @method setTrackInterruptListener
+ * @param {spTrackEntry} arg0
+ * @param {function} arg1
+ */
+setTrackInterruptListener : function (
+sptrackentry, 
+func 
+)
+{
+},
+
+/**
+ * @method setTrackCompleteListener
+ * @param {spTrackEntry} arg0
+ * @param {function} arg1
+ */
+setTrackCompleteListener : function (
+sptrackentry, 
 func 
 )
 {
@@ -369,6 +417,18 @@ getState : function (
  * @param {function} arg0
  */
 setCompleteListener : function (
+func 
+)
+{
+},
+
+/**
+ * @method setTrackDisposeListener
+ * @param {spTrackEntry} arg0
+ * @param {function} arg1
+ */
+setTrackDisposeListener : function (
+sptrackentry, 
 func 
 )
 {
@@ -434,6 +494,18 @@ float
  * @method clearTracks
  */
 clearTracks : function (
+)
+{
+},
+
+/**
+ * @method setTrackEndListener
+ * @param {spTrackEntry} arg0
+ * @param {function} arg1
+ */
+setTrackEndListener : function (
+sptrackentry, 
+func 
 )
 {
 },
