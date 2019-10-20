@@ -32,6 +32,8 @@
 #include <spine/extension.h>
 #include <spine/Slot.h>
 
+static AttachmentDisposeCallback _attachmentDisposeCallback = 0;
+
 typedef struct _spAttachmentVtable {
 	void (*dispose) (spAttachment* self);
 } _spAttachmentVtable;
@@ -53,5 +55,11 @@ void _spAttachment_deinit (spAttachment* self) {
 }
 
 void spAttachment_dispose (spAttachment* self) {
+    if (_attachmentDisposeCallback) _attachmentDisposeCallback(self);
 	VTABLE(spAttachment, self) ->dispose(self);
+}
+
+void spAttachment_setDisposeCallback(AttachmentDisposeCallback cb)
+{
+    _attachmentDisposeCallback = cb;
 }

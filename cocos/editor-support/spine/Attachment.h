@@ -62,6 +62,9 @@ typedef struct spAttachment {
 
 void spAttachment_dispose (spAttachment* self);
 
+typedef void(*AttachmentDisposeCallback)(spAttachment*);
+void spAttachment_setDisposeCallback(AttachmentDisposeCallback cb);
+
 #ifdef SPINE_SHORT_NAMES
 typedef spAttachmentType AttachmentType;
 #define ATTACHMENT_REGION SP_ATTACHMENT_REGION

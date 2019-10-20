@@ -31,6 +31,8 @@
 #include <spine/Slot.h>
 #include <spine/extension.h>
 
+static SlotDisposeCallback _slotDisposeCallback = 0;
+
 typedef struct {
 	spSlot super;
 	float attachmentTime;
@@ -45,6 +47,7 @@ spSlot* spSlot_create (spSlotData* data, spBone* bone) {
 }
 
 void spSlot_dispose (spSlot* self) {
+    if (_slotDisposeCallback) _slotDisposeCallback(self);
 	FREE(self->attachmentVertices);
 	FREE(self);
 }
@@ -78,4 +81,9 @@ void spSlot_setToSetupPose (spSlot* self) {
 		CONST_CAST(spAttachment*, self->attachment) = 0;
 		spSlot_setAttachment(self, attachment);
 	}
+}
+
+void spSlot_setDisposeCallback(SlotDisposeCallback cb)
+{
+    _slotDisposeCallback = cb;
 }

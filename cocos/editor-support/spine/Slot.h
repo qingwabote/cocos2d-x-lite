@@ -73,6 +73,9 @@ float spSlot_getAttachmentTime (const spSlot* self);
 
 void spSlot_setToSetupPose (spSlot* self);
 
+typedef void(*SlotDisposeCallback)(spSlot*);
+void spSlot_setDisposeCallback(SlotDisposeCallback cb);
+
 #ifdef SPINE_SHORT_NAMES
 typedef spSlot Slot;
 #define Slot_create(...) spSlot_create(__VA_ARGS__)
