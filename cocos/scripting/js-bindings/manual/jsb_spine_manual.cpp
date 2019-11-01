@@ -677,15 +677,15 @@ static bool jsb_spine_Slot_setToSetupPose(se::State& s)
 }
 SE_BIND_FUNC(jsb_spine_Slot_setToSetupPose)
 
-static bool jsb_spine_Slot_getBone(se::State& s)
+static bool jsb_spine_Slot_get_bone(se::State& s)
 {
     spSlot* cobj = (spSlot*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "jsb_spine_Slot_getBone : Invalid Native Object");
+    SE_PRECONDITION2(cobj, false, "jsb_spine_Slot_get_bone : Invalid Native Object");
     spbone_to_seval(cobj->bone, &s.rval());
     return true;
     
 }
-SE_BIND_PROP_GET(jsb_spine_Slot_getBone)
+SE_BIND_PROP_GET(jsb_spine_Slot_get_bone)
 
 static bool jsb_spine_Slot_getAttachment(se::State& s)
 {
@@ -717,6 +717,32 @@ static bool jsb_spine_Slot_setAttachment(se::State& s)
     return false;
 }
 SE_BIND_FUNC(jsb_spine_Slot_setAttachment)
+
+static bool jsb_spine_Slot_get_attachment(se::State& s)
+{
+    spSlot* cobj = (spSlot*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "jsb_spine_Slot_get_attachment : Invalid Native Object");
+    CC_UNUSED bool ok = true;
+    ok &= native_ptr_to_rooted_seval<spAttachment>((spAttachment*)cobj->attachment, &s.rval());
+    SE_PRECONDITION2(ok, false, "jsb_spine_Slot_get_attachment : Error processing arguments");
+    return true;
+
+}
+SE_BIND_PROP_GET(jsb_spine_Slot_get_attachment)
+
+static bool jsb_spine_Slot_set_attachment(se::State& s)
+{
+    spSlot* cobj = (spSlot*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "jsb_spine_Slot_set_attachment : Invalid Native Object");
+    const auto& args = s.args();
+    CC_UNUSED bool ok = true;
+    spAttachment* arg0 = nullptr;
+    ok &= seval_to_native_ptr(args[0], &arg0);
+    SE_PRECONDITION2(ok, false, "jsb_spine_Slot_set_attachment : Error processing arguments");
+    spSlot_setAttachment(cobj, arg0);
+    return true;
+}
+SE_BIND_PROP_SET(jsb_spine_Slot_set_attachment)
 
 static bool jsb_spine_Slot_get_r(se::State& s)
 {
@@ -757,14 +783,14 @@ static bool jsb_spine_Slot_get_a(se::State& s)
 }
 SE_BIND_PROP_GET(jsb_spine_Slot_get_a)
 
-static bool jsb_spine_Slot_getData(se::State& s)
+static bool jsb_spine_Slot_get_data(se::State& s)
 {
     spSlot* cobj = (spSlot*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "jsb_spine_Slot_getData : Invalid Native Object");
+    SE_PRECONDITION2(cobj, false, "jsb_spine_Slot_get_data : Invalid Native Object");
     spslotdata_to_seval(cobj->data, &s.rval());
     return true;
 }
-SE_BIND_PROP_GET(jsb_spine_Slot_getData)
+SE_BIND_PROP_GET(jsb_spine_Slot_get_data)
 
 bool js_register_spine_Slot(se::Object* obj)
 {
@@ -773,13 +799,13 @@ bool js_register_spine_Slot(se::Object* obj)
     cls->defineFunction("getAttachment", _SE(jsb_spine_Slot_getAttachment));
     cls->defineFunction("setAttachment", _SE(jsb_spine_Slot_setAttachment));
     
-    cls->defineProperty("bone", _SE(jsb_spine_Slot_getBone), nullptr);
+    cls->defineProperty("bone", _SE(jsb_spine_Slot_get_bone), nullptr);
     cls->defineProperty("r", _SE(jsb_spine_Slot_get_r), nullptr);
     cls->defineProperty("g", _SE(jsb_spine_Slot_get_g), nullptr);
     cls->defineProperty("b", _SE(jsb_spine_Slot_get_b), nullptr);
     cls->defineProperty("a", _SE(jsb_spine_Slot_get_a), nullptr);
-    cls->defineProperty("attachment", _SE(jsb_spine_Slot_getAttachment), _SE(jsb_spine_Slot_setAttachment));
-    cls->defineProperty("data", _SE(jsb_spine_Slot_getData), nullptr);
+    cls->defineProperty("attachment", _SE(jsb_spine_Slot_get_attachment), _SE(jsb_spine_Slot_set_attachment));
+    cls->defineProperty("data", _SE(jsb_spine_Slot_get_data), nullptr);
 
     cls->defineFinalizeFunction(_SE(jsb_spine_Slot_finalize));
     cls->install();
