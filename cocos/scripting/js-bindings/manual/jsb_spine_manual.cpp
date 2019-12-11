@@ -350,7 +350,7 @@ static bool js_register_spine_TrackEntry(se::Object* obj)
             // The mapping of native object & se::Object was cleared in above code.
             // The private data (native object) may be a different object associated with other se::Object.
             // Therefore, don't clear the mapping again.
-            seObj->clearPrivateData(false);
+//            seObj->clearPrivateData(false); FIXME
             seObj->unroot();
             seObj->decRef();
         };
@@ -433,6 +433,15 @@ static bool jsb_spine_Bone_get_scaleX(se::State& s)
 }
 SE_BIND_PROP_GET(jsb_spine_Bone_get_scaleX)
 
+static bool jsb_spine_Bone_set_scaleX(se::State& s)
+{
+    spBone* cobj = (spBone*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "jsb_spine_Bone_set_scaleX : Invalid Native Object");
+    cobj->scaleX = s.args()[0].toNumber();
+    return true;
+}
+SE_BIND_PROP_SET(jsb_spine_Bone_set_scaleX)
+
 static bool jsb_spine_Bone_get_scaleY(se::State& s)
 {
     spBone* cobj = (spBone*)s.nativeThisObject();
@@ -441,6 +450,25 @@ static bool jsb_spine_Bone_get_scaleY(se::State& s)
     return true;
 }
 SE_BIND_PROP_GET(jsb_spine_Bone_get_scaleY)
+
+static bool jsb_spine_Bone_set_scaleY(se::State& s)
+{
+    spBone* cobj = (spBone*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "jsb_spine_Bone_set_scaleY : Invalid Native Object");
+    cobj->scaleY = s.args()[0].toNumber();
+    return true;
+}
+SE_BIND_PROP_SET(jsb_spine_Bone_set_scaleY)
+
+static bool jsb_spine_Bone_updateWorldTransform(se::State& s)
+{
+    spBone* cobj = (spBone*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "jsb_spine_Bone_updateWorldTransform : Invalid Native Object");
+    spBone_updateWorldTransform(cobj);
+    return true;
+
+}
+SE_BIND_FUNC(jsb_spine_Bone_updateWorldTransform)
 
 static bool jsb_spine_Bone_get_worldX(se::State& s)
 {
@@ -481,6 +509,28 @@ static bool jsb_spine_Bone_worldToLocal(se::State& s)
     return false;
 }
 SE_BIND_FUNC(jsb_spine_Bone_worldToLocal)
+
+static bool jsb_spine_Bone_localToWorld(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        cocos2d::Vec2 arg0;
+        ok &= seval_to_Vec2(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "jsb_spine_Bone_localToWorld : Error processing arguments");
+        spBone* cobj = (spBone*)s.nativeThisObject();
+        SE_PRECONDITION2(cobj, false, "jsb_spine_Bone_localToWorld : Invalid Native Object");
+        cocos2d::Vec2 result;
+        spBone_localToWorld(cobj, arg0.x, arg0.y, &result.x, &result.y);
+        ok &= Vec2_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "jsb_spine_Bone_localToWorld : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(jsb_spine_Bone_localToWorld)
 
 static bool jsb_spine_Bone_get_data(se::State& s)
 {
@@ -527,6 +577,15 @@ static bool jsb_spine_Bone_get_shearX(se::State& s)
 }
 SE_BIND_PROP_GET(jsb_spine_Bone_get_shearX)
 
+static bool jsb_spine_Bone_set_shearX(se::State& s)
+{
+    spBone* cobj = (spBone*) s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "jsb_spine_Bone_set_shearX : Invalid Native Object");
+    cobj->shearX = s.args()[0].toNumber();
+    return true;
+}
+SE_BIND_PROP_SET(jsb_spine_Bone_set_shearX)
+
 static bool jsb_spine_Bone_get_shearY(se::State& s)
 {
     spBone* cobj = (spBone*)s.nativeThisObject();
@@ -535,6 +594,15 @@ static bool jsb_spine_Bone_get_shearY(se::State& s)
     return true;
 }
 SE_BIND_PROP_GET(jsb_spine_Bone_get_shearY)
+
+static bool jsb_spine_Bone_set_shearY(se::State& s)
+{
+    spBone* cobj = (spBone*) s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "jsb_spine_Bone_set_shearY : Invalid Native Object");
+    cobj->shearY = s.args()[0].toNumber();
+    return true;
+}
+SE_BIND_PROP_SET(jsb_spine_Bone_set_shearY)
 
 static bool jsb_spine_Bone_get_m00(se::State& s)
 {
@@ -575,19 +643,21 @@ SE_BIND_PROP_GET(jsb_spine_Bone_get_m11)
 static bool js_register_spine_Bone(se::Object* obj)
 {
     se::Class* cls = se::Class::create("Bone", obj, nullptr, _SE(jsb_spine_Bone_constructor));
+    cls->defineFunction("updateWorldTransform", _SE(jsb_spine_Bone_updateWorldTransform));
     cls->defineFunction("worldToLocal", _SE(jsb_spine_Bone_worldToLocal));
+    cls->defineFunction("localToWorld", _SE(jsb_spine_Bone_localToWorld));
 
     cls->defineProperty("x", _SE(jsb_spine_Bone_get_x), _SE(jsb_spine_Bone_set_x));
     cls->defineProperty("y", _SE(jsb_spine_Bone_get_y), _SE(jsb_spine_Bone_set_y));
-    cls->defineProperty("scaleX", _SE(jsb_spine_Bone_get_scaleX), nullptr);
-    cls->defineProperty("scaleY", _SE(jsb_spine_Bone_get_scaleY), nullptr);
+    cls->defineProperty("scaleX", _SE(jsb_spine_Bone_get_scaleX), _SE(jsb_spine_Bone_set_scaleX));
+    cls->defineProperty("scaleY", _SE(jsb_spine_Bone_get_scaleY), _SE(jsb_spine_Bone_set_scaleY));
     cls->defineProperty("worldX", _SE(jsb_spine_Bone_get_worldX), nullptr);
     cls->defineProperty("worldY", _SE(jsb_spine_Bone_get_worldY), nullptr);
     cls->defineProperty("data", _SE(jsb_spine_Bone_get_data), nullptr);
     cls->defineProperty("parent", _SE(jsb_spine_Bone_get_parent), nullptr);
     cls->defineProperty("rotation", _SE(jsb_spine_Bone_get_rotation), _SE(jsb_spine_Bone_set_rotation));
-    cls->defineProperty("shearX", _SE(jsb_spine_Bone_get_shearX), nullptr);
-    cls->defineProperty("shearY", _SE(jsb_spine_Bone_get_shearY), nullptr);
+    cls->defineProperty("shearX", _SE(jsb_spine_Bone_get_shearX), _SE(jsb_spine_Bone_set_shearX));
+    cls->defineProperty("shearY", _SE(jsb_spine_Bone_get_shearY), _SE(jsb_spine_Bone_set_shearY));
     cls->defineProperty("m00", _SE(jsb_spine_Bone_get_m00), nullptr);
     cls->defineProperty("m01", _SE(jsb_spine_Bone_get_m01), nullptr);
     cls->defineProperty("m10", _SE(jsb_spine_Bone_get_m10), nullptr);
@@ -631,7 +701,7 @@ static bool js_register_spine_Bone(se::Object* obj)
             // The mapping of native object & se::Object was cleared in above code.
             // The private data (native object) may be a different object associated with other se::Object.
             // Therefore, don't clear the mapping again.
-            seObj->clearPrivateData(false);
+//            seObj->clearPrivateData(false); FIXME
             seObj->unroot();
             seObj->decRef();
         };
@@ -845,7 +915,7 @@ bool js_register_spine_Slot(se::Object* obj)
             // The mapping of native object & se::Object was cleared in above code.
             // The private data (native object) may be a different object associated with other se::Object.
             // Therefore, don't clear the mapping again.
-            seObj->clearPrivateData(false);
+//            seObj->clearPrivateData(false); FIXME
             seObj->unroot();
             seObj->decRef();
         };
@@ -943,7 +1013,7 @@ bool js_register_spine_Attachment(se::Object* obj)
             // The mapping of native object & se::Object was cleared in above code.
             // The private data (native object) may be a different object associated with other se::Object.
             // Therefore, don't clear the mapping again.
-            seObj->clearPrivateData(false);
+//            seObj->clearPrivateData(false); FIXME
             seObj->unroot();
             seObj->decRef();
         };
