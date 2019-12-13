@@ -67,6 +67,15 @@ static bool jsb_spine_TrackEntry_get_next(se::State& s)
 }
 SE_BIND_FUNC(jsb_spine_TrackEntry_get_next)
 
+static bool jsb_spine_TrackEntry_getAnimationTime(se::State& s)
+{
+    spTrackEntry* cobj = (spTrackEntry*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "jsb_spine_TrackEntry_getAnimationTime : Invalid Native Object");
+    s.rval().setFloat(spTrackEntry_getAnimationTime(cobj));
+    return true;
+}
+SE_BIND_FUNC(jsb_spine_TrackEntry_getAnimationTime)
+
 static bool jsb_spine_TrackEntry_get_trackIndex(se::State& s)
 {
     spTrackEntry* cobj = (spTrackEntry*) s.nativeThisObject();
@@ -288,6 +297,7 @@ static bool js_register_spine_TrackEntry(se::Object* obj)
     se::Class* cls = se::Class::create("TrackEntry", obj, nullptr, _SE(jsb_spine_TrackEntry_constructor));
     cls->defineFunction("mixingFrom", _SE(jsb_spine_TrackEntry_get_mixingFrom));
     cls->defineFunction("next", _SE(jsb_spine_TrackEntry_get_next));
+    cls->defineFunction("getAnimationTime", _SE(jsb_spine_TrackEntry_getAnimationTime));
 
     cls->defineProperty("delay", _SE(jsb_spine_TrackEntry_get_delay), nullptr);
     cls->defineProperty("trackIndex", _SE(jsb_spine_TrackEntry_get_trackIndex), nullptr);
