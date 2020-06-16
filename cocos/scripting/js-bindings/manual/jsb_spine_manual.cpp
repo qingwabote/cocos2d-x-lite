@@ -16,6 +16,8 @@
 #include "cocos2d.h"
 #include "cocos/editor-support/spine/spine.h"
 
+#include "spine/spine-cocos2dx.h"
+
 using namespace cocos2d;
 
 // TrackEntry registration
@@ -1042,11 +1044,33 @@ bool js_register_spine_Attachment(se::Object* obj)
     return true;
 }
 
+static bool js_cocos2dx_spine_SkeletonAnimation_update(se::State& s)
+{
+    spine::SkeletonAnimation* cobj = (spine::SkeletonAnimation*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_spine_SkeletonAnimation_update : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        float arg0 = 0;
+        ok &= seval_to_float(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_spine_SkeletonAnimation_update : Error processing arguments");
+        cobj->update(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_spine_SkeletonAnimation_update)
+
 bool register_all_spine_manual(se::Object* obj)
 {
     js_register_spine_TrackEntry(obj);
     js_register_spine_Bone(obj);
     js_register_spine_Slot(obj);
     js_register_spine_Attachment(obj);
+    
+    __jsb_spine_SkeletonAnimation_proto->defineFunction("update", _SE(js_cocos2dx_spine_SkeletonAnimation_update));
+    
     return true;
 }
